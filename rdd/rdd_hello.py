@@ -18,7 +18,7 @@ def create_spark_session() -> SparkSession:
 
 if __name__ == '__main__':
 
-    # update OS path
+    # update OS path -- Not needed non-aws apps
     os.environ["PYSPARK_SUBMIT_ARGS"] = (
         '--package "org.apache.hadoop:hadoop-aws:2.7.4" pyspark-shell'
     )
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     sparkContext = session.sparkContext
 
     # Create an RDD from python collection
-    rdd = sparkContext.parallelize(range(1, 1000, 5))
+    rdd = sparkContext.parallelize(range(1, 1000, 4))
 
     print('RDD instance : {0}'.format(rdd))
     print('RDD partitions : {0}'.format(rdd.getNumPartitions()))
