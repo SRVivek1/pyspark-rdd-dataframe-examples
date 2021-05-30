@@ -28,6 +28,14 @@ if __name__ == '__main__':
     hadoop_conf.set("fs.s3a.access.key", app_secret["s3_conf"]["access_key"])
     hadoop_conf.set("fs.s3a.secret.key", app_secret["s3_conf"]["secret_access_key"])
 
+    # Fix for NumberFormatError 100M
+    hadoop_conf.set("fs.s3a.multipart.size", "104857600")
+    hadoop_conf.set("spark.hadoop.mapred.output.compress", "true")
+    hadoop_conf.set("spark.hadoop.mapred.output.compression.codec", "true")
+    hadoop_conf.set("spark.hadoop.mapred.output.compression.codec", "org.apache.hadoop.io.compress.GzipCodec")
+    hadoop_conf.set("spark.hadoop.mapred.output.compression.`type", "BLOCK")
+    hadoop_conf.set("spark.speculation", "false")
+
     demographics_rdd = sContext.textFile("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/demographic.csv")
 
     print('********** Rdd print : {0}'.format(demographics_rdd))
