@@ -30,15 +30,20 @@ if __name__ == '__main__':
     session.sparkContext.setLogLevel('ERROR')
 
     # read spark context
-    sContext = session.sparkContext
+    sparkContext = session.sparkContext
 
     # Create an RDD from python collection
-    rdd = sContext.parallelize(range(1, 1000, 5))
+    rdd = sparkContext.parallelize(range(1, 1000, 5))
 
     print('RDD instance : {0}'.format(rdd))
     print('RDD partitions : {0}'.format(rdd.getNumPartitions()))
 
     print('First 15 records : \n{0}'.format(rdd.take(15)))
+
+    rdd_part_8 = rdd.repartition(8)
+    print('RDD new partitions : {0}'.format(rdd_part_8.getNumPartitions()))
+
+    print('First 15 records : \n{0}'.format(rdd_part_8.take(15)))
 
 # Spark Submit command to run the application
 # Command-1 :
