@@ -1,5 +1,5 @@
 s3_conf:
-  s3_bucket: test-emr-logs-123
+  s3_bucket: dataeng-test-1
 
 sftp_conf:
     filetype: csv
