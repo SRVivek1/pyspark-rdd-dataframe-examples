@@ -29,15 +29,6 @@ if __name__ == '__main__':
     # Set log level to ERROR
     session.sparkContext.setLogLevel('ERROR')
 
-    # Load application config and secrets
-    # current_dir = os.path.abspath(os.path.dirname(__file__))
-    # app_conf_path = os.path.abspath(current_dir + '/../' + 'application.yml')
-    # app_secrets_path = os.path.abspath(current_dir + '/../' + '.secrets')
-
-    # config = open(app_conf_path)
-    # app_conf = yaml.load(config, Loader=yaml.FullLoader)
-    # secret = open(app_secrets_path)
-
     # read spark context
     sContext = session.sparkContext
 
@@ -48,3 +39,9 @@ if __name__ == '__main__':
     print('RDD partitions : {0}'.format(rdd.getNumPartitions()))
 
     print('First 15 records : \n{0}'.format(rdd.take(15)))
+
+# Spark Submit command to run the application
+# Command-1 :
+#   spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" rdd/rdd_hello.py
+# Command-2 :
+#   spark-submit rdd/rdd_hello.py
