@@ -27,9 +27,21 @@ if __name__ == '__main__':
     demographic_rdd = sparkContecxt.textFile(demographic_csv_file)
     finances_rdd = sparkContecxt.textFile(finances_csv_file)
 
-    # process demographic data
+    # create tuple of rdd
     demographic_pair_rdd = demographic_rdd \
         .map(lambda line: line.split(',')) \
         .map(lambda lst: (int(lst[0]), int(lst[1]), strtobool(lst[2]), lst[3], lst[4], strtobool(lst[5]), strtobool(lst[6]), int(lst[7])))
 
+    print('******** type(demographic_pair_rdd) : {0}'.format(type(demographic_pair_rdd)))
     print('******** demographic_pair_rdd : {0}'.format(demographic_pair_rdd.take(10)))
+
+    finances_pair_rdd = finances_rdd \
+        .map(lambda line: line.split(',')) \
+        .map(lambda lst: (int(lst[0]), strtobool(lst[1]), strtobool(lst[2]), strtobool(lst[3]), int(lst[4])))
+
+    print('******** type(finances_pair_rdd) : {0}'.format(type(finances_pair_rdd)))
+    print('******** finances_pair_rdd : {0}'.format(finances_pair_rdd.take(10)))
+
+
+
+
