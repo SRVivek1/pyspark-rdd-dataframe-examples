@@ -3,6 +3,8 @@ This program demonstrates how to do SQL kind of join in RDDs
 """
 
 from pyspark.sql import SparkSession
+from distutils.util import strtobool
+
 
 def get_spark_session() -> SparkSession:
     return SparkSession\
@@ -26,4 +28,8 @@ if __name__ == '__main__':
     finances_rdd = sparkContecxt.textFile(finances_csv_file)
 
     # process demographic data
-    print(demographic_rdd.map(lambda line: line.split(',')).take(10))
+    demographic_pair_rdd = demographic_rdd \
+        .map(lambda line: line.split(',')) \
+        .map(lambda lst: (int(lst[0]), int(lst[1]), strtobool(lst[2]), lst[3], lst[4], strtobool(lst[5]), strtobool(lst[6]), int(lst[7])))
+
+    print('******** demographic_pair_rdd : {0}'.format(demographic_pair_rdd))
