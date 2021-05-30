@@ -42,6 +42,8 @@ if __name__ == '__main__':
     print('******** type(finances_pair_rdd) : {0}'.format(type(finances_pair_rdd)))
     print('******** finances_pair_rdd : {0}'.format(finances_pair_rdd.take(10)))
 
+    # Join data of demographic rdd and finances rdd
+    joined_rdd = demographic_pair_rdd.join(finances_pair_rdd)
 
-
+    print('********* joined_rdd.take(50) : {0}'.format(joined_rdd.take(50)))
 
