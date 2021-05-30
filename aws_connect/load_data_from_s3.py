@@ -29,6 +29,7 @@ if __name__ == '__main__':
     hadoop_conf.set("fs.s3a.secret.key", app_secret["s3_conf"]["secret_access_key"])
 
     # Fix for NumberFormatError 100M - Impacting getNumPartitions()
+    hadoop_conf.set('spark.hadoop.fs.s3a.multipart.size', '104857600')
     # hadoop_conf.set("fs.s3a.multipart.size", "104857600")
     # hadoop_conf.set("spark.hadoop.mapred.output.compress", "true")
     # hadoop_conf.set("spark.hadoop.mapred.output.compression.codec", "true")
