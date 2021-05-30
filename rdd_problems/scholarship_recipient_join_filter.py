@@ -32,4 +32,4 @@ if __name__ == '__main__':
         .map(lambda line: line.split(',')) \
         .map(lambda lst: (int(lst[0]), int(lst[1]), strtobool(lst[2]), lst[3], lst[4], strtobool(lst[5]), strtobool(lst[6]), int(lst[7])))
 
-    print('******** demographic_pair_rdd : {0}'.format(demographic_pair_rdd))
+    print('******** demographic_pair_rdd : {0}'.format(demographic_pair_rdd.take(10)))
