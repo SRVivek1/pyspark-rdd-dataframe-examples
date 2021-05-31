@@ -11,9 +11,9 @@ From Documentation:
     Performs a hash join across the cluster.
 
     Example
-        >>> x = sc.parallelize([("a", 1), ("b", 4)])
-        >>> y = sc.parallelize([("a", 2), ("a", 3)])
-        >>> sorted(x.join(y).collect())
+        # >>> x = sc.parallelize([("a", 1), ("b", 4)])
+        # >>> y = sc.parallelize([("a", 2), ("a", 3)])
+        # >>> sorted(x.join(y).collect())
             [('a', (1, 2)), ('a', (1, 3))]
 """
 
@@ -32,8 +32,22 @@ if __name__ == '__main__':
     rdd_1 = sparkContext.parallelize([('a', 1), ('b', 2)])
     rdd_2 = sparkContext.parallelize([('a', 11), ('a', 12)])
 
+    print('********** RDD 1 : {}0'.format(rdd_1.take(2)))
+    print('********** RDD 2 : {}0'.format(rdd_2.take(2)))
     # Perform join on rdd_1 to rdd_2
     joined_rdd = rdd_1.join(rdd_2)
 
     # Print RDD content
     print('********** joined_rdd : {0}'.format(joined_rdd.collect()))
+
+    print('********** RDD with more then 2 values')
+    rdd_3 = sparkContext.parallelize([('a', 1, 'apple'), ('b', 2, 'banana'), ('m', 3, 'mango')])
+    rdd_4 = sparkContext.parallelize([('a', 101, 'ant'), ('b', 102, 'burro'), ('m', 103, 'monkey')])
+
+    print('********** RDD 3 : {}0'.format(rdd_3.take(3)))
+    print('********** RDD 4 : {}0'.format(rdd_4.take(3)))
+
+    joined_rdd_2 = rdd_3.join(rdd_4)
+
+    # Print RDD content
+    print('********** joined_rdd_2 : {0}'.format(joined_rdd_2.collect()))
