@@ -52,10 +52,37 @@ if __name__ == '__main__':
     print('\n********* demographic_pair_rdd.join(finances_pair_rdd)')
     joined_rdd.foreach(print)
 
+    # Find matches where city is 'Switzerland' and has education loan
     result_rdd = joined_rdd \
         .filter(lambda rec: (rec[1][0][2] == "Switzerland") and (rec[1][1][0] == 1) and (rec[1][1][1] == 1))
 
-    print('\n********* Applicants eligible for scholarship : \n')
+    print('\n********* Applicants eligible for scholarship :')
     result_rdd.foreach(print)
 
 
+# Spark command
+#   spark-submit rdd_problems/scholarship_recipient_join_filter.py
+
+
+# Output
+# ************* Demographic File : /home/viveksingh/project-data/sidharth/data/demographic.csv
+#
+# ************* Finances File : /home/viveksingh/project-data/sidharth/data/finances.csv
+#
+# ******** type(demographic_pair_rdd) : <class 'pyspark.rdd.PipelinedRDD'>
+# ******** demographic_pair_rdd : [(101, (18, 1, 'Switzerland', 'M', 1, 1, 1)), (102, (19, 1, 'Switzerland', 'F', 1, 0, 1)), (103, (22, 1, 'Switzerland', 'M', 1, 0, 2)), (104, (18, 1, 'Switzerland', 'F', 1, 0, 2))]
+#
+# ******** type(finances_pair_rdd) : <class 'pyspark.rdd.PipelinedRDD'>
+# ******** finances_pair_rdd : [(101, (0, 1, 1, 60000)), (102, (1, 1, 0, 50000)), (103, (1, 1, 0, 55000)), (104, (1, 0, 0, 65000))]
+#
+# ******** type(joined_rdd) : <class 'pyspark.rdd.PipelinedRDD'>
+# ********* demographic_pair_rdd.join(finances_pair_rdd)
+# (104, ((18, 1, 'Switzerland', 'F', 1, 0, 2), (1, 0, 0, 65000)))
+# (101, ((18, 1, 'Switzerland', 'M', 1, 1, 1), (0, 1, 1, 60000)))
+# (103, ((22, 1, 'Switzerland', 'M', 1, 0, 2), (1, 1, 0, 55000)))
+# (102, ((19, 1, 'Switzerland', 'F', 1, 0, 1), (1, 1, 0, 50000)))
+#
+# ********* Applicants eligible for scholarship :
+# (102, ((19, 1, 'Switzerland', 'F', 1, 0, 1), (1, 1, 0, 50000)))
+# (103, ((22, 1, 'Switzerland', 'M', 1, 0, 2), (1, 1, 0, 55000)))
+# viveksingh@ubuntu-pc:~/spark-projects/rdd-dataframe-examples$
