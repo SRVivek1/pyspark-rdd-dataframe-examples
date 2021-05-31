@@ -50,6 +50,7 @@ if __name__ == '__main__':
         .join(finances_pair_rdd) \
         .filter(lambda rec: (rec[1][0][2] == "Switzerland") and (rec[1][1][0] == 1) and (rec[1][1][1] == 1))
 
-    print('\n********* joined_rdd.take(50) : {0}'.format(joined_rdd.take(50)))
+    print('\n********* Applicants eligible for scholarship : \n')
+    joined_rdd.foreach(print)
 
 
