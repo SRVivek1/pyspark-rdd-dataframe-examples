@@ -65,7 +65,18 @@ if __name__ == '__main__':
     print('*********** joined_rdd_3 : {0}'.format(joined_rdd_3.take(50)))
 
 # Output
+#   ********** RDD 1 : [('a', 1), ('b', 2)]
+#   ********** RDD 2 : [('a', 11), ('a', 12)]
+#
+#   ********** joined_rdd : [('a', (1, 11)), ('a', (1, 12))]
+#
+#   ********** Example - RDD with more then 2 values
+#   ********** RDD 3 : [('a', 1, 'apple'), ('b', 2, 'banana'), ('m', 3, 'mango')]
+#   ********** RDD 4 : [('a', 101, 'ant'), ('b', 102, 'burro'), ('m', 103, 'monkey')]
+#
 #   ********** joined_rdd_2 : [('b', (2, 102)), ('a', (1, 101)), ('m', (3, 103))]
+#
 #   *********** RDD 3 : [('a', 1, 'apple'), ('b', 2, 'banana'), ('m', 3, 'mango')]
 #   *********** RDD 5 : [('a', 'ant', 101), ('b', 'burro', 102), ('m', 'monkey', 103)]
-#   joined_rdd_3: [('b', (2, 'burro')), ('a', (1, 'ant')), ('m', (3, 'monkey'))]
+#
+#   *********** joined_rdd_3 : [('b', (2, 'burro')), ('a', (1, 'ant')), ('m', (3, 'monkey'))]

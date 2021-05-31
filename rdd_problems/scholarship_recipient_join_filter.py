@@ -16,7 +16,10 @@ def get_spark_session() -> SparkSession:
 if __name__ == '__main__':
 
     sparkSession = get_spark_session()
-    sparkContecxt = sparkSession.sparkContext
+    sparkContext = sparkSession.sparkContext
+
+    # Set logging level to ERROR to compress INFO logs
+    sparkContext.setLogLevel("ERROR")
 
     demographic_csv_file = '/home/viveksingh/project-data/sidharth/data/demographic.csv'
     finances_csv_file = '/home/viveksingh/project-data/sidharth/data/finances.csv'
@@ -24,8 +27,8 @@ if __name__ == '__main__':
     print('\n************* Demographic File : {0}'.format(demographic_csv_file))
     print('\n************* Finances File : {0}'.format(finances_csv_file))
 
-    demographic_rdd = sparkContecxt.textFile(demographic_csv_file)
-    finances_rdd = sparkContecxt.textFile(finances_csv_file)
+    demographic_rdd = sparkContext.textFile(demographic_csv_file)
+    finances_rdd = sparkContext.textFile(finances_csv_file)
 
     # create tuple of rdd
     demographic_pair_rdd = demographic_rdd \
