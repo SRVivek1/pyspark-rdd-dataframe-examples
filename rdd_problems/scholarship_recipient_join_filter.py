@@ -47,10 +47,15 @@ if __name__ == '__main__':
 
     # Join data of demographic rdd and finances rdd
     joined_rdd = demographic_pair_rdd \
-        .join(finances_pair_rdd) \
+        .join(finances_pair_rdd)
+    print('\n******** type(joined_rdd) : {0}'.format(type(joined_rdd)))
+    print('\n********* demographic_pair_rdd.join(finances_pair_rdd)')
+    joined_rdd.foreach(print)
+
+    result_rdd = joined_rdd \
         .filter(lambda rec: (rec[1][0][2] == "Switzerland") and (rec[1][1][0] == 1) and (rec[1][1][1] == 1))
 
     print('\n********* Applicants eligible for scholarship : \n')
-    joined_rdd.foreach(print)
+    result_rdd.foreach(print)
 
 
