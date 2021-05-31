@@ -29,6 +29,8 @@ if __name__ == '__main__':
 
     sparkContext = sparkSession.sparkContext
 
+    sparkContext.setLogLevel("ERROR")
+
     rdd_1 = sparkContext.parallelize([('a', 1), ('b', 2)])
     rdd_2 = sparkContext.parallelize([('a', 11), ('a', 12)])
 
@@ -61,3 +63,9 @@ if __name__ == '__main__':
     joined_rdd_3 = rdd_3.join(rdd_5)
 
     print('*********** joined_rdd_3 : {0}'.format(joined_rdd_3.take(50)))
+
+# Output
+#   ********** joined_rdd_2 : [('b', (2, 102)), ('a', (1, 101)), ('m', (3, 103))]
+#   *********** RDD 3 : [('a', 1, 'apple'), ('b', 2, 'banana'), ('m', 3, 'mango')]
+#   *********** RDD 5 : [('a', 'ant', 101), ('b', 'burro', 102), ('m', 'monkey', 103)]
+#   joined_rdd_3: [('b', (2, 'burro')), ('a', (1, 'ant')), ('m', (3, 'monkey'))]
