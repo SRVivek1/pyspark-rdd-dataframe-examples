@@ -40,7 +40,7 @@ if __name__ == '__main__':
     # Print RDD content
     print('********** joined_rdd : {0}'.format(joined_rdd.collect()))
 
-    print('********** RDD with more then 2 values')
+    print('********** Example - RDD with more then 2 values')
     rdd_3 = sparkContext.parallelize([('a', 1, 'apple'), ('b', 2, 'banana'), ('m', 3, 'mango')])
     rdd_4 = sparkContext.parallelize([('a', 101, 'ant'), ('b', 102, 'burro'), ('m', 103, 'monkey')])
 
@@ -51,3 +51,13 @@ if __name__ == '__main__':
 
     # Print RDD content
     print('********** joined_rdd_2 : {0}'.format(joined_rdd_2.collect()))
+
+    # Trying with different set of data
+    rdd_5 = sparkContext.parallelize([('a', 'ant', 101), ('b', 'burro', 102), ('m', 'monkey', 103)])
+
+    print('*********** RDD 3 : {0}'.format(rdd_3))
+    print('*********** RDD 5 : {0}'.format(rdd_5))
+
+    joined_rdd_3 = rdd_3.join(rdd_5)
+
+    print('*********** joined_rdd_3 : {0}'.format(joined_rdd_3))
