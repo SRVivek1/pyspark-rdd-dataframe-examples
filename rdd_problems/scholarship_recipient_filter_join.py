@@ -36,7 +36,7 @@ if __name__ == '__main__':
         .map(lambda lst: (int(lst[0]), (int(lst[1]),
                                         strtobool(lst[2]), lst[3], lst[4],
                                         strtobool(lst[5]), strtobool(lst[6]), int(lst[7])))) \
-        .filter(lambda rec: rec[1][3] == 'Switzerland')
+        .filter(lambda rec: rec[1][2] == 'Switzerland')
 
     # Find records which has financial debts and dependents
     finances_pair_rdd = finances_rdd \
