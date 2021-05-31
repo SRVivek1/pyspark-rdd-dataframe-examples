@@ -44,9 +44,15 @@ if __name__ == '__main__':
         .map(lambda lst: (int(lst[0]), (strtobool(lst[1]), strtobool(lst[2]), strtobool(lst[3]), int(lst[4])))) \
         .filter(lambda rec: rec[1][0] and rec[1][1])
 
+    print('\n Demographic records for Switzerland')
+    demographic_pair_rdd.foreach(print)
+
+    print('\n Finances records with debt and dependents')
+    finances_pair_rdd.foreach(print)
+
     # Join the response
     result_rdd = demographic_pair_rdd.join(finances_pair_rdd)
 
     # print result
-    print('\n************* Resultdata')
+    print('\n************* Result data')
     result_rdd.foreach(print)
