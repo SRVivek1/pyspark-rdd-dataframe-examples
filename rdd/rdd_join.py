@@ -55,9 +55,9 @@ if __name__ == '__main__':
     # Trying with different set of data
     rdd_5 = sparkContext.parallelize([('a', 'ant', 101), ('b', 'burro', 102), ('m', 'monkey', 103)])
 
-    print('*********** RDD 3 : {0}'.format(rdd_3))
-    print('*********** RDD 5 : {0}'.format(rdd_5))
+    print('*********** RDD 3 : {0}'.format(rdd_3.take(5)))
+    print('*********** RDD 5 : {0}'.format(rdd_5.take(5)))
 
     joined_rdd_3 = rdd_3.join(rdd_5)
 
-    print('*********** joined_rdd_3 : {0}'.format(joined_rdd_3))
+    print('*********** joined_rdd_3 : {0}'.format(joined_rdd_3.take(50)))
