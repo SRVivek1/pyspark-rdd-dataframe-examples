@@ -30,6 +30,7 @@ if __name__ == '__main__':
     finances_rdd.foreach(print)
 
     # Create pair RDD and Filter for Switzerland
+    # Finds records for Switzerland
     demographic_pair_rdd = demographic_rdd \
         .map(lambda lines: lines.split(',')) \
         .map(lambda lst: (int(lst[0]), (int(lst[1]),
@@ -37,3 +38,15 @@ if __name__ == '__main__':
                                         strtobool(lst[5]), strtobool(lst[6]), int(lst[7])))) \
         .filter(lambda rec: rec[1][3] == 'Switzerland')
 
+    # Find records which has financial debts and dependents
+    finances_pair_rdd = finances_rdd \
+        .map(lambda lines: lines.split(',')) \
+        .map(lambda lst: (int(lst[0]), (strtobool(lst[1]), strtobool(lst[2]), strtobool(lst[3]), int(lst[4])))) \
+        .filter(lambda rec: rec[1][0] and rec[1][1])
+
+    # Join the response
+    result_rdd = demographic_pair_rdd.join(finances_pair_rdd)
+
+    # print result
+    print('\n************* Resultdata')
+    result_rdd.foreach(print)
