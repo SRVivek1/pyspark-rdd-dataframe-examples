@@ -52,7 +52,7 @@ if __name__ == '__main__':
     print('\n********* demographic_pair_rdd.join(finances_pair_rdd)')
     joined_rdd.foreach(print)
 
-    # Find matches where city is 'Switzerland' and has education loan
+    # Find matches where city is 'Switzerland' and having debts and financial dependents
     result_rdd = joined_rdd \
         .filter(lambda rec: (rec[1][0][2] == "Switzerland") and (rec[1][1][0] == 1) and (rec[1][1][1] == 1))
 

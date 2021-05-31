@@ -47,6 +47,4 @@ if __name__ == '__main__':
 
 # Spark Submit command to run the application
 # Command-1 :
-#   spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" rdd/rdd_hello.py
-# Command-2 :
 #   spark-submit rdd/rdd_hello.py
