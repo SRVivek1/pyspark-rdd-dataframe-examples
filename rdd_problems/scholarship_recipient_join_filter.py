@@ -35,18 +35,21 @@ if __name__ == '__main__':
         .map(lambda line: line.split(',')) \
         .map(lambda lst: (int(lst[0]), int(lst[1]), strtobool(lst[2]), lst[3], lst[4], strtobool(lst[5]), strtobool(lst[6]), int(lst[7])))
 
-    print('******** type(demographic_pair_rdd) : {0}'.format(type(demographic_pair_rdd)))
-    print('******** demographic_pair_rdd : {0}'.format(demographic_pair_rdd.take(10)))
+    print('\n******** type(demographic_pair_rdd) : {0}'.format(type(demographic_pair_rdd)))
+    print('\n******** demographic_pair_rdd : {0}'.format(demographic_pair_rdd.take(10)))
 
     finances_pair_rdd = finances_rdd \
         .map(lambda line: line.split(',')) \
         .map(lambda lst: (int(lst[0]), strtobool(lst[1]), strtobool(lst[2]), strtobool(lst[3]), int(lst[4])))
 
-    print('******** type(finances_pair_rdd) : {0}'.format(type(finances_pair_rdd)))
-    print('******** finances_pair_rdd : {0}'.format(finances_pair_rdd.take(10)))
+    print('\n******** type(finances_pair_rdd) : {0}'.format(type(finances_pair_rdd)))
+    print('\n******** finances_pair_rdd : {0}'.format(finances_pair_rdd.take(10)))
 
     # Join data of demographic rdd and finances rdd
-    joined_rdd = demographic_pair_rdd.join(finances_pair_rdd)
+    joined_rdd = demographic_pair_rdd \
+        .join(finances_pair_rdd) \
+        .filter(lambda rec: (rec[1][0][2] == "Switzerland") and (rec[1][1][0] == 1) and (rec[1][1][1] == 1))
 
-    print('********* joined_rdd.take(50) : {0}'.format(joined_rdd.take(50)))
+    print('\n********* joined_rdd.take(50) : {0}'.format(joined_rdd.take(50)))
+
 
