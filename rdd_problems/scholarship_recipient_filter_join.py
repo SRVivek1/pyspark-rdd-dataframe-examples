@@ -56,3 +56,34 @@ if __name__ == '__main__':
     # print result
     print('\n********** Result data')
     result_rdd.foreach(print)
+
+# App Run Command
+#   spark-submit rdd_problems/scholarship_recipient_filter_join.py
+
+# Result
+#
+# ********** Demographic data :
+# 101,18,true,Switzerland,M,true,true,1
+# 102,19,true,Switzerland,F,true,false,1
+# 103,22,true,Switzerland,M,true,false,2
+# 104,18,true,Switzerland,F,true,false,2
+#
+# ********** finances data :
+# 101,false,true,true,60000
+# 102,true,true,false,50000
+# 103,true,true,false,55000
+# 104,true,false,false,65000
+#
+# ********** Demographic records for Switzerland
+# (101, (18, 1, 'Switzerland', 'M', 1, 1, 1))
+# (102, (19, 1, 'Switzerland', 'F', 1, 0, 1))
+# (103, (22, 1, 'Switzerland', 'M', 1, 0, 2))
+# (104, (18, 1, 'Switzerland', 'F', 1, 0, 2))
+#
+# ********** Finances records with debt and dependents
+# (102, (1, 1, 0, 50000))
+# (103, (1, 1, 0, 55000))
+#
+# ********** Result data
+# (102, ((19, 1, 'Switzerland', 'F', 1, 0, 1), (1, 1, 0, 50000)))
+# (103, ((22, 1, 'Switzerland', 'M', 1, 0, 2), (1, 1, 0, 55000)))
