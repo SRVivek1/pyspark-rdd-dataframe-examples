@@ -50,4 +50,4 @@ if __name__ == '__main__':
 
 # Spark Submit command to run the application
 # Command-1 :
-#   spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" aws_connect/load_data_from_s3.py
+#  spark-submit --packages "org.apache.hadoop:hadoop-aws:2.8.4,com.amazonaws:aws-java-sdk:1.11.95,com.amazonaws:aws-java-sdk-core:1.11.95,com.amazonaws:aws-java-sdk-s3:1.11.95,com.amazonaws:aws-java-sdk-kms:1.11.95" aws_connect/load_data_from_s3.py
