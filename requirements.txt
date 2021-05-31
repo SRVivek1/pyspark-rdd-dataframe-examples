@@ -1,15 +1,15 @@
 ########## Project dependency requirement ##############
 
 #### Spark Dependencies #######
-pyspark-stubs==2.4.0.post8
-pyspark==2.4.5
+#pyspark-stubs==2.4.0.post8
+#pyspark==2.4.5
 
 #### Yaml & Java Object Access library #######
-pyyaml==5.3.1
-py4j==0.10.7
+#pyyaml==5.3.1
+#py4j==0.10.7
 
-dataclasses==0.6
+#dataclasses==0.6
 
 #### MongoDB #######
-pymongo==3.10.1
+#pymongo==3.10.1
 # PYTHONUNBUFFERED=1;PYSPARK_PYTHON=/usr/local/bin/python3.7;PYSPARK_DRIVER_PYTHON=/usr/local/bin/python3.7
