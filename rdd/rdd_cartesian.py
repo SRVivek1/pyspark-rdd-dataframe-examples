@@ -96,8 +96,7 @@ if __name__ == '__main__':
 
 
 # Result
-#
-#  ********* num_rdd : [1, 2]
+# ********* num_rdd : [1, 2]
 #
 # ********* char_rdd : ['a', 'b']
 #
@@ -107,8 +106,52 @@ if __name__ == '__main__':
 # (2, 'a')
 # (2, 'b')
 #
-# ********** char_rdd.cartesian(num_rdd)
+# ********* num_rdd_2 : [1, 2, 3]
+#
+# ********* char_rdd_2 : ['a', 'b', 'c', 'd']
+#
+# ********** num_rdd_2.cartesian(char_rdd_2) - sorted result
+# (1, 'a')
+# (1, 'b')
+# (1, 'c')
+# (1, 'd')
+# (2, 'a')
+# (2, 'b')
+# (2, 'c')
+# (2, 'd')
+# (3, 'a')
+# (3, 'b')
+# (3, 'c')
+# (3, 'd')
+#
+# ********** char_rdd_2.cartesian(num_rdd_2) - sorted result
 # ('a', 1)
 # ('a', 2)
-# ('b', 2)
+# ('a', 3)
 # ('b', 1)
+# ('b', 2)
+# ('b', 3)
+# ('c', 1)
+# ('c', 2)
+# ('c', 3)
+# ('d', 1)
+# ('d', 2)
+# ('d', 3)
+#
+# ********** Demographic data : [[101, 'vivek', 'vivek@test.com'], [102, 'Rohit', 'rohit@test.com']]
+#
+# ********** Finance data : [[101, 100000, 'icici', 'false'], [102, 50000, 'hdfc', 'true']]
+#
+# *********** Demographic paired RDD
+# (101, ('vivek', 'vivek@test.com'))
+# (102, ('Rohit', 'rohit@test.com'))
+#
+# *********** Finance paired RDD
+# (101, (100000, 'icici', 0))
+# (102, (50000, 'hdfc', 1))
+#
+# *********** demographic_pair_rdd.cartesian(finance_pair_rdd)
+# ((101, ('vivek', 'vivek@test.com')), (101, (100000, 'icici', 0)))
+# ((101, ('vivek', 'vivek@test.com')), (102, (50000, 'hdfc', 1)))
+# ((102, ('Rohit', 'rohit@test.com')), (101, (100000, 'icici', 0)))
+# ((102, ('Rohit', 'rohit@test.com')), (102, (50000, 'hdfc', 1)))
