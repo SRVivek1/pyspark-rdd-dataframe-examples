@@ -21,7 +21,12 @@ if __name__ == '__main__':
 
     # Load data from local
     print('\n**************** Resource : {0}'.format(appConstants.txn_fct_csv_file))
-    txn_fct_rdd = sparkContext.textFile(appConstants.txn_fct_csv_file)
 
+    txn_fct_rdd = sparkContext.textFile(appConstants.txn_fct_csv_file)
     print('\n***************** Raw data snippet : ')
     print(txn_fct_rdd.take(5))
+
+    txn_fct_rdd = txn_fct_rdd.filter(lambda record: record.find('txn_id|create_time|'))
+    print("\n***************** Remove header : record.find('txn_id|create_time|')")
+    print(txn_fct_rdd.take(5))
+
