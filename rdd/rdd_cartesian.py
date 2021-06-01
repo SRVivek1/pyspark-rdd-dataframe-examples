@@ -19,6 +19,7 @@ from distutils.util import strtobool
 if __name__ == '__main__':
     sparkSession = SparkSession \
         .builder \
+        .master('local[1]') \
         .appName('rdd-cartesian-demo') \
         .getOrCreate()
 
@@ -55,11 +56,11 @@ if __name__ == '__main__':
     char_cartesian_result_2 = char_rdd_2.cartesian(num_rdd_2)
 
     # Print results
-    print('\n********** num_rdd_2.cartesian(char_rdd_2)')
-    sorted(num_cartesian_result_2).foreach(print)
+    print('\n********** num_rdd_2.cartesian(char_rdd_2) - sorted result')
+    num_cartesian_result_2.sortByKey().foreach(print)
 
-    print('\n********** char_rdd_2.cartesian(num_rdd_2)')
-    sorted(char_cartesian_result_2).foreach(print)
+    print('\n********** char_rdd_2.cartesian(num_rdd_2) - sorted result')
+    char_cartesian_result_2.sortByKey().foreach(print)
 
     # Cartesian product on a pair rdd
     demographic_rdd = sparkContext.parallelize([[101, 'vivek', 'vivek@test.com'], [102, 'Rohit', 'rohit@test.com']])
