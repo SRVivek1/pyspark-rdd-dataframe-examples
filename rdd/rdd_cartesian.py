@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     # Create paired rdd
     demographic_pair_rdd = demographic_rdd \
-        .map(lambda lst: (lst(0), (lst[1], lst[2])))
+        .map(lambda lst: (lst[0], (lst[1], lst[2])))
 
     finance_pair_rdd = finance_rdd \
         .map(lambda lst: (lst[0], (lst[1], lst[2], strtobool(lst[3]))))
