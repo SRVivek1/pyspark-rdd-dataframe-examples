@@ -20,8 +20,8 @@ if __name__ == '__main__':
     sparkContext.setLogLevel("ERROR")
 
     # Load data from local
+    print('\n**************** Resource : {0}'.format(appConstants.txn_fct_csv_file))
     txn_fct_rdd = sparkContext.textFile(appConstants.txn_fct_csv_file)
 
     print('\n***************** Raw data snippet : ')
-    txn_fct_rdd.take(5).foreach(print)
-
+    print(txn_fct_rdd.take(5))
