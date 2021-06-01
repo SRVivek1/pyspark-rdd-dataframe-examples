@@ -12,7 +12,7 @@ if __name__ == '__main__':
     sparkSession = SparkSession \
         .builder \
         .appName('rdd-to-dataframe') \
-        .master('') \
+        .master('local[*]') \
         .getOrCreate()
 
     sparkContext = sparkSession.sparkContext
