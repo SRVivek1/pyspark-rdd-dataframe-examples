@@ -44,3 +44,35 @@ if __name__ == '__main__':
 
     print('\n********** char_rdd.cartesian(num_rdd)')
     char_cartesian_result.foreach(print)
+
+    # Cartesian product on a pair rdd
+    demographic_data = sparkContext.parallelize([[101, 'vivek', 'vivek@test.com'], [102, 'Rohit', 'rohit@test.com']])
+    finance_data = sparkContext.parallelize([[101, 100000, 'icici', 'false'], [102, 50000, 'hdfc', 'true']])
+
+    # print source data
+    print('\n********** Demographic data : {0}'.format(demographic_data.collect()))
+    print('\n********** Demographic data : {0}'.format(finance_data.collect()))
+
+
+
+# Command
+#   spark-submit rdd/rdd_cartesian.py
+
+
+# Result
+#
+#  ********* num_rdd : [1, 2]
+#
+# ********* char_rdd : ['a', 'b']
+#
+# ********** num_rdd.cartesian(char_rdd)
+# (1, 'a')
+# (1, 'b')
+# (2, 'a')
+# (2, 'b')
+#
+# ********** char_rdd.cartesian(num_rdd)
+# ('a', 1)
+# ('a', 2)
+# ('b', 2)
+# ('b', 1)
