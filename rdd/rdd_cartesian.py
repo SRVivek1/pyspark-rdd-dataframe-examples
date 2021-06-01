@@ -42,8 +42,24 @@ if __name__ == '__main__':
     print('\n********** num_rdd.cartesian(char_rdd)')
     num_cartesian_result.foreach(print)
 
-    print('\n********** char_rdd.cartesian(num_rdd)')
-    char_cartesian_result.foreach(print)
+    num_rdd_2 = sparkContext.parallelize([1, 2, 3])
+    char_rdd_2 = sparkContext.parallelize(['a', 'b', 'c', 'd'])
+
+    # print source data
+    print('\n********* num_rdd_2 : {0}'.format(num_rdd_2.collect()))
+    print('\n********* char_rdd_2 : {0}'.format(char_rdd_2.collect()))
+
+    # Calculate cartesian product
+    num_cartesian_result_2 = num_rdd_2.cartesian(char_rdd_2)
+
+    char_cartesian_result_2 = char_rdd_2.cartesian(num_rdd_2)
+
+    # Print results
+    print('\n********** num_rdd_2.cartesian(char_rdd_2)')
+    num_cartesian_result_2.foreach(print)
+
+    print('\n********** char_rdd_2.cartesian(num_rdd_2)')
+    char_cartesian_result_2.foreach(print)
 
     # Cartesian product on a pair rdd
     demographic_rdd = sparkContext.parallelize([[101, 'vivek', 'vivek@test.com'], [102, 'Rohit', 'rohit@test.com']])
@@ -69,6 +85,8 @@ if __name__ == '__main__':
 
     # Perform Cartesian product
     cartesian_result = demographic_pair_rdd.cartesian(finance_pair_rdd)
+
+    print('\n*********** demographic_pair_rdd.cartesian(finance_pair_rdd)')
     cartesian_result.foreach(print)
 
 
