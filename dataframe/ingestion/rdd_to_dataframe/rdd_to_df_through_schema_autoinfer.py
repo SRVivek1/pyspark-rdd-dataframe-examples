@@ -30,3 +30,19 @@ if __name__ == '__main__':
     print("\n***************** Remove header : record.find('txn_id|create_time|')")
     print(txn_fct_rdd.take(5))
 
+    txn_fct_rdd = txn_fct_rdd \
+        .map(lambda record: record.split('|')) \
+        .map(lambda record: (int(record[0]), record[1], float(record[2]), record[3], record[4], record[5], record[6]))
+
+    print("\n***************** Final transformed RDD")
+    for rec in txn_fct_rdd.take(5):
+        print(rec)
+
+    print('\n***************** Convert RDD to DataFrame using toDF() - without column names')
+    txnDfNoColumnNames = txn_fct_rdd.toDF()
+
+    # Print schema
+    txnDfNoColumnNames.printSchema()
+
+    # Show 5 records without truncating
+    txnDfNoColumnNames.show(5, False)
