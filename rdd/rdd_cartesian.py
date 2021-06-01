@@ -67,6 +67,10 @@ if __name__ == '__main__':
     print('\n*********** Finance paired RDD')
     finance_pair_rdd.foreach(print)
 
+    # Perform Cartesian product
+    cartesian_result = demographic_pair_rdd.cartesian(finance_pair_rdd)
+    cartesian_result.foreach(print)
+
 
 # Command
 #   spark-submit rdd/rdd_cartesian.py
