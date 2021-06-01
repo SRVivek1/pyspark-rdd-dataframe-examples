@@ -20,7 +20,7 @@ if __name__ == '__main__':
     sparkContext = sparkSession.sparkContext
 
     # Set logging level to Debug
-    sparkContext.setLogLevel('DEBUG')
+    sparkContext.setLogLevel('ERROR')
 
     # Load configuration and secrets
     current_dir = os.path.abspath(os.path.dirname(__file__))
