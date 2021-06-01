@@ -58,6 +58,7 @@ if __name__ == '__main__':
     result_rdd.foreach(print)
 
 # App Run Command
+#   export PYTHONPATH="$PWD"
 #   spark-submit rdd_problems/scholarship_recipient_filter_join.py
 
 # Result
