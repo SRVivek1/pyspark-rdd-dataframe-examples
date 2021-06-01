@@ -14,7 +14,7 @@ Definition
 
 
 from pyspark.sql import SparkSession
-
+from distutils.util import strtobool
 
 if __name__ == '__main__':
     sparkSession = SparkSession \
@@ -46,13 +46,26 @@ if __name__ == '__main__':
     char_cartesian_result.foreach(print)
 
     # Cartesian product on a pair rdd
-    demographic_data = sparkContext.parallelize([[101, 'vivek', 'vivek@test.com'], [102, 'Rohit', 'rohit@test.com']])
-    finance_data = sparkContext.parallelize([[101, 100000, 'icici', 'false'], [102, 50000, 'hdfc', 'true']])
+    demographic_rdd = sparkContext.parallelize([[101, 'vivek', 'vivek@test.com'], [102, 'Rohit', 'rohit@test.com']])
+    finance_rdd = sparkContext.parallelize([[101, 100000, 'icici', 'false'], [102, 50000, 'hdfc', 'true']])
 
     # print source data
-    print('\n********** Demographic data : {0}'.format(demographic_data.collect()))
-    print('\n********** Demographic data : {0}'.format(finance_data.collect()))
+    print('\n********** Demographic data : {0}'.format(demographic_rdd.collect()))
+    print('\n********** Finance data : {0}'.format(finance_rdd.collect()))
 
+    # Create paired rdd
+    demographic_pair_rdd = demographic_rdd \
+        .map(lambda lst: (lst(0), (lst[1], lst[2])))
+
+    finance_pair_rdd = finance_rdd \
+        .map(lambda lst: (lst[0], (lst[1], lst[2], strtobool(lst[3]))))
+
+    # print paired RDD
+    print('\n*********** Demographic paired RDD')
+    demographic_pair_rdd.foreach(print)
+
+    print('\n*********** Finance paired RDD')
+    finance_pair_rdd.foreach(print)
 
 
 # Command
