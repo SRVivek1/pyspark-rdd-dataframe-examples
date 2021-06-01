@@ -56,10 +56,10 @@ if __name__ == '__main__':
 
     # Print results
     print('\n********** num_rdd_2.cartesian(char_rdd_2)')
-    num_cartesian_result_2.foreach(print)
+    sorted(num_cartesian_result_2).foreach(print)
 
     print('\n********** char_rdd_2.cartesian(num_rdd_2)')
-    char_cartesian_result_2.foreach(print)
+    sorted(char_cartesian_result_2).foreach(print)
 
     # Cartesian product on a pair rdd
     demographic_rdd = sparkContext.parallelize([[101, 'vivek', 'vivek@test.com'], [102, 'Rohit', 'rohit@test.com']])
