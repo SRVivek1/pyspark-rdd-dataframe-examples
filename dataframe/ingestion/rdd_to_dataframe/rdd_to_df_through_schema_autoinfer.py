@@ -59,10 +59,21 @@ if __name__ == '__main__':
 
     # Show sample (5) records
     print('\n***************** Print first 5 records - txnDfWithColumnNames.show(5)')
-    txnDfWithColumnNames.show(5)
+    txnDfWithColumnNames.show(5, truncate=False)
+
+    # Create DataFrame using sparkSession
+    txnDf_1 = sparkSession.createDataFrame(txn_fct_rdd)
+
+    # print schema
+    print('\n*************** txnDf_1.printSchema()')
+    txnDf_1.printSchema()
+
+    # Print first 5 records
+    print('\n*************** ')
+    txnDf_1.show(5, False)
 
 # Command
-#   spark-submit --master yarn dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_schema_autoinfer.py
+#   spark-submit --master 'local[*]' dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_schema_autoinfer.py
 
 # Result
 #   **************** Resource : /home/viveksingh/project-data/sidharth/data/txn_fct.csv
