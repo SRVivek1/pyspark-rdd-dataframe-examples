@@ -12,7 +12,6 @@ if __name__ == '__main__':
     sparkSession = SparkSession \
         .builder \
         .appName('rdd-to-dataframe') \
-        .master('local[*]') \
         .getOrCreate()
 
     sparkContext = sparkSession.sparkContext
@@ -38,7 +37,7 @@ if __name__ == '__main__':
     for rec in txn_fct_rdd.take(5):
         print(rec)
 
-    # Create dataframe object from rdd using RDD.toDF() method.
+    # Create dataframe object from rdd using RDD.toDF() method - without column names
     print('\n***************** Convert RDD to DataFrame using toDF() - without column names')
     txnDfNoColumnNames = txn_fct_rdd.toDF()
 
@@ -50,9 +49,20 @@ if __name__ == '__main__':
     print('\n***************** txnDfNoColumnNames.show(5, False)')
     txnDfNoColumnNames.show(5, False)
 
+    # Create dataframe object from rdd using RDD.toDF() method - with column names
+    print('\n***************** Convert RDD to DataFrame using toDF() - with column names')
+    txnDfWithColumnNames = txn_fct_rdd.toDF(['txn_id', 'create_time', 'amount', 'cust_id', 'status', 'merchant_id', 'create_time_ist'])
+
+    # Print schema
+    print('\n***************** txnDfWithColumnNames.printSchema()')
+    txnDfWithColumnNames.printSchema()
+
+    # Show sample (5) records
+    print('\n***************** Print first 5 records - txnDfWithColumnNames.show(5)')
+    txnDfWithColumnNames.show(5)
 
 # Command
-#   spark-submit dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_schema_autoinfer.py
+#   spark-submit --master yarn dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_schema_autoinfer.py
 
 # Result
 #   **************** Resource : /home/viveksingh/project-data/sidharth/data/txn_fct.csv
@@ -71,6 +81,8 @@ if __name__ == '__main__':
 # (3510057500, '20190101', 169.0, '7155977566', '1', '259', '2019-01-01 07:56:02')
 #
 # ***************** Convert RDD to DataFrame using toDF() - without column names
+#
+# ***************** txnDfNoColumnNames.printSchema()
 # root
 #  |-- _1: long (nullable = true)
 #  |-- _2: string (nullable = true)
@@ -80,6 +92,8 @@ if __name__ == '__main__':
 #  |-- _6: string (nullable = true)
 #  |-- _7: string (nullable = true)
 #
+#
+# ***************** txnDfNoColumnNames.show(5, False)
 # +----------+--------+-----+----------+---+-----+-------------------+
 # |_1        |_2      |_3   |_4        |_5 |_6   |_7                 |
 # +----------+--------+-----+----------+---+-----+-------------------+
