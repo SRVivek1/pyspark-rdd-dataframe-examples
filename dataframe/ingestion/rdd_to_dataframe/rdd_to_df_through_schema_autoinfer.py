@@ -51,7 +51,8 @@ if __name__ == '__main__':
 
     # Create dataframe object from rdd using RDD.toDF() method - with column names
     print('\n***************** Convert RDD to DataFrame using toDF() - with column names')
-    txnDfWithColumnNames = txn_fct_rdd.toDF(['txn_id', 'create_time', 'amount', 'cust_id', 'status', 'merchant_id', 'create_time_ist'])
+    txnDfWithColumnNames = txn_fct_rdd.toDF(
+        ['txn_id', 'create_time', 'amount', 'cust_id', 'status', 'merchant_id', 'create_time_ist'])
 
     # Print schema
     print('\n***************** txnDfWithColumnNames.printSchema()')
@@ -62,6 +63,8 @@ if __name__ == '__main__':
     txnDfWithColumnNames.show(5, truncate=False)
 
     # Create DataFrame using sparkSession
+    print('\n***************** Convert RDD to DataFrame using '
+          'sparkSession.createDataFrame(txn_fct_rdd) - without column names')
     txnDf_1 = sparkSession.createDataFrame(txn_fct_rdd)
 
     # print schema
