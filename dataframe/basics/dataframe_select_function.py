@@ -15,6 +15,7 @@ if __name__ == '__main__':
     sparkContext = sparkSession.sparkContext
     sparkContext.setLogLevel('ERROR')
 
+    print('\n************* Dataframe select functions\n')
     time_df = sparkSession.createDataFrame([{'name': 'Vivek', 'age': 30}])
 
     time_df.printSchema()
