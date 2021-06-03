@@ -4,6 +4,7 @@ This program demonstrates the how to validate the schema when creating DataFrame
 
 
 from pyspark.sql import SparkSession, Row
+from pyspark.sql.functions import unix_timestamp
 from pyspark.sql.types import StructType, StructField, IntegerType, FloatType, StringType, LongType, DoubleType
 
 import constants.app_constants as app_constants
@@ -49,7 +50,8 @@ if __name__ == '__main__':
     print('\n**************** txn_fct_df.show(5) ')
     txn_fct_df.show(5)
 
-
+    # Transformation on DataFrame using DSL
+    txn_fct_df.withColumn('create_time_ist', unix_timestamp())
 
 # Command
 #   spark-submit --master 'local[*]' ./dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_explicit_schema.py
