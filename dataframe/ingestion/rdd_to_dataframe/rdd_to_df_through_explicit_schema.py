@@ -22,4 +22,5 @@ if __name__ == '__main__':
         # RDD[Row(int, int, float, int, int, int, str)]
 
     print('\n*************** RDD data read from file')
-    txn_fct_rdd.foreach(print)
+    for row in txn_fct_rdd.take(5):
+        print(row)
