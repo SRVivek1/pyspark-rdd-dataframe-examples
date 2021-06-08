@@ -26,14 +26,14 @@ if __name__ == '__main__':
     time_df.show(5)
 
     # Select all records
-    print("*************** time_df.select('*')")
+    print("*************** time_df.select('*')\n")
     print(time_df.select('*').collect())
 
-    print("*************** time_df.select('name', 'age')")
+    print("*************** time_df.select('name', 'age')\n")
     print(time_df.select('name', 'age').collect())
 
-    print("*************** time_df.select('name')")
+    print("*************** time_df.select('name')\n")
     print(time_df.select('name').collect())
 
-    print("*************** time_df.select(time_df.name, (time_df.age + 10).alias('age+10'))")
+    print("*************** time_df.select(time_df.name, (time_df.age + 10).alias('age+10'))\n")
     print(time_df.select(time_df.name, (time_df.age + 10).alias('age+10')).collect())
