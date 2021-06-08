@@ -4,7 +4,7 @@ This program demonstrates the how to validate the schema when creating DataFrame
 
 
 from pyspark.sql import SparkSession, Row
-from pyspark.sql.functions import unix_timestamp
+from pyspark.sql.functions import unix_timestamp, approx_count_distinct, sum
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType, LongType, DoubleType, TimestampType
 
 import constants.app_constants as app_constants
@@ -65,7 +65,14 @@ if __name__ == '__main__':
     print('# of records : ' + txn_fct_df.count())
     print('# of merchants : ' + txn_fct_df.select(txn_fct_df['merchant_id']).distinct().count())
 
+    # Apply GroupBy Functions
+    txnAggDf = txn_fct_df \
+        .repartition(10, txn_fct_df['merchant_id']) \
+        .groupBy('merchant_id') \
+        .agg(sum('amount'), approx_count_distinct('status'))
 
+    print('\n************** New DF after agg functions')
+    txnAggDf.show()
 
 # Command
 #   spark-submit --master 'local[*]' ./dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_explicit_schema.py
