@@ -5,7 +5,7 @@ This program demonstrates the how to validate the schema when creating DataFrame
 
 from pyspark.sql import SparkSession, Row
 from pyspark.sql.functions import unix_timestamp
-from pyspark.sql.types import StructType, StructField, IntegerType, FloatType, StringType, LongType, DoubleType
+from pyspark.sql.types import StructType, StructField, IntegerType, StringType, LongType, DoubleType, TimestampType
 
 import constants.app_constants as app_constants
 
@@ -51,7 +51,21 @@ if __name__ == '__main__':
     txn_fct_df.show(5)
 
     # Transformation on DataFrame using DSL
-    txn_fct_df.withColumn('create_time_ist', unix_timestamp())
+    txn_fct_df \
+        .withColumn('create_time_ist', unix_timestamp(txn_fct_df['created_time_ist'], 'yyyy-MM-dd HH:mm:ss') \
+                    .cast(TimestampType()))
+
+    print('\n**************** DF New Schema - txn_fct_df.printSchema()')
+    txn_fct_df.printSchema()
+
+    print('\n**************** txn_fct_df.show(5) ')
+    txn_fct_df.show(5)
+
+    # Find record counts
+    print('# of records : ' + txn_fct_df.count())
+    print('# of merchants : ' + txn_fct_df.select(txn_fct_df['merchant_id']).distinct().count())
+
+
 
 # Command
 #   spark-submit --master 'local[*]' ./dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_explicit_schema.py
