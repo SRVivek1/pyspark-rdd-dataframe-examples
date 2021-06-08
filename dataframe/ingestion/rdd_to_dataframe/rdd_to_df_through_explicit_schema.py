@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
     # Transformation on DataFrame using DSL
     txn_fct_df \
-        .withColumn('create_time_ist', unix_timestamp(txn_fct_df['created_time_ist'], 'yyyy-MM-dd HH:mm:ss') \
+        .withColumn('create_time_ist', unix_timestamp(txn_fct_df['create_time_ist'], 'yyyy-MM-dd HH:mm:ss') \
                     .cast(TimestampType()))
 
     print('\n**************** DF New Schema - txn_fct_df.printSchema()')
