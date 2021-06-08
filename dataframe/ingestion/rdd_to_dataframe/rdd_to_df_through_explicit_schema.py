@@ -79,6 +79,9 @@ if __name__ == '__main__':
         .withColumnRenamed('sum(amount)', 'total_amount') \
         .withColumnRenamed('approx_count_distinct(status)', 'distinct_status_count')
 
+    print('\n************** New DF with updated column names')
+    txnAggDf.show()
+
 # Command
 #   spark-submit --master 'local[*]' ./dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_explicit_schema.py
 
