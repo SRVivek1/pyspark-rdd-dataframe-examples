@@ -51,7 +51,7 @@ if __name__ == '__main__':
     txn_fct_df.show(5)
 
     # Transformation on DataFrame using DSL
-    txn_fct_df \
+    txn_fct_df = txn_fct_df \
         .withColumn('create_time_ist', unix_timestamp(txn_fct_df['create_time_ist'], 'yyyy-MM-dd HH:mm:ss') \
                     .cast(TimestampType()))
 
