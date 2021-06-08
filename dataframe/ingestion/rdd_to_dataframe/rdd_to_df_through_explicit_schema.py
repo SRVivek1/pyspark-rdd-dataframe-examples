@@ -62,8 +62,8 @@ if __name__ == '__main__':
     txn_fct_df.show(5)
 
     # Find record counts
-    print('# of records : ' + txn_fct_df.count())
-    print('# of merchants : ' + txn_fct_df.select(txn_fct_df['merchant_id']).distinct().count())
+    print('# of records : ' + str(txn_fct_df.count()))
+    print('# of merchants : ' + str(txn_fct_df.select(txn_fct_df['merchant_id']).distinct().count()))
 
     # Apply GroupBy Functions
     txnAggDf = txn_fct_df \
