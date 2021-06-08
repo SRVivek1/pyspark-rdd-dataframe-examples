@@ -74,6 +74,11 @@ if __name__ == '__main__':
     print('\n************** New DF after agg functions')
     txnAggDf.show()
 
+    # Provide better names to new cols created by agg functions.
+    txnAggDf \
+        .withColumnRenamed('sum(amount)', 'total_amount') \
+        .withColumnRenamed('approx_count_distinct(status)', 'distinct_status_count')
+
 # Command
 #   spark-submit --master 'local[*]' ./dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_explicit_schema.py
 
