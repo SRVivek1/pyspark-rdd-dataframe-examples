@@ -28,13 +28,19 @@ if __name__ == '__main__':
     print('\n****************** companies_df.select(col(\'company\')).show(5, False)')
     companies_df.select(col('company')).show(5, False)
 
-    print('\n****************** companies_df.select(companies_df[\'company\']).show(5, False)')
+    print("\n****************** companies_df.select(companies_df['employees']).show(5, False)")
     companies_df.select(companies_df['employees']).show(5, False)
 
     # Flatten records using explode(...) function
     print("\n****************** companies_df.select(col('company'), "
           "explode(col('employees')).alias('employee')).show(100, False)")
-    companies_df.select(col('company'), explode(col('employees')).alias('employee')).show(100, False)
+    flattened_com_df = companies_df.select(col('company'), explode(col('employees')).alias('employee'))
+    flattened_com_df.show(5, False)
+
+    # Rename employee.firstName to emp_name
+    flattened_com_df \
+        .select(col('company'), col('employee'), col('employee.firstName').alias('emp_name')) \
+        .show()
 
 # Command
 # -----------------
