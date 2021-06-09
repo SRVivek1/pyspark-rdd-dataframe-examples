@@ -4,6 +4,7 @@ This application demonstrates how to read/write Apache Parquet files in spark.
 
 
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
 from constants import app_constants as appConstants
 
 
