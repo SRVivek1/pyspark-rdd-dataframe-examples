@@ -46,19 +46,17 @@ if __name__ == '__main__':
     print('\n************* nyc_omo_df.show(5, False)')
     nyc_omo_df.show(5, False)
 
-    print('\n************* Summery of NYC Open Market Order (OMO) charges dataset.')
+    print('\n************* Summery of NYC Open Market Order (OMO) charges dataset : nyc_omo_df.describe().show()')
     nyc_omo_df.describe().show()
 
-    print('\n************* Distinct Boros in record')
-    nyc_omo_df.select(col('boro')).distinct().show(100)
+    print('\n************* Distinct Boroughs in record : nyc_omo_df.select(col(\'Boro\')).distinct().show(100)')
+    nyc_omo_df.select(col('Boro')).distinct().show(100)
 
     print('\n************* OMO frequency distribution of different Boroughs')
     nyc_omo_df \
-        .groupBy('boro') \
-        .avg({'boro' : 'count'}) \
-        .withColumnRenamed('count(boro)', 'OrderFrequency') \
+        .groupBy('Boro') \
+        .avg({'Boro': 'count'}) \
         .show()
-
 
 
 # Command
