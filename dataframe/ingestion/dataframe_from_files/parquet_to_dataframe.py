@@ -29,7 +29,7 @@ if __name__ == '__main__':
     print('\n************* nyc_omo_df.printSchema()')
     nyc_omo_df.printSchema()
 
-    print('\n************* nyc_omo_df.show(nyc_omo_df.count(), False)')
+    print('\n************* nyc_omo_df.show(5, False)')
     nyc_omo_df.show(5, False)
 
     # Repartition
@@ -42,8 +42,14 @@ if __name__ == '__main__':
     print('\n************* nyc_omo_df.printSchema()')
     nyc_omo_df.printSchema()
 
-    print('\n************* nyc_omo_df.show(nyc_omo_df.count(), False)')
+    print('\n************* nyc_omo_df.show(5, False)')
     nyc_omo_df.show(5, False)
+
+    print('\n************* Summery of NYC Open Market Order (OMO) charges dataset.')
+    nyc_omo_df.describe().show()
+
+    print('\n************* OMO frequency distribution of different Boroughs')
+    nyc_omo_df.select(col('boro')).show(10)
 
 # Command
 # -----------------
