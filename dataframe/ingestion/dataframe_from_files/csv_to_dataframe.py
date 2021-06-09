@@ -59,10 +59,12 @@ if __name__ == '__main__':
     finances_df = finances_df \
         .toDF('id', 'has_debt_', 'has_financial_dependents_', 'has_student_loan_', 'income_')
 
+    print('\n************ : # of partitions - ' + str(finances_df.rdd.getNumPartitions()))
+
     print('\n************ : finances_df.show()')
     finances_df.show()
 
-    print('\n************ : # of partitions - ' + str(finances_df.rdd.getNumPartitions()))
+
 
     # Repartition based on has_student_loan_ column and write to FileSystem
 
@@ -74,7 +76,8 @@ if __name__ == '__main__':
         .option('header', 'true') \
         .option('delimiter', '~') \
         .csv(file_write_path)
-    print('\n************ File content is written to : ' + file_write_path)
+
+    print('\n************ File content repartitioned to 2 on column \'has_student_loan_\' is written to : ' + file_write_path)
 
     # Stop application
     sparkSession.stop()
