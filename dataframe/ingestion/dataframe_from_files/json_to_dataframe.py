@@ -38,9 +38,10 @@ if __name__ == '__main__':
     flattened_com_df.show(5, False)
 
     # Rename employee.firstName to emp_name
+    print('\n****************** Fetch company, employee & firstName (as emp_name) columns')
     flattened_com_df \
         .select(col('company'), col('employee'), col('employee.firstName').alias('emp_name')) \
-        .show()
+        .show(truncate=False)
 
 # Command
 # -----------------
