@@ -43,7 +43,7 @@ if __name__ == '__main__':
     nyc_omo_df.printSchema()
 
     print('\n************* nyc_omo_df.show(nyc_omo_df.count(), False)')
-    nyc_omo_df.show(nyc_omo_df.count(), False)
+    nyc_omo_df.show(5, False)
 
 # Command
 # -----------------
