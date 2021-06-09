@@ -24,9 +24,14 @@ if __name__ == '__main__':
     print('\n****************** companies_df.show(5, False)')
     companies_df.show(5, False)
 
-    # Query in DataFrame using DSL
+    # Select specific columns from Data frame
     print('\n****************** companies_df.select(col(\'company\')).show(5, False)')
     companies_df.select(col('company')).show(5, False)
+
+    print('\n****************** companies_df.select(companies_df[\'company\']).show(5, False)')
+    companies_df.select(companies_df['employees']).show(5, False)
+
+
 
 # Command
 # -----------------
