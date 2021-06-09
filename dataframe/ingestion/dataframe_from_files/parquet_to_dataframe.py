@@ -10,10 +10,14 @@ from constants import app_constants as appConstants
 if __name__ == '__main__':
     print('\n************************** Spark - Read/Write Parquet files **************************')
 
-    sparkSession = SparkSession.builder.appName('parquet-to-dataframe').getOrCreate()
-
     # Using legacy version of Parquet file.
-    sparkSession.conf('spark.sql.legacy.parquet.int96RebaseModeInRead', 'CORRECTED')
+    sparkSession = SparkSession.builder \
+        .config('spark.sql.legacy.parquet.int96RebaseModeInRead', 'CORRECTED')\
+        .appName('parquet-to-dataframe')\
+        .getOrCreate()
+
+    # sparkSession.conf.set('spark.sql.legacy.parquet.int96RebaseModeInRead', 'CORRECTED')
+
     sparkSession.sparkContext.setLogLevel('ERROR')
 
     # Read Parquet file
