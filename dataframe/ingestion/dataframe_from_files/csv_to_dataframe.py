@@ -74,7 +74,7 @@ if __name__ == '__main__':
         .option('header', 'true') \
         .option('delimiter', '~') \
         .csv(file_write_path)
-    print('\n************ File content is writtent to : ' + file_write_path)
+    print('\n************ File content is written to : ' + file_write_path)
 
     # Stop application
     sparkSession.stop()
