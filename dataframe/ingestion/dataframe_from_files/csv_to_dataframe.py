@@ -27,7 +27,7 @@ if __name__ == '__main__':
     ])
 
     # Create DataFrame using SparkSession read() method.
-    print('\n************ Create DataFrame using SparkSession read() method.')
+    print('\n************ Create DataFrame using SparkSession read property.')
     finances_df = sparkSession.read \
         .option('header', 'false') \
         .option('delimiter', ',') \
@@ -35,8 +35,8 @@ if __name__ == '__main__':
         .schema(finances_csv_schema) \
         .load(appConstrants.finances_csv_file)
 
-    print('\nFinances DataFrame Schema : finances_df.showSchema()')
-    finances_df.showSchema()
+    print('\nFinances DataFrame Schema : finances_df.printSchema()')
+    finances_df.printSchema()
 
     print('\n************ : finances_df.show()')
     finances_df.show()
