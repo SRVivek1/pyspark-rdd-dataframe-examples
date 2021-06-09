@@ -50,4 +50,69 @@ if __name__ == '__main__':
 # Output
 # -----------------
 #
+# ****************** companies_df.printSchema()
+# root
+#  |-- company: string (nullable = true)
+#  |-- employees: array (nullable = true)
+#  |    |-- element: struct (containsNull = true)
+#  |    |    |-- firstName: string (nullable = true)
+#  |    |    |-- lastName: string (nullable = true)
 #
+#
+# ****************** companies_df.show(5, False)
+# +--------+-------------------------------------+
+# |company |employees                            |
+# +--------+-------------------------------------+
+# |NewCo   |[{Sidhartha, Ray}, {Pratik, Solanki}]|
+# |FamilyCo|[{Jiten, Gupta}, {Pallavi, Gupta}]   |
+# |OldCo   |[{Vivek, Garg}, {Nitin, Gupta}]      |
+# |ClosedCo|[]                                   |
+# +--------+-------------------------------------+
+#
+#
+# ****************** companies_df.select(col('company')).show(5, False)
+# +--------+
+# |company |
+# +--------+
+# |NewCo   |
+# |FamilyCo|
+# |OldCo   |
+# |ClosedCo|
+# +--------+
+#
+#
+# ****************** companies_df.select(companies_df['employees']).show(5, False)
+# +-------------------------------------+
+# |employees                            |
+# +-------------------------------------+
+# |[{Sidhartha, Ray}, {Pratik, Solanki}]|
+# |[{Jiten, Gupta}, {Pallavi, Gupta}]   |
+# |[{Vivek, Garg}, {Nitin, Gupta}]      |
+# |[]                                   |
+# +-------------------------------------+
+#
+#
+# ****************** companies_df.select(col('company'), explode(col('employees')).alias('employee')).show(100, False)
+# +--------+-----------------+
+# |company |employee         |
+# +--------+-----------------+
+# |NewCo   |{Sidhartha, Ray} |
+# |NewCo   |{Pratik, Solanki}|
+# |FamilyCo|{Jiten, Gupta}   |
+# |FamilyCo|{Pallavi, Gupta} |
+# |OldCo   |{Vivek, Garg}    |
+# +--------+-----------------+
+# only showing top 5 rows
+#
+#
+# ****************** Fetch company, employee & firstName (as emp_name) columns
+# +--------+-----------------+---------+
+# |company |employee         |emp_name |
+# +--------+-----------------+---------+
+# |NewCo   |{Sidhartha, Ray} |Sidhartha|
+# |NewCo   |{Pratik, Solanki}|Pratik   |
+# |FamilyCo|{Jiten, Gupta}   |Jiten    |
+# |FamilyCo|{Pallavi, Gupta} |Pallavi  |
+# |OldCo   |{Vivek, Garg}    |Vivek    |
+# |OldCo   |{Nitin, Gupta}   |Nitin    |
+# +--------+-----------------+---------+
