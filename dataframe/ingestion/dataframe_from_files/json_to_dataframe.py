@@ -3,7 +3,7 @@ This program demonstrates how to read a JSON file and create DataFrame object.
 """
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, explode
 from constants import app_constants as appConstants
 
 if __name__ == '__main__':
@@ -31,7 +31,10 @@ if __name__ == '__main__':
     print('\n****************** companies_df.select(companies_df[\'company\']).show(5, False)')
     companies_df.select(companies_df['employees']).show(5, False)
 
-
+    # Flatten records using explode(...) function
+    print("\n****************** companies_df.select(col('company'), "
+          "explode(col('employees')).alias('employee')).show(100, False)")
+    companies_df.select(col('company'), explode(col('employees')).alias('employee')).show(100, False)
 
 # Command
 # -----------------
