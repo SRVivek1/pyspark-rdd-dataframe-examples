@@ -86,3 +86,64 @@ if __name__ == '__main__':
 # Command
 # --------------------
 # spark-submit dataframe/ingestion/dataframe_from_files/csv_to_dataframe.py
+#
+# Output
+# ----------------
+# ************ Create DataFrame using SparkSession.read.load() .
+#
+# Finances DataFrame Schema : finances_df.printSchema()
+# root
+#  |-- id: integer (nullable = true)
+#  |-- has_debt: boolean (nullable = true)
+#  |-- has_financial_dependents: boolean (nullable = true)
+#  |-- has_student_loans: boolean (nullable = true)
+#  |-- income: double (nullable = true)
+#
+#
+# ************ : finances_df.show()
+# +---+--------+------------------------+-----------------+-------+
+# | id|has_debt|has_financial_dependents|has_student_loans| income|
+# +---+--------+------------------------+-----------------+-------+
+# |101|   false|                    true|             true|60000.0|
+# |102|    true|                    true|            false|50000.0|
+# |103|    true|                    true|            false|55000.0|
+# |104|    true|                   false|            false|65000.0|
+# +---+--------+------------------------+-----------------+-------+
+#
+#
+# ************ : SparkSession.read.csv()
+#
+# Finances DataFrame Schema : finances_df.printSchema()
+# root
+#  |-- id: integer (nullable = true)
+#  |-- has_debt: boolean (nullable = true)
+#  |-- has_financial_dependents: boolean (nullable = true)
+#  |-- has_student_loans: boolean (nullable = true)
+#  |-- income: double (nullable = true)
+#
+#
+# ************ : finances_df.show()
+# +---+--------+------------------------+-----------------+-------+
+# | id|has_debt|has_financial_dependents|has_student_loans| income|
+# +---+--------+------------------------+-----------------+-------+
+# |101|   false|                    true|             true|60000.0|
+# |102|    true|                    true|            false|50000.0|
+# |103|    true|                    true|            false|55000.0|
+# |104|    true|                   false|            false|65000.0|
+# +---+--------+------------------------+-----------------+-------+
+#
+#
+# ************ : # of partitions - 1
+#
+# ************ : finances_df.show()
+# +---+---------+-------------------------+-----------------+-------+
+# | id|has_debt_|has_financial_dependents_|has_student_loan_|income_|
+# +---+---------+-------------------------+-----------------+-------+
+# |101|    false|                     true|             true|60000.0|
+# |102|     true|                     true|            false|50000.0|
+# |103|     true|                     true|            false|55000.0|
+# |104|     true|                    false|            false|65000.0|
+# +---+---------+-------------------------+-----------------+-------+
+#
+#
+# ************ File content repartitioned to 2 on column 'has_student_loan_' is written to : /home/viveksingh/project-data/app-generated/finances_generated
