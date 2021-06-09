@@ -64,13 +64,17 @@ if __name__ == '__main__':
 
     print('\n************ : # of partitions - ' + str(finances_df.rdd.getNumPartitions()))
 
-    # Repartition based on has_student_loan_ column
+    # Repartition based on has_student_loan_ column and write to FileSystem
+
+    file_write_path = appConstrants.file_write_path + '/finances_generated'
+
     finances_df.repartition(2).write \
         .partitionBy('has_student_loan_') \
         .mode('overwrite') \
         .option('header', 'true') \
         .option('delimiter', '~') \
-        .csv(appConstrants.file_write_path + '/finances_generated')
+        .csv(file_write_path)
+    print('File content is writtent to : ' + file_write_path)
 
     # Stop application
     sparkSession.stop()
