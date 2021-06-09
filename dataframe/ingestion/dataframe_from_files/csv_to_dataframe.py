@@ -57,13 +57,24 @@ if __name__ == '__main__':
 
     # To get the DataFrame with new column names
     finances_df = finances_df \
-        .toDF('id', 'has_debt_', 'has_financial_dependents', 'has_student_loan', 'income_')
+        .toDF('id', 'has_debt_', 'has_financial_dependents_', 'has_student_loan_', 'income_')
 
     print('\n************ : finances_df.show()')
     finances_df.show()
 
     print('\n************ : # of partitions - ' + str(finances_df.rdd.getNumPartitions()))
-    # Repartition and save data to file system
+
+    # Repartition based on has_student_loan_ column
+    finances_df.repartition(2).write \
+        .partitionBy('has_student_loan_') \
+        .mode('overwrite') \
+        .option('header', 'true') \
+        .option('delimiter', '~') \
+        .csv(appConstrants.file_write_path + '/finances_generated')
+
+    # Stop application
+    sparkSession.stop()
+
 
 # Command
 # --------------------
