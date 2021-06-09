@@ -25,13 +25,12 @@ if __name__ == '__main__':
     companies_df.show(5, False)
 
     # Query in DataFrame using DSL
-    companies_df.select(col('company')).collect()
-
-
+    print('\n****************** companies_df.select(col(\'company\')).show(5, False)')
+    companies_df.select(col('company')).show(5, False)
 
 # Command
 # -----------------
-#
+#   spark-submit dataframe/ingestion/dataframe_from_files/json_to_dataframe.py
 #
 # Output
 # -----------------
