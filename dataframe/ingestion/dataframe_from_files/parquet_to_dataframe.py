@@ -16,7 +16,7 @@ if __name__ == '__main__':
     # Read Parquet file
     nyc_omo_df = sparkSession.read.parquet(appConstants.NYC_OMO_PARQUET)
 
-    print('\n************* # of partitions : ' + nyc_omo_df.rdd.getNumPartitions())
+    print('\n************* # of partitions : ' + str(nyc_omo_df.rdd.getNumPartitions()))
     print('\n************* # of records : ' + str(nyc_omo_df.count()))
 
     print('\n************* nyc_omo_df.printSchema()')
