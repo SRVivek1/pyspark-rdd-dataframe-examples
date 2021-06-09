@@ -26,8 +26,8 @@ if __name__ == '__main__':
         StructField('income', DoubleType(), True)
     ])
 
-    # Create DataFrame using SparkSession read() method.
-    print('\n************ Create DataFrame using SparkSession read property.')
+    # Create DataFrame using SparkSession.read.load().
+    print('\n************ Create DataFrame using SparkSession.read.load() .')
     finances_df = sparkSession.read \
         .option('header', 'false') \
         .option('delimiter', ',') \
@@ -41,6 +41,19 @@ if __name__ == '__main__':
     print('\n************ : finances_df.show()')
     finances_df.show()
 
+    # Read same file using SparkSession.read.csv() method
+    print('\n************ : ')
+    finances_df = sparkSession.read \
+        .option('header', True) \
+        .option('delimiter', ',') \
+        .schema(finances_csv_schema) \
+        .csv(appConstrants.finances_csv_file)
+
+    print('\nFinances DataFrame Schema : finances_df.printSchema()')
+    finances_df.printSchema()
+
+    print('\n************ : finances_df.show()')
+    finances_df.show()
 
 # Command
 # --------------------
