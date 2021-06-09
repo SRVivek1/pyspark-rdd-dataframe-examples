@@ -42,9 +42,9 @@ if __name__ == '__main__':
     finances_df.show()
 
     # Read same file using SparkSession.read.csv() method
-    print('\n************ : ')
+    print('\n************ : SparkSession.read.csv()')
     finances_df = sparkSession.read \
-        .option('header', True) \
+        .option('header', 'false') \
         .option('delimiter', ',') \
         .schema(finances_csv_schema) \
         .csv(appConstrants.finances_csv_file)
