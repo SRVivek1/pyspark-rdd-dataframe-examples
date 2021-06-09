@@ -4,7 +4,6 @@ This program demonstrate how we can read CSV data into DataFrame.
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.readwriter import *
 from pyspark.sql.types import StructType, StructField, IntegerType, BooleanType, DoubleType
 from constants import app_constants as appConstrants
 
