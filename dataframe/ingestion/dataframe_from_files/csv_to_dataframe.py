@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     # Create DataFrame using SparkSession read() method.
     print('\n************ Create DataFrame using SparkSession read() method.')
-    finances_df = sparkSession.read() \
+    finances_df = sparkSession.read \
         .option('header', 'false') \
         .option('delimiter', ',') \
         .format('csv') \
