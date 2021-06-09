@@ -55,6 +55,16 @@ if __name__ == '__main__':
     print('\n************ : finances_df.show()')
     finances_df.show()
 
+    # To get the DataFrame with new column names
+    finances_df = finances_df \
+        .toDF('id', 'has_debt_', 'has_financial_dependents', 'has_student_loan', 'income_')
+
+    print('\n************ : finances_df.show()')
+    finances_df.show()
+
+    print('\n************ : # of partitions - ' + str(finances_df.rdd.getNumPartitions()))
+    # Repartition and save data to file system
+
 # Command
 # --------------------
 # spark-submit dataframe/ingestion/dataframe_from_files/csv_to_dataframe.py
