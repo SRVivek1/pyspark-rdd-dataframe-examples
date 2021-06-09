@@ -29,7 +29,7 @@ if __name__ == '__main__':
     print('\n************* nyc_omo_df = nyc_omo_df.repartition(5)')
     nyc_omo_df = nyc_omo_df.repartition(5)
 
-    print('\n************* # of partitions : ' + nyc_omo_df.rdd.getNumPartitions())
+    print('\n************* # of partitions : ' + str(nyc_omo_df.rdd.getNumPartitions()))
     print('\n************* # of records : ' + str(nyc_omo_df.count()))
 
     print('\n************* nyc_omo_df.printSchema()')
@@ -37,3 +37,11 @@ if __name__ == '__main__':
 
     print('\n************* nyc_omo_df.show(nyc_omo_df.count(), False)')
     nyc_omo_df.show(nyc_omo_df.count(), False)
+
+# Command
+# -----------------
+#   spark-submit dataframe/ingestion/dataframe_from_files/parquet_to_dataframe.py
+#
+# Output
+# -----------------
+#
