@@ -50,7 +50,7 @@ if __name__ == '__main__':
     nyc_omo_df.describe().show()
 
     print('\n************* OMO frequency distribution of different Boroughs')
-    nyc_omo_df.select(col('boro')).show(10)
+    nyc_omo_df.select(col('boro')).distinct().show(100)
 
 # Command
 # -----------------
