@@ -26,8 +26,8 @@ if __name__ == '__main__':
 
     # Start : Load application config
     current_dir = os.path.abspath(os.path.dirname(__file__))
-    app_config_file = os.path.abspath(current_dir + '../../..' + 'application.yml')
-    app_secrets_file = os.path.abspath(current_dir + '../../..' + '.secrets')
+    app_config_file = os.path.abspath(current_dir + '../../..' + '/application.yml')
+    app_secrets_file = os.path.abspath(current_dir + '../../..' + '/.secrets')
 
     conf = open(app_config_file)
     app_conf = yaml.load(conf, Loader=yaml.FullLoader)
@@ -69,4 +69,4 @@ if __name__ == '__main__':
 
 # Command
 # --------------------------
-#
+# spark-submit dataframe/ingestion/read_from_databases/dataframe_from_mysql_db.py
