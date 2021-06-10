@@ -84,6 +84,8 @@ if __name__ == '__main__':
     write_path = appConstants.file_write_path + 'nyc_omo_data_parquet'
     print('\n**************** Write windowed data to : ' + write_path)
 
+    # Setting legacy mode
+    sparkSession.conf.set('spark.sql.legacy.parquet.int96RebaseModeInWrite', 'CORRECTED')
     omo_daily_frequency\
         .repartition(5)\
         .write\
