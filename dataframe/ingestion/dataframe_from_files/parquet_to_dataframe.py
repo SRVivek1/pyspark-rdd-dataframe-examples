@@ -80,6 +80,15 @@ if __name__ == '__main__':
     print('\n**************** Sample records in windowed OMO dataframe : ')
     omo_daily_frequency.show(10)
 
+    # Write windowed data to filesystem
+    omo_daily_frequency\
+        .repartition(5)\
+        .write\
+        .mode('overwrite')\
+        .parquet(appConstants.file_write_path + 'nyc_omo_data_parquet')
+
+    # Stop Spark service
+    sparkSession.stop()
 
 # Command
 # -----------------
