@@ -4,7 +4,7 @@ This application demonstrates how to read/write Apache Parquet files in spark.
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, size
 from constants import app_constants as appConstants
 
 
@@ -56,6 +56,15 @@ if __name__ == '__main__':
     nyc_omo_df \
         .groupBy('Boro') \
         .agg({'Boro': 'count'}) \
+        .withColumnRenamed('count(Boro)', 'frequency_distribution') \
+        .show()
+
+    print('\n************* OMO ZIP and Boro List')
+    nyc_omo_df \
+        .groupBy('Boro') \
+        .agg({'Zip': 'collect_set'}) \
+        .withColumnRenamed("collect_set(Zip)", "ZipList") \
+        .withColumn('ZipCount', size(col('ZipList')))\
         .show()
 
 
