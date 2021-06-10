@@ -88,8 +88,8 @@ if __name__ == '__main__':
         'dbtable': app_conf['mysql_conf']['query'],
         'numPartitions': '2',
         '[partitionColumn': app_conf['mysql_conf']['partition_column'],
-        'user': app_conf['mysql_conf']['username'],
-        'password': app_conf['mysql_conf']['password']
+        'user': app_secrets['mysql_conf']['username'],
+        'password': app_secrets['mysql_conf']['password']
     }
 
     txn_df_2 = sparSession\
