@@ -84,7 +84,6 @@ if __name__ == '__main__':
 
     # Read data using query instead of table name
     print('\n******************** Read data using query instead of table name.')
-
     jdbc_params_query = {
         'url': get_mysql_jdbc_url(app_secrets),
         'lowerBound': '1',
