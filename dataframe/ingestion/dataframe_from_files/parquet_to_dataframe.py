@@ -81,11 +81,14 @@ if __name__ == '__main__':
     omo_daily_frequency.show(10)
 
     # Write windowed data to filesystem
+    write_path = appConstants.file_write_path + 'nyc_omo_data_parquet'
+    print('\n**************** Write windowed data to : ' + write_path)
+
     omo_daily_frequency\
         .repartition(5)\
         .write\
         .mode('overwrite')\
-        .parquet(appConstants.file_write_path + 'nyc_omo_data_parquet')
+        .parquet(write_path)
 
     # Stop Spark service
     sparkSession.stop()
