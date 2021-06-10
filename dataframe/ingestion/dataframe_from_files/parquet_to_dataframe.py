@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     # sparkSession.conf.set('spark.sql.legacy.parquet.int96RebaseModeInRead', 'CORRECTED')
 
-    sparkSession.sparkContext.setLogLevel('ERROR')
+    sparkSession.sparkContext.setLogLevel('DEBUG')
 
     # Read Parquet file
     nyc_omo_df = sparkSession.read.parquet(appConstants.NYC_OMO_PARQUET)
