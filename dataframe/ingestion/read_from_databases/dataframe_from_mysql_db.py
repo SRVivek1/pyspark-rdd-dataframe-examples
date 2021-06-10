@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     # Configure command line args
     os.environ['PYSPARK_SUBMIT_ARGS'] = (
-        '--package "mysql:mysql-connector-java:8.0.15" pyspark-shell'
+        '--packages "mysql:mysql-connector-java:8.0.15" pyspark-shell'
     )
 
     # Create Spark session
