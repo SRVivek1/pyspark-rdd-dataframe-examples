@@ -71,7 +71,7 @@ if __name__ == '__main__':
     print('\n************* OMO frequency distribution of different Boroughs')
     nyc_omo_df \
         .groupBy('Boro') \
-        .avg({'Boro': 'count'}) \
+        .agg({'Boro': 'count'}) \
         .show()
 
 
