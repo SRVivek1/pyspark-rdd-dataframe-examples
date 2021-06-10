@@ -8,6 +8,20 @@ import os.path
 import yaml
 
 
+def get_mysql_jdbc_url(db_config: dict) -> str:
+    """
+    Generate Database JDBC URL.
+    :param db_config:
+    :return: mysql jdbc url
+    """
+    host = db_config['mysql_conf']['hostname']
+    port = db_config['mysql_conf']['port']
+    database = db_config['mysql_conf']['database']
+    jdbc_url_template = 'jdbc:mysql://{}:{}/{}?autoReconnect=true&useSSL=false'
+
+    return jdbc_url_template.format(host, port, database)
+
+
 if __name__ == '__main__':
     print('\n***************** Ingest data from MySQL Database*****************')
 
@@ -38,7 +52,7 @@ if __name__ == '__main__':
 
     # Start : JDBC Connection configuration
     jdbc_params = {
-        'url': '',
+        'url': get_mysql_jdbc_url(app_secrets),
         'lowerBound': '1',
         'upperBound': '100',
         'dbtable': app_conf['mysql_conf']['dbtable'],
