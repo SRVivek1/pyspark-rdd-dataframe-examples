@@ -26,14 +26,15 @@ if __name__ == '__main__':
     print('\n***************** Ingest data from MySQL Database*****************')
 
     # Configure command line args
-    os.environ['PYSPARK_SUBMIT_ARGS'] = (
+    '''os.environ['PYSPARK_SUBMIT_ARGS'] = (
         '--packages "mysql:mysql-connector-java:8.0.15" pyspark-shell'
-    )
+    )'''
 
     # Create Spark session
     sparSession = SparkSession\
         .builder\
         .appName('Ingest data from MySQL')\
+        .config('--packages "mysql:mysql-connector-java:8.0.15"')\
         .getOrCreate()
 
     sparSession.sparkContext.setLogLevel('ERROR')
