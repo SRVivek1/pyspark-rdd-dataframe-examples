@@ -73,6 +73,7 @@ if __name__ == '__main__':
 
 # Command
 # ---------------
+# spark-submit --packages "com.springml:spark-sftp_2.11:1.1.1" dataframe/ingestion/read_from_sftp/dataframe_from_sftp_server.py
 # spark-submit --packages "com.springml:spark-sftp_2.11:1.1.1,org.scala-lang:scala-library:2.11.11,org.scala-lang:scala-compiler:2.11.11,org.scala-lang:scala-reflect:2.11.11" dataframe/ingestion/read_from_sftp/dataframe_from_sftp_server.py
 #
 #
