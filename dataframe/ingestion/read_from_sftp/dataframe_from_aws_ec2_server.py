@@ -61,7 +61,7 @@ if __name__ == '__main__':
         .option("host", 'ec2-34-247-32-96.eu-west-1.compute.amazonaws.com')\
         .option("port", '22')\
         .option("username", 'ubuntu')\
-        .option("pem", '/home/viveksingh/spark-projects/rdd-dataframe-examples/ec2-pem-1.pem')\
+        .option("pem", '/home/hadoop/rdd-dataframe-examples/ec2-pem-1.pem')\
         .option("fileType", "csv")\
         .option("delimiter", "|")\
         .load('/home/ubuntu/sftp/receipts_delta_GBR_14_10_2017.csv')
