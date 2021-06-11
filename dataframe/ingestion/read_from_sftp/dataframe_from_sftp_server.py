@@ -38,7 +38,7 @@ if __name__ == '__main__':
         'host': app_secrets['sftp_conf']['hostname'],
         'port': app_secrets['sftp_conf']['port'],
         'username': app_secrets['sftp_conf']['username'],
-        'pem': os.path.abspath(project_root_dir + app_secrets['sftp_conf']['pem'])
+        'pem': os.path.abspath(project_root_dir + '/' + app_secrets['sftp_conf']['pem'])
     }
     # End : SFTP configuration
 
@@ -61,3 +61,12 @@ if __name__ == '__main__':
     print('\n********************** Sample data read from SFTP : receipts_df.show(10, truncate=False)')
     receipts_df.show(10, truncate=False)
 
+# Command
+# ---------------
+# spark-submit --packages "com.springml:spark-sftp_2.11:1.1.1" dataframe/ingestion/read_from_sftp/dataframe_from_sftp_server.py
+#
+#
+# Output
+# ------------------
+#
+#
