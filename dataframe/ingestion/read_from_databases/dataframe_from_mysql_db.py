@@ -154,6 +154,21 @@ if __name__ == '__main__':
 # only showing top 10 rows
 #
 #
+# ******************* Print all unique Internal_Member_Id
+# +------------------+
+# |Internal_Member_Id|
+# +------------------+
+# |       I025165819W|
+# |          67215200|
+# |         PC7135361|
+# |         PC6890261|
+# |       I032994377S|
+# |       I028362656R|
+# |       I037364394Y|
+# |       I033956922L|
+# +------------------+
+#
+#
 # ******************** Read data using query instead of table name.
 #
 # ******************** txn_df_2.show(10, truncate=False)
