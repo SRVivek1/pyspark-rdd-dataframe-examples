@@ -50,13 +50,13 @@ if __name__ == '__main__':
     # End : File information
 
     # Start : Read data from SFTP
-    receipts_df = sparkSession.read\
+    '''receipts_df = sparkSession.read\
         .format('com.springml.spark.sftp')\
         .options(**sftp_connection_config)\
         .options(**sftp_file_details)\
-        .load(app_config['sftp_conf']['directory'] + '/receipts_delta_GBR_14_10_2017.csv')
+        .load(app_config['sftp_conf']['directory'] + '/receipts_delta_GBR_14_10_2017.csv')'''
 
-    '''receipts_df = sparkSession.read\
+    receipts_df = sparkSession.read\
         .format("com.springml.spark.sftp")\
         .option("host", 'ec2-34-247-32-96.eu-west-1.compute.amazonaws.com')\
         .option("port", '22')\
@@ -64,7 +64,7 @@ if __name__ == '__main__':
         .option("pem", '/home/viveksingh/spark-projects/rdd-dataframe-examples/ec2-pem-1.pem')\
         .option("fileType", "csv")\
         .option("delimiter", "|")\
-        .load('/home/ubuntu/sftp/receipts_delta_GBR_14_10_2017.csv')'''
+        .load('/home/ubuntu/sftp/receipts_delta_GBR_14_10_2017.csv')
     # End : Read data from SFTP
 
     # Show data
