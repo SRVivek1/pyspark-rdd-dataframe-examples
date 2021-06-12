@@ -1,0 +1,26 @@
+Install MondoDB
+--------------------
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+
+sudo apt-get install gnupg
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+
+sudo apt-get update
+
+sudo apt-get install -y mongodb-org
+
+sudo systemctl unmask mongod
+
+# Create a mongo doc
+---------------------------------------
+mongo
+
+use school;
+db.students.insert({ "studentno":"1","firstname":"varun","lastname":"goyal"})
+db.students.insert({ "studentno":"2","firstname":"tarun","lastname":"sing","school":"AMS"})
+db.students.insert([{ "studentno":"3","firstname":"arun","lastname":"pal","school":"Modern"},
+{ "studentno":"4","firstname":"sachin","lastname":"tiwari","school":"dps"},
+{ "studentno":"5","firstname":"rahul","lastname":"negi","school":"nps"}])
+db.students.find()
