@@ -25,4 +25,4 @@ if __name__ =='__main__':
     app_secrets = yaml.load(open(app_secrets_file), Loader=yaml.FullLoader)
     # End - Read configuration and credentials
 
-    print('******** App Config ' + app_config)
+    print('******** App Config ' + str(app_config))
