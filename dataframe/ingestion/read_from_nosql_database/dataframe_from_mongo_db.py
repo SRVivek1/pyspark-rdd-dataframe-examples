@@ -25,4 +25,22 @@ if __name__ =='__main__':
     app_secrets = yaml.load(open(app_secrets_file), Loader=yaml.FullLoader)
     # End - Read configuration and credentials
 
-    print('******** App Config ' + str(app_config))
+    # MongoDB connection properties
+    mongodb_connection_params = {
+        'uri': app_secrets['mongodb_config_aws']['uri'],
+        'database': app_config['mongodb_config_aws']['database'],
+        'collection': app_config['mongodb_config_aws']['collection']
+    }
+
+    # Connect to MongoDB and read data
+    students_df = sparkSession\
+        .read\
+        .format('com.mongodb.spark.sql.DefaultSource')\
+        .options(**mongodb_connection_params)\
+        .load()
+
+    print('\n************************ students_df.printSchema()')
+    students_df.printSchema()
+
+    print('\n************************ ')
+    students_df.show(5, truncate=False)b
