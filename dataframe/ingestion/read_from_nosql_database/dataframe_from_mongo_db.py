@@ -18,10 +18,10 @@ if __name__ =='__main__':
 
     # Start - Read configuration and credentials
     current_dir = os.path.abspath(os.path.dirname(__file__))
-    app_cofig_file = os.path.abspath(current_dir + '/../../..' + '/application.yml')
+    app_config_file = os.path.abspath(current_dir + '/../../..' + '/application.yml')
     app_secrets_file = os.path.abspath(current_dir + '/../../..' + '/.secrets')
 
-    app_config = yaml.load(open(app_cofig_file), Loader=yaml.FullLoader)
+    app_config = yaml.load(open(app_config_file), Loader=yaml.FullLoader)
     app_secrets = yaml.load(open(app_secrets_file), Loader=yaml.FullLoader)
     # End - Read configuration and credentials
 
@@ -44,3 +44,11 @@ if __name__ =='__main__':
 
     print('\n************************ ')
     students_df.show(5, truncate=False)
+
+# Commands
+# ---------------------
+# spark-submit --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.1" dataframe/ingestion/read_from_nosql_database/dataframe_from_mongo_db.py
+#
+# Output
+# ----------------
+#
