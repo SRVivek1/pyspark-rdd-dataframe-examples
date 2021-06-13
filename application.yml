@@ -11,6 +11,10 @@ mysql_conf:
   partition_column: App_Transaction_Id
   query : "(select * from testdb.TRANSACTIONSYNC where Internal_Member_Id = 'I028362656R') as t"
 
+mongodb_config_aws:
+  database: school
+  collection: students
+
 mongodb_config:
   database: school
   collection: students

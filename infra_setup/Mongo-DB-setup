@@ -12,6 +12,8 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org
 
 sudo systemctl unmask mongod
+sudo systemctl status mongod
+sudo systemctl start mongod
 
 # Create a mongo doc
 ---------------------------------------
@@ -23,4 +25,7 @@ db.students.insert({ "studentno":"2","firstname":"tarun","lastname":"sing","scho
 db.students.insert([{ "studentno":"3","firstname":"arun","lastname":"pal","school":"Modern"},
 { "studentno":"4","firstname":"sachin","lastname":"tiwari","school":"dps"},
 { "studentno":"5","firstname":"rahul","lastname":"negi","school":"nps"}])
+
+# List docs
+---------------------------------------
 db.students.find()
