@@ -43,4 +43,4 @@ if __name__ =='__main__':
     students_df.printSchema()
 
     print('\n************************ ')
-    students_df.show(5, truncate=False)b
+    students_df.show(5, truncate=False)
