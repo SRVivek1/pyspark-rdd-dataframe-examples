@@ -9,13 +9,6 @@ import os.path
 if __name__ =='__main__':
     print('\n************************ Read data from MongoDB ************************\n')
 
-    sparkSession = SparkSession\
-        .builder\
-        .appName('Ingest data from MongoDB')\
-        .getOrCreate()
-
-    sparkSession.sparkContext.setLogLevel('ERROR')
-
     # Start - Read configuration and credentials
     current_dir = os.path.abspath(os.path.dirname(__file__))
     app_config_file = os.path.abspath(current_dir + '/../../..' + '/application.yml')
@@ -25,9 +18,17 @@ if __name__ =='__main__':
     app_secrets = yaml.load(open(app_secrets_file), Loader=yaml.FullLoader)
     # End - Read configuration and credentials
 
+    sparkSession = SparkSession \
+        .builder \
+        .appName('Ingest data from MongoDB') \
+        .config("spark.mongodb.input.uri", app_secrets['mongodb_config_aws']['uri']) \
+        .getOrCreate()
+
+    sparkSession.sparkContext.setLogLevel('ERROR')
+
     # MongoDB connection properties
+    # 'uri': app_secrets['mongodb_config_aws']['uri'],
     mongodb_connection_params = {
-        'uri': app_secrets['mongodb_config_aws']['uri'],
         'database': app_config['mongodb_config_aws']['database'],
         'collection': app_config['mongodb_config_aws']['collection']
     }
