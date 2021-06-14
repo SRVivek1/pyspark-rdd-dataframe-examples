@@ -79,7 +79,7 @@ if __name__ == '__main__':
 
     # Show sample records
     print('\n*********************** Data writing to RedShift')
-    txn_df.show(5, False)
+    txn_df_updated.show(5, False)
 
     # Write data to AWS RedShift
     txn_df_updated\
