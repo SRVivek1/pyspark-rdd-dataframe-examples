@@ -23,6 +23,7 @@ redshift_conf:
   filetype: csv
   delimiter: |
   dbtable: PUBLIC.TXN_FCT
+  dbtableupdated: PUBLIC.TXN_FCT_UPDATED
   query: SELECT txn_id, create_time, amount, cust_id from PUBLIC.TXN_FCT
 
 spark_sql_demo:
