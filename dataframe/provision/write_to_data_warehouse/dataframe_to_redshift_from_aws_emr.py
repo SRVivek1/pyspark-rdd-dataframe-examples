@@ -4,8 +4,7 @@ This program demonstrates how to provision data to AWS Redshift data warehouse.
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
-from datetime import datetime
+from pyspark.sql.functions import col, current_date
 import os.path
 import yaml
 
@@ -76,7 +75,7 @@ if __name__ == '__main__':
     txn_df.show(5, False)
 
     # Update data
-    txn_df_updated = txn_df.withColumn(col('ingestion_date'), datetime.now().strftime('%H,%M,%S'))
+    txn_df_updated = txn_df.withColumn(col('ingestion_date'), current_date().cast('string'))
 
     # Show sample records
     print('\n*********************** Data writing to RedShift')
