@@ -65,7 +65,7 @@ if __name__ == '__main__':
         .option('url', redshift_jdbc_url)\
         .option('query', app_config['redshift_conf']['query'])\
         .option('forward_spark_s3_credentials', 'true')\
-        .option('tempdir', 's3a://' + app_secret['s3_conf']['s3_bucket'] + '/temp')\
+        .option('tempdir', 's3a://' + app_config['s3_conf']['s3_bucket'] + '/temp')\
         .load()
 
     # Show sample records
@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
 # Commands
 # ----------------------
-# spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "org.apache.hadoop:hadoop-aws:2.8.4,com.amazonaws:aws-java-sdk:1.11.95,com.amazonaws:aws-java-sdk-core:1.11.95,com.amazonaws:aws-java-sdk-s3:1.11.95,com.amazonaws:aws-java-sdk-kms:1.11.95,io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,org.apache.spark:spark-avro_2.11:2.4.2,org.apache.hadoop:hadoop-aws:2.7.4" dataframe/ingestion/others/systems/redshift_df.py
+# spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "org.apache.hadoop:hadoop-aws:2.8.4,com.amazonaws:aws-java-sdk:1.11.95,com.amazonaws:aws-java-sdk-core:1.11.95,com.amazonaws:aws-java-sdk-s3:1.11.95,com.amazonaws:aws-java-sdk-kms:1.11.95,io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,org.apache.spark:spark-avro_2.11:2.4.2,org.apache.hadoop:hadoop-aws:2.7.4" dataframe/ingestion/read_from_data_warehouse/dataframe_from_redshift.py
 # spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,org.apache.spark:spark-avro_2.11:2.4.2,org.apache.hadoop:hadoop-aws:2.7.4" dataframe/ingestion/read_from_data_warehouse/dataframe_from_redshift.py
 #
 # Output
