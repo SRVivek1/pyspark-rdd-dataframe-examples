@@ -87,7 +87,7 @@ if __name__ == '__main__':
         .format('io.github.spark_redshift_community.spark.redshift')\
         .option('url', redshift_jdbc_url)\
         .option('forward_spark_s3_credentials', 'true')\
-        .option('dbtable', app_config['newdbtable'])\
+        .option('dbtable', 'PUBLIC.TXN_FCT_UPDATED')\
         .mode('overwrite')\
         .save()
 
