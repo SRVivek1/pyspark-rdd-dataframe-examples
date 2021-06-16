@@ -8,18 +8,18 @@ import os.path
 import yaml
 
 if __name__ == "__main__":
-    print("\n*****************************Data curation using DSL *****************************\n")
-
     sparkSession = SparkSession\
         .builder\
         .appName('Data curation using DSL')\
         .getOrCreate()
     sparkSession.sparkContext.setLogLevel('ERROR')
 
+    print("\n***************************** Data curation using DSL *****************************\n")
+
     # Load App Configs
     current_dir = os.path.abspath(os.path.dirname(__file__))
-    app_config_file = os.path.abspath(current_dir + '../../../..' + 'application.yml')
-    app_secret_file = os.path.abspath(current_dir + '../../../..' + '.secrets')
+    app_config_file = os.path.abspath(current_dir + '../../../..' + '/application.yml')
+    app_secret_file = os.path.abspath(current_dir + '../../../..' + '/.secrets')
 
     app_config = yaml.load(open(app_config_file), Loader=yaml.FullLoader)
     app_secret = yaml.load(open(app_secret_file), Loader=yaml.FullLoader)
@@ -39,3 +39,7 @@ if __name__ == "__main__":
     finances_df.printSchema()
     print('\n******************* Sample records : \n')
     finances_df.show(5, truncate=False)
+
+# Command
+#--------------------
+# org.apache.hadoop:hadoop-aws:2.8.4,com.amazonaws:aws-java-sdk:1.11.95,com.amazonaws:aws-java-sdk-core:1.11.95,com.amazonaws:aws-java-sdk-s3:1.11.95,com.amazonaws:aws-java-sdk-kms:1.11.95
