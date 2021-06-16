@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     # File path of AWS S3
     file_path = app_const.file_read_path + app_const.finances_small_parquet
-    print('\n************************ S3 URL : ' + file_path)
+    print('\n************************ Data URL : ' + file_path)
 
     # Read data in Data frame
     finances_df = sparkSession.read.parquet(file_path)
@@ -29,8 +29,13 @@ if __name__ == "__main__":
     finances_df.show(5, truncate=False)
 
     # Sort the data using 'Amount' column
-    print('\n******************* Sample records : finances_df.orderBy(col(\'Amount\')).show(5, truncate=False)\n')
+    print('\n******************* Ascending order sorting : '
+          'finances_df.orderBy(col(\'Amount\')).show(5, truncate=False)\n')
     finances_df.orderBy(col('Amount')).show(5, truncate=False)
+
+    print('\n******************* Descending order sorting : '
+          'finances_df.orderBy(col(\'Amount\k'), ascending=False).show(5, truncate=False)\n')
+    finances_df.orderBy(col('Amount'), ascending=False).show(5, truncate=False)
 
 # Command
 # --------------------
