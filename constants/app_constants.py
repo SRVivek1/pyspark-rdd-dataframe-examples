@@ -17,3 +17,5 @@ txn_fct_csv_file = file_read_path + '/txn_fct.csv'
 company_json = file_read_path + '/company.json'
 
 NYC_OMO_PARQUET = file_read_path + '/NYC_OMO'
+
+finances_small_parquet = '/finances-small'

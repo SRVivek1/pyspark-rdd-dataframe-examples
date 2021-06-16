@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
 # Command
 # --------------------
-# org.apache.hadoop:hadoop-aws:2.8.4,com.amazonaws:aws-java-sdk:1.11.95,com.amazonaws:aws-java-sdk-core:1.11.95,com.amazonaws:aws-java-sdk-s3:1.11.95,com.amazonaws:aws-java-sdk-kms:1.11.95
+# spark-submit --packages "org.apache.hadoop:hadoop-aws:2.8.4,com.amazonaws:aws-java-sdk:1.11.95,com.amazonaws:aws-java-sdk-core:1.11.95,com.amazonaws:aws-java-sdk-s3:1.11.95,com.amazonaws:aws-java-sdk-kms:1.11.95" dataframe/curation/dsl/finance_data_analysis_dsl_aws_s3.py
 #
 # Output
 # --------------------
