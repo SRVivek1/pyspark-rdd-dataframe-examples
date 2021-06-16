@@ -30,7 +30,8 @@ if __name__ == "__main__":
     hadoop_conf.set('fs.s3a.secret.key', app_secret['s3_conf']['secret_access_key'])
 
     # File path of AWS S3
-    file_path = 's3a://' + app_config['s3_conf']['s3_bucket'] + './finances-small'
+    file_path = 's3a://' + app_config["s3_conf"]["s3_bucket"] + '/finances-small'
+    print('\n************************ S3 URL : ' + file_path)
 
     # Read data in Data frame
     finances_df = sparkSession.read.parquet(file_path)
