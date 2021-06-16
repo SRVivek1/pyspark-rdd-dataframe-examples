@@ -49,3 +49,43 @@ if __name__ == "__main__":
 # Command
 # --------------------
 # org.apache.hadoop:hadoop-aws:2.8.4,com.amazonaws:aws-java-sdk:1.11.95,com.amazonaws:aws-java-sdk-core:1.11.95,com.amazonaws:aws-java-sdk-s3:1.11.95,com.amazonaws:aws-java-sdk-kms:1.11.95
+#
+# Output
+# --------------------
+# ***************************** Data curation using DSL *****************************
+#
+#
+# ************************ S3 URL : s3a://dataeng-test-1/finances-small
+# root
+#  |-- AccountNumber: string (nullable = true)
+#  |-- Amount: double (nullable = true)
+#  |-- Date: string (nullable = true)
+#  |-- Description: string (nullable = true)
+#
+#
+# ******************* Sample records : finances_df.show(5, truncate=False)
+#
+# +-------------+------+---------+-------------+
+# |AccountNumber|Amount|Date     |Description  |
+# +-------------+------+---------+-------------+
+# |123-ABC-789  |1.23  |1/1/2015 |Drug Store   |
+# |456-DEF-456  |200.0 |1/3/2015 |Electronics  |
+# |333-XYZ-999  |106.0 |1/4/2015 |Gas          |
+# |123-ABC-789  |2.36  |1/9/2015 |Grocery Store|
+# |456-DEF-456  |23.16 |1/11/2015|Unknown      |
+# +-------------+------+---------+-------------+
+# only showing top 5 rows
+#
+#
+# ******************* Sample records : finances_df.orderBy(col('Amount')).show(5, truncate=False)
+#
+# +-------------+------+---------+-------------+
+# |AccountNumber|Amount|Date     |Description  |
+# +-------------+------+---------+-------------+
+# |123-ABC-789  |0.0   |2/14/2015|Unknown      |
+# |123-ABC-789  |1.23  |1/1/2015 |Drug Store   |
+# |987-CBA-321  |2.29  |1/31/2015|Drug Store   |
+# |123-ABC-789  |2.36  |1/9/2015 |Grocery Store|
+# |456-DEF-456  |6.78  |2/23/2015|Drug Store   |
+# +-------------+------+---------+-------------+
+# only showing top 5 rows
