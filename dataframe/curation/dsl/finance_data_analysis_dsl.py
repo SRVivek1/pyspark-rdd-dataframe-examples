@@ -4,6 +4,7 @@ This program demonstrates different transformation examples on DataFrame instanc
 
 
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
 import os.path
 import yaml
 
@@ -38,8 +39,12 @@ if __name__ == "__main__":
 
     # Print schema and sample records
     finances_df.printSchema()
-    print('\n******************* Sample records : \n')
+    print('\n******************* Sample records : finances_df.show(5, truncate=False)\n')
     finances_df.show(5, truncate=False)
+
+    # Sort the data using 'Amount' column
+    print('\n******************* Sample records : finances_df.orderBy(col(\'Amount\')).show(5, truncate=False)\n')
+    finances_df.orderBy(col('Amount')).show(5, truncate=False)
 
 # Command
 #--------------------
