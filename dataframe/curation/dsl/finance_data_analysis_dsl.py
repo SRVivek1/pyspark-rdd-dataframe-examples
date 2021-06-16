@@ -34,7 +34,7 @@ if __name__ == "__main__":
     finances_df.orderBy(col('Amount')).show(5, truncate=False)
 
     print('\n******************* Descending order sorting : '
-          'finances_df.orderBy(col(\'Amount\k'), ascending=False).show(5, truncate=False)\n')
+          'finances_df.orderBy(col(\'Amount\'), ascending=False).show(5, truncate=False)\n')
     finances_df.orderBy(col('Amount'), ascending=False).show(5, truncate=False)
 
 # Command
