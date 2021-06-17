@@ -39,8 +39,8 @@ if __name__ == "__main__":
 
     # Create new Column by adding two are more columns together
     print('\n******************* finances_df.select(concat_ws(\' ~ \', \'AccountNumber\', \'Description\'))')
-    finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description'))\
-        .alias('AccountNumber ~ Description')\
+    finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description')
+                       .alias('AccountNumber ~ Description'))\
         .show(truncate=False)
 
 
