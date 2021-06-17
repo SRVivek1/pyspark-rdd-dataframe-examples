@@ -38,7 +38,7 @@ if __name__ == "__main__":
     finances_df.orderBy(col('Amount'), ascending=False).show(5, truncate=False)
 
     # Create new Column by adding two are more columns together
-    print('\n******************* finances_df.select(concat_ws(\' ~ \', \'AccountNumber\', \'Description\'))')
+    print('\n******************* finances_df.select(concat_ws(\' ~ \', \'AccountNumber\', \'Description\').alias(...))')
     finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description')
                        .alias('AccountNumber ~ Description'))\
         .show(truncate=False)
