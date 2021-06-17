@@ -41,7 +41,7 @@ if __name__ == "__main__":
     print('\n******************* finances_df.select(concat_ws(\' ~ \', \'AccountNumber\', \'Description\'))')
     finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description'))\
         .alias('AccountNumber ~ Description')\
-        .show()
+        .show(truncate=False)
 
 
 # Command
