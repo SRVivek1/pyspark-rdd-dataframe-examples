@@ -76,4 +76,113 @@ if __name__ == "__main__":
 #
 # Output
 # ---------------------
+# ***************************** Data curation using DSL *****************************
 #
+#
+# ************************ Data URL : /home/viveksingh/project-data/sidharth/data/finances-small
+# root
+#  |-- AccountNumber: string (nullable = true)
+#  |-- Amount: double (nullable = true)
+#  |-- Date: string (nullable = true)
+#  |-- Description: string (nullable = true)
+#
+#
+# ******************* Sample records : finances_df.show(5, truncate=False)
+#
+# +-------------+------+---------+-------------+
+# |AccountNumber|Amount|Date     |Description  |
+# +-------------+------+---------+-------------+
+# |123-ABC-789  |1.23  |1/1/2015 |Drug Store   |
+# |456-DEF-456  |200.0 |1/3/2015 |Electronics  |
+# |333-XYZ-999  |106.0 |1/4/2015 |Gas          |
+# |123-ABC-789  |2.36  |1/9/2015 |Grocery Store|
+# |456-DEF-456  |23.16 |1/11/2015|Unknown      |
+# +-------------+------+---------+-------------+
+# only showing top 5 rows
+#
+#
+# ******************* Ascending order sorting : finances_df.orderBy(col('Amount')).show(5, truncate=False)
+#
+# +-------------+------+---------+-------------+
+# |AccountNumber|Amount|Date     |Description  |
+# +-------------+------+---------+-------------+
+# |123-ABC-789  |0.0   |2/14/2015|Unknown      |
+# |123-ABC-789  |1.23  |1/1/2015 |Drug Store   |
+# |987-CBA-321  |2.29  |1/31/2015|Drug Store   |
+# |123-ABC-789  |2.36  |1/9/2015 |Grocery Store|
+# |456-DEF-456  |6.78  |2/23/2015|Drug Store   |
+# +-------------+------+---------+-------------+
+# only showing top 5 rows
+#
+#
+# ******************* Descending order sorting : finances_df.orderBy(col('Amount'), ascending=False).show(5, truncate=False)
+#
+# +-------------+------+---------+-------------+
+# |AccountNumber|Amount|Date     |Description  |
+# +-------------+------+---------+-------------+
+# |123-ABC-789  |4000.0|3/2/2015 |Electronics  |
+# |456-DEF-456  |281.0 |3/9/2015 |Electronics  |
+# |987-CBA-321  |267.93|3/11/2015|Grocery Store|
+# |123-ABC-789  |254.87|3/4/2015 |Grocery Store|
+# |333-XYZ-999  |241.8 |3/4/2015 |Electronics  |
+# +-------------+------+---------+-------------+
+# only showing top 5 rows
+#
+#
+# ******************* finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description').alias(...))
+# +------------------------------------------------+
+# |AccountNumber ~ Description                     |
+# +------------------------------------------------+
+# |123-ABC-789 ~ Drug Store                        |
+# |456-DEF-456 ~ Electronics                       |
+# |333-XYZ-999 ~ Gas                               |
+# |123-ABC-789 ~ Grocery Store                     |
+# |456-DEF-456 ~ Unknown                           |
+# |123-ABC-789 ~ Park                              |
+# |456-DEF-456 ~ Electronics                       |
+# |333-XYZ-999 ~ Gas                               |
+# |333-XYZ-999 ~ Some Totally Fake Long Description|
+# |333-XYZ-999 ~ Gas                               |
+# |987-CBA-321 ~ Grocery Store                     |
+# |123-ABC-789 ~ Electronics                       |
+# |456-DEF-456 ~ Grocery Store                     |
+# |333-XYZ-999 ~ Movies                            |
+# |456-DEF-456 ~ Grocery Store                     |
+# |987-CBA-321 ~ Drug Store                        |
+# |456-DEF-456 ~ Park                              |
+# |456-DEF-456 ~ Books                             |
+# |123-ABC-789 ~ Grocery Store                     |
+# |333-XYZ-999 ~ Electronics                       |
+# +------------------------------------------------+
+# only showing top 20 rows
+#
+# +-------------+------+---------+-------------+---------------------------+
+# |AccountNumber|Amount|Date     |Description  |AccountDetails             |
+# +-------------+------+---------+-------------+---------------------------+
+# |123-ABC-789  |1.23  |1/1/2015 |Drug Store   |123-ABC-789 ~ Drug Store   |
+# |456-DEF-456  |200.0 |1/3/2015 |Electronics  |456-DEF-456 ~ Electronics  |
+# |333-XYZ-999  |106.0 |1/4/2015 |Gas          |333-XYZ-999 ~ Gas          |
+# |123-ABC-789  |2.36  |1/9/2015 |Grocery Store|123-ABC-789 ~ Grocery Store|
+# |456-DEF-456  |23.16 |1/11/2015|Unknown      |456-DEF-456 ~ Unknown      |
+# +-------------+------+---------+-------------+---------------------------+
+# only showing top 5 rows
+#
+#
+# ******************* Create new DataFrame by applying Transformations (Aggregate functions)
+# +-------------+------------------------+----------------------+--------------------+-------------------+-------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+# |AccountNumber|AverageTransactionAmount|TotalTransactionAmount|NumberOfTransactions|MaxTransactionValue|MinTransactionValue|UniqueTransactionsDescriptions                                                      |AllTransactionsDescriptions                                                                                                                                                   |
+# +-------------+------------------------+----------------------+--------------------+-------------------+-------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+# |456-DEF-456  |104.75142857142855      |1466.5199999999998    |14                  |281.0              |6.78               |[Electronics, Grocery Store, Books, Unknown, Park, Drug Store, Gas]                 |[Electronics, Unknown, Electronics, Grocery Store, Grocery Store, Park, Books, Drug Store, Electronics, Gas, Drug Store, Books, Electronics, Gas]                             |
+# |333-XYZ-999  |104.09833333333334      |1249.18               |12                  |241.8              |41.67              |[Electronics, Grocery Store, Books, Some Totally Fake Long Description, Gas, Movies]|[Gas, Gas, Some Totally Fake Long Description, Gas, Movies, Electronics, Gas, Grocery Store, Gas, Books, Grocery Store, Electronics]                                          |
+# |987-CBA-321  |96.87888888888887       |871.9099999999999     |9                   |267.93             |2.29               |[Electronics, Grocery Store, Books, Park, Drug Store, Gas, Movies]                  |[Grocery Store, Drug Store, Electronics, Park, Grocery Store, Gas, Movies, Books, Grocery Store]                                                                              |
+# |123-ABC-789  |362.9785714285714       |5081.7                |14                  |4000.0             |0.0                |[Electronics, Grocery Store, Unknown, Park, Drug Store, Movies]                     |[Drug Store, Grocery Store, Park, Electronics, Grocery Store, Grocery Store, Grocery Store, Unknown, Movies, Grocery Store, Grocery Store, Movies, Electronics, Grocery Store]|
+# +-------------+------------------------+----------------------+--------------------+-------------------+-------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+#
+# +-------------+------------------------------------------------------------------------------------+------------------------------+------------------------------------------------------------------------------------+------------+
+# |AccountNumber|UniqueTransactionsDescriptions                                                      |CountOfUniqueTransactionsTypes|OrderedUniqueTransactionDescriptions                                                |WentToMovies|
+# +-------------+------------------------------------------------------------------------------------+------------------------------+------------------------------------------------------------------------------------+------------+
+# |456-DEF-456  |[Electronics, Grocery Store, Books, Unknown, Park, Drug Store, Gas]                 |7                             |[Unknown, Park, Grocery Store, Gas, Electronics, Drug Store, Books]                 |false       |
+# |333-XYZ-999  |[Electronics, Grocery Store, Books, Some Totally Fake Long Description, Gas, Movies]|6                             |[Some Totally Fake Long Description, Movies, Grocery Store, Gas, Electronics, Books]|true        |
+# |987-CBA-321  |[Electronics, Grocery Store, Books, Park, Drug Store, Gas, Movies]                  |7                             |[Park, Movies, Grocery Store, Gas, Electronics, Drug Store, Books]                  |true        |
+# |123-ABC-789  |[Electronics, Grocery Store, Unknown, Park, Drug Store, Movies]                     |6                             |[Unknown, Park, Movies, Grocery Store, Electronics, Drug Store]                     |true        |
+# +-------------+------------------------------------------------------------------------------------+------------------------------+------------------------------------------------------------------------------------+------------+
