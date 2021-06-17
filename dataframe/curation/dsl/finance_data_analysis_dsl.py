@@ -49,6 +49,7 @@ if __name__ == "__main__":
         .show(5, truncate=False)
 
     # Group records
+    print('\n******************* Apply Aggregate functions')
     finances_df\
         .groupBy('AccountNumber')\
         .agg(avg('Amount').alias('AverageTransactionAmount'))\
