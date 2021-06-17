@@ -48,6 +48,12 @@ if __name__ == "__main__":
         .withColumn('AccountDetails', concat_ws(' ~ ', 'AccountNumber', 'Description'))\
         .show(5, truncate=False)
 
+    # Group records
+    finances_df\
+        .groupBy('AccountNumber')\
+        .agg(avg('Amount').alias('AverageTransactionAmount'))\
+        .show(5, False)
+
 # Command
 # --------------------
 # spark-submit dataframe/curation/dsl/finance_data_analysis_dsl.py
