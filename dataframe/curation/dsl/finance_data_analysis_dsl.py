@@ -49,17 +49,24 @@ if __name__ == "__main__":
         .show(5, truncate=False)
 
     # Group records
-    print('\n******************* Apply Aggregate functions')
-    finances_df\
+    print('\n******************* Create new DataFrame by applying Transformations (Aggregate functions)')
+    agg_finance_df = finances_df\
         .groupBy('AccountNumber')\
         .agg(avg('Amount').alias('AverageTransactionAmount'),
              sum('Amount').alias('TotalTransactionAmount'),
              count('Amount').alias('NumberOfTransactions'),
              max('Amount').alias('MaxTransactionValue'),
              min('Amount').alias('MinTransactionValue'),
-             collect_set('Description').alias('UniqueTransactions'),
-             collect_list('Description').alias('AllTransactions'))\
+             collect_set('Description').alias('UniqueTransactionsDescriptions'),
+             collect_list('Description').alias('AllTransactionsDescriptions'))
+
+    agg_finance_df.show(5, False)
+
+    agg_finance_df\
+        .select('AccountNumber', 'UniqueTransactionsDescriptions',
+                size('UniqueTransactionsDescriptions').alias('CountOfUniqueTransactionsTypes'))\
         .show(5, False)
+
 
 # Command
 # --------------------
