@@ -22,8 +22,8 @@ if __name__ == '__main__':
     df = sparkSession.createDataFrame([([1, 2, 3],), ([1],), ([],)], ['data'])
 
     print('\n***************** DataFrame data :')
-    df.collect()
+    df.show(5, False)
 
     # Find size of elements in each record
-    print('\n***************** df.select(size(df.data)).collect()')
-    df.select(size(df.data)).collect()
+    print('\n***************** df.select(size(df.data)).show(5, False)')
+    df.select(size(df.data)).show(5, False)
