@@ -37,6 +37,16 @@ if __name__ == "__main__":
           'finances_df.orderBy(col(\'Amount\'), ascending=False).show(5, truncate=False)\n')
     finances_df.orderBy(col('Amount'), ascending=False).show(5, truncate=False)
 
+    # pyspark.sql.functions.concat_
+    print('\n******************* finances_df.select(concat_ws(\' ~ \', \'AccountNumber\', \'Description\'))')
+    finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description'))\
+        .show()
+
+
 # Command
 # --------------------
-# spark-submit
+# spark-submit dataframe/curation/dsl/finance_data_analysis_dsl.py
+#
+# Output
+# ---------------------
+#
