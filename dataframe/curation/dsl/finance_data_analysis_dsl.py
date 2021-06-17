@@ -37,7 +37,7 @@ if __name__ == "__main__":
           'finances_df.orderBy(col(\'Amount\'), ascending=False).show(5, truncate=False)\n')
     finances_df.orderBy(col('Amount'), ascending=False).show(5, truncate=False)
 
-    # pyspark.sql.functions.concat_
+    # Create new Column by adding two are more columns together
     print('\n******************* finances_df.select(concat_ws(\' ~ \', \'AccountNumber\', \'Description\'))')
     finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description'))\
         .alias('AccountNumber ~ Description')\
