@@ -40,6 +40,7 @@ if __name__ == "__main__":
     # pyspark.sql.functions.concat_
     print('\n******************* finances_df.select(concat_ws(\' ~ \', \'AccountNumber\', \'Description\'))')
     finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description'))\
+        .alias('AccountNumber ~ Description')\
         .show()
 
 
