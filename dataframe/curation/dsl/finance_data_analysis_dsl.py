@@ -65,8 +65,8 @@ if __name__ == "__main__":
     agg_finance_df\
         .select('AccountNumber', 'UniqueTransactionsDescriptions',
                 size('UniqueTransactionsDescriptions').alias('CountOfUniqueTransactionsTypes'),
-                sort_array('UniqueTransactionDescriptions', False).alias('OrderedUniqueTransactionDescriptions'),
-                array_contains('UniqueTransactionDescriptions', 'Movies').alias('WentToMovies'))\
+                sort_array('UniqueTransactionsDescriptions', False).alias('OrderedUniqueTransactionDescriptions'),
+                array_contains('UniqueTransactionsDescriptions', 'Movies').alias('WentToMovies'))\
         .show(5, False)
 
 
