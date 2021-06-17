@@ -52,7 +52,13 @@ if __name__ == "__main__":
     print('\n******************* Apply Aggregate functions')
     finances_df\
         .groupBy('AccountNumber')\
-        .agg(avg('Amount').alias('AverageTransactionAmount'))\
+        .agg(avg('Amount').alias('AverageTransactionAmount'),
+             sum('Amount').alias('TotalTransactionAmount'),
+             count('Amount').alias('NumberOfTransactions'),
+             max('Amount').alias('MaxTransactionValue'),
+             min('Amount').alias('MinTransactionValue'),
+             collect_set('Description').alias('UniqueTransactions'),
+             collect_list('Description').alias('AllTransactions'))\
         .show(5, False)
 
 # Command
