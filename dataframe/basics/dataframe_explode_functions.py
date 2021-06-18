@@ -6,8 +6,13 @@ from pyspark.sql import (
     SparkSession,
     Row
 )
-from pyspark.sql.functions import explode, posexplode, explode_outer, posexplode_outer
-
+from pyspark.sql.functions import (
+    explode,
+    posexplode,
+    explode_outer,
+    posexplode_outer,
+    size
+)
 
 if __name__ == '__main__':
     """
@@ -36,8 +41,8 @@ if __name__ == '__main__':
     print('\n**************** : test_df.show(truncate=False)')
     test_df.show(truncate=False)
 
-    print('\n**************** : {}'.format(test_df.select('inlist').count()))
-    #test_df.select('inlist').count()
+    print('\n**************** test_df.select(\'inlist\').count() : {}'.format(test_df.select('inlist').count()))
+    print('\n**************** size(test_df.select(\'inlist\')) : {}'.format(size(test_df.select('inlist'))))
 
     # Explode data - using explode(...) function
     print('\n**************** explode(...) List : test_df.select(explode(test_df.inlist)).show(truncate=False)')
