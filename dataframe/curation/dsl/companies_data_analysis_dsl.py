@@ -4,7 +4,7 @@ This program demonstrates different transformation operations/actions on DataFra
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode
+from pyspark.sql.functions import explode, posexplode
 import constants.app_constants as app_const
 
 if __name__ == '__main__':
@@ -38,6 +38,11 @@ if __name__ == '__main__':
 
     print('\n**************** company_df.select(explode(\'employees\')).show(5, False)')
     company_df.select(explode('employees')).show(5, False)
+
+    # Explode data with their position in their container array/map instance
+    print('\n**************** company_df.select(\'company\', '
+          'posexplode(\'employees\').alias(\'employee\')).show(5, False)')
+    company_df.select('company', posexplode('employees').alias('employee')).show(5, False)
 
     # Split Employees object as one object per row
     print('\n**************** Normalize records in dataframe : ')
