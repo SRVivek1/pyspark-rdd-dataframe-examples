@@ -4,6 +4,7 @@ This program demonstrates different transformation operations/actions on DataFra
 
 
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import explode
 import constants.app_constants as app_const
 
 if __name__ == '__main__':
@@ -33,5 +34,8 @@ if __name__ == '__main__':
 
     # Split Employees object as one object per row
     company_df_temp = company_df.select('company')
+    company_df_temp.show(5, False)
+
+    company_df_temp = company_df.select(explode('employees'))
     company_df_temp.show(5, False)
 
