@@ -39,7 +39,7 @@ if __name__ == '__main__':
     # Define schema for dataframe
     schema = StructType([
         StructField('col', IntegerType(), False),
-        StructField('inList', ArrayType(IntegerType(), containsNull=True), False),
+        StructField('inlist', ArrayType(IntegerType(), containsNull=True), False),
         StructField('mapField', MapType(StringType(), StringType(), valueContainsNull=True), False)
     ])
 
