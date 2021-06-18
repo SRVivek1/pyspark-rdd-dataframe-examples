@@ -32,10 +32,15 @@ if __name__ == '__main__':
     print('\n**************** company_df.show(5, False)')
     company_df.show(5, False)
 
-    # Split Employees object as one object per row
-    company_df_temp = company_df.select('company')
-    company_df_temp.show(5, False)
+    # Show different records
+    print('\n**************** company_df.select(\'company\').show(5, False)')
+    company_df.select('company').show(5, False)
 
-    company_df_temp = company_df.select(explode('employees'))
+    print('\n**************** company_df.select(explode(\'employees\')).show(5, False)')
+    company_df.select(explode('employees')).show(5, False)
+
+    # Split Employees object as one object per row
+    print('\n**************** Normalize records in dataframe : ')
+    company_df_temp = company_df.select('company', explode('employees').alias('employee'))
     company_df_temp.show(5, False)
 
