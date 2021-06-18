@@ -6,6 +6,14 @@ from pyspark.sql import (
     SparkSession,
     Row
 )
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    IntegerType,
+    ArrayType,
+    MapType,
+    StringType
+)
 from pyspark.sql.functions import (
     explode,
     posexplode,
@@ -28,11 +36,19 @@ if __name__ == '__main__':
 
     print('\n*************************** DataFrame select function ***************************\n')
 
+    # Define schema for dataframe
+    schema = StructType([
+        StructField('col', IntegerType(), False),
+        StructField('listItems', ArrayType(IntegerType, True), False),
+        StructField('mapElements', MapType(StringType(), True), False)
+    ])
+
     # Create dataframe
-    test_df = sparkSession\
-        .createDataFrame([Row(a=1,
-                              inlist=[None, 1, 2, 3, None],
-                              mapField={'a': 'apple', 'b': 'ball', 'c': None})])
+    data = [Row(a=1,
+                inlist=[None, 1, 2, 3, None],
+                mapField={'a': 'apple', 'b': 'ball', 'c': None})]
+
+    test_df = sparkSession.createDataFrame(data, schema)
 
     # Print dataframe schema and sample data
     print('\n**************** : test_df.printSchema()')
