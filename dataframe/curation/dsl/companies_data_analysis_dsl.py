@@ -30,3 +30,8 @@ if __name__ == '__main__':
 
     print('\n**************** company_df.show(5, False)')
     company_df.show(5, False)
+
+    # Split Employees object as one object per row
+    company_df_temp = company_df.select('company')
+    company_df_temp.show(5, False)
+
