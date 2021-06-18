@@ -12,8 +12,7 @@ from pyspark.sql.types import (
     IntegerType,
     ArrayType,
     MapType,
-    StringType,
-    DataType
+    StringType
 )
 from pyspark.sql.functions import (
     explode,
@@ -40,8 +39,8 @@ if __name__ == '__main__':
     # Define schema for dataframe
     schema = StructType([
         StructField('col', IntegerType(), False),
-        StructField('listItems', ArrayType(IntegerType(), containsNull=True), False),
-        StructField('mapElements', MapType(StringType(), StringType(), valueContainsNull=True), False)
+        StructField('inList', ArrayType(IntegerType(), containsNull=True), False),
+        StructField('mapField', MapType(StringType(), StringType(), valueContainsNull=True), False)
     ])
 
     # Create dataframe
