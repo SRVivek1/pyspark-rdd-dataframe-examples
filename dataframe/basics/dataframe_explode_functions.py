@@ -24,7 +24,10 @@ if __name__ == '__main__':
     print('\n*************************** DataFrame select function ***************************\n')
 
     # Create dataframe
-    test_df = sparkSession.createDataFrame([Row(a=1, inlist=[1, 2, 3], mapField={'a': 'apple', 'b': 'ball'})])
+    test_df = sparkSession\
+        .createDataFrame([Row(a=1,
+                              inlist=[None, 1, 2, 3, None, ],
+                              mapField={None: None, 'a': 'apple', 'b': 'ball', 'c': None, })])
 
     # Print dataframe schema and sample data
     print('\n**************** : test_df.printSchema()')
