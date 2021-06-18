@@ -21,6 +21,8 @@ if __name__ == '__main__':
         .getOrCreate()
     sparkSession.sparkContext.setLogLevel('ERROR')
 
+    print('\n*************************** DataFrame select function ***************************\n')
+
     # Create dataframe
     test_df = sparkSession.createDataFrame([Row(a=1, inlist=[1, 2, 3], mapField={'a': 'apple', 'b': 'ball'})])
 
@@ -28,10 +30,10 @@ if __name__ == '__main__':
     print('\n**************** : test_df.printSchema()')
     test_df.printSchema()
 
-    print('\n**************** : test_df.show(False)')
-    test_df.show(False)
+    print('\n**************** : test_df.show(truncate=False)')
+    test_df.show(truncate=False)
 
     # Explode data - using explode(...) function
     print('\n**************** : test_df.select(explode(test_df.inlist)).show()')
-    test_df.select(explode(test_df.inlist)).show()
+    test_df.select(explode(test_df.inlist)).show(truncate=False)
 
