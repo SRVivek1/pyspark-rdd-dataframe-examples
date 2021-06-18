@@ -34,6 +34,14 @@ if __name__ == '__main__':
     test_df.show(truncate=False)
 
     # Explode data - using explode(...) function
-    print('\n**************** : test_df.select(explode(test_df.inlist)).show()')
-    test_df.select(explode(test_df.inlist)).show(truncate=False)
+    print('\n**************** explode(...) List : test_df.select(explode(test_df.inlist)).show(truncate=False)')
+    test_df.select(explode(test_df.inlist).alias('exploded_col_inlist')).show(truncate=False)
 
+    print('\n**************** explode(...) Map : test_df.select(explode(test_df.mapField)).show(truncate=False)')
+    test_df.select(explode(test_df.mapField)).show(truncate=False)
+
+    print('\n**************** posexplode(...) List : test_df.select(posexplode(\'inlist\')).show(truncate=False)')
+    test_df.select(posexplode('inlist')).show(truncate=False)
+
+    print('\n**************** posexplode(...) Map : test_df.select(posexplode(\'mapField\')).show(truncate=False)')
+    test_df.select(posexplode('mapField')).show(truncate=False)
