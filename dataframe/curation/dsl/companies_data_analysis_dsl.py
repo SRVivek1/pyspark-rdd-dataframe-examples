@@ -4,7 +4,13 @@ This program demonstrates different transformation operations/actions on DataFra
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode, posexplode, expr
+from pyspark.sql.functions import (
+    explode,
+    posexplode,
+    expr,
+    when,
+    col
+)
 import constants.app_constants as app_const
 
 if __name__ == '__main__':
@@ -62,3 +68,10 @@ if __name__ == '__main__':
         .select('company', expr('employee.firstName as FirstName'), expr('employee.lastName as LastName')) \
         .show(truncate=False)
 
+    # Perform if-else condition checks
+    print('\n*************** Demonstrate functions -> when(...).otherwise(...)')
+    company_df_temp.select('*',
+                           when(col('company') == 'NewCo', 'Start-up')
+                           .when(col('company') == 'OldCo', 'Legacy')
+                           .otherwise('Standard').alias('Tier'))\
+        .show(truncate=False)
