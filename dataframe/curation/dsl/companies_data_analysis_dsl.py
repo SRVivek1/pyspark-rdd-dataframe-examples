@@ -204,3 +204,16 @@ if __name__ == '__main__':
 # |OldCo   |{Vivek, Garg}    |Legacy  |
 # |OldCo   |{Nitin, Gupta}   |Legacy  |
 # +--------+-----------------+--------+
+#
+#
+# *************** Company dataframe transformed using select(..., expr(...)) methods :
+# +--------+--------+----------+---------+
+# |company |Tier    |First_Name|Last_Name|
+# +--------+--------+----------+---------+
+# |NewCo   |Start-up|Sidhartha |Ray      |
+# |NewCo   |Start-up|Pratik    |Solanki  |
+# |FamilyCo|Standard|Jiten     |Gupta    |
+# |FamilyCo|Standard|Pallavi   |Gupta    |
+# |OldCo   |Legacy  |Vivek     |Garg     |
+# |OldCo   |Legacy  |Nitin     |Gupta    |
+# +--------+--------+----------+---------+
