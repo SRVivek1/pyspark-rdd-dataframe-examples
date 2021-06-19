@@ -79,8 +79,8 @@ if __name__ == '__main__':
     test_df.select(explode_outer('mapField')).show(truncate=False)
 
     # Explode data - show null & empty fields with position
-    print('\n**************** explode_outer(...) List : test_df.select(explode_outer(\'inList\')).show(truncate=False)')
-    test_df.select(explode_outer('inList')).show(truncate=False)
+    print('\n**************** posexplode_outer(...) List : test_df.select(explode_outer(\'inList\')).show(truncate=False)')
+    test_df.select(posexplode_outer('inList')).show(truncate=False)
 
-    print('\n**************** explode_outer(...) Map : test_df.select(explode_outer(\'mapField\')).show(truncate=False)')
-    test_df.select(explode_outer('mapField')).show(truncate=False)
+    print('\n**************** posexplode_outer(...) Map : test_df.select(explode_outer(\'mapField\')).show(truncate=False)')
+    test_df.select(posexplode_outer('mapField')).show(truncate=False)
