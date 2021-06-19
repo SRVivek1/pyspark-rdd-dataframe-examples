@@ -18,8 +18,7 @@ from pyspark.sql.functions import (
     explode,
     posexplode,
     explode_outer,
-    posexplode_outer,
-    size
+    posexplode_outer
 )
 
 if __name__ == '__main__':
