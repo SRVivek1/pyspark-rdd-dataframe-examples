@@ -42,7 +42,7 @@ if __name__ == '__main__':
     # Explode data with their position in their container array/map instance
     print('\n**************** company_df.select(\'company\', '
           'posexplode(\'employees\')).show(5, False)')
-    company_df.select('company', posexplode('employees')).show(5, False)
+    company_df.select('company', posexplode('employees').alias('employee_pos', 'employee')).show(5, False)
 
     # Split Employees object as one object per row
     print('\n**************** Normalize records in dataframe : '
@@ -50,6 +50,5 @@ if __name__ == '__main__':
     company_df_temp = company_df.select('company', explode('employees').alias('employee'))
     company_df_temp.show(5, False)
 
-    company_df_temp.select('company', explode('employee')).show(truncate=False)
     # Using expressions in select function
 
