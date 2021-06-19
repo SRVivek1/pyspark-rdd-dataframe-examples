@@ -47,9 +47,10 @@ if __name__ == '__main__':
         .show(5, False)
 
     # Using DSL function with SQL query
-    print('\n********************** sparkSession.sql(\'select concat_ws(\' - \', AccountNumber, Description from finances)\')')
+    print('\n********************** sparkSession.sql(\''
+          'select concat_ws(\' - \', AccountNumber, Description) as AccountDetails  from finances)\')')
     sparkSession\
-        .sql('select concat_ws(\' - \', AccountNumber, Description from finances)')\
+        .sql('select concat_ws(\' - \', AccountNumber, Description) as AccountDetails from finances)')\
         .show(5, False)
 
     # Remove temp table/view
