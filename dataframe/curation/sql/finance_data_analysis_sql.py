@@ -69,10 +69,27 @@ if __name__ == '__main__':
             AccountNumber
     """
     print('\n*************** Aggregation using SQL - sql_query_transform_2 : ' + sql_query_transform_2)
-    agg_finance_df = sparkSession.sql(sql_query_transform_2)
 
-    print('\n*************** agg_finance_df.show(5, False) : ')
+    print('\n*************** sparkSession.sql(sql_query_transform_2).show(5, False) : ')
+    agg_finance_df = sparkSession.sql(sql_query_transform_2)
     agg_finance_df.show(5, False)
+
+    # Create view of new dataframe with aggregated data
+    agg_finance_df.createOrReplaceTempView('agg_finances')
+
+    sql_query_transform_3 = """
+        select
+            AccountNumber,
+            UniqueTransactionDescriptions,
+            sort_array(UniqueTransactionDescriptions, false) as OrderedUniqueTransactionDescriptions,
+            size(UniqueTransactionDescriptions) as CountOfUniqueTransactionTypes,
+            array_contains(UniqueTransactionDescriptions, 'Movies') as WentToMovies
+        from
+            agg_finances
+    """
+    print('\n***************** Array function using SQL : ' + sql_query_transform_3)
+    print('\n***************** sparkSession.sql(sql_query_transform_3).show(5, False)')
+    sparkSession.sql(sql_query_transform_3).show(5, False)
 
     # Remove temp table/view
     sparkSession.catalog.dropTempView('finances')
