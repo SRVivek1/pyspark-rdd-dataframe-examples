@@ -55,7 +55,10 @@ if __name__ == '__main__':
 
     sql_posexplode_query = 'select company, posexplode(employees) as (employee_pos, employee) from companies'
     print('\n************* SQL PosExplode query : ' + sql_posexplode_query)
-    sparkSession.sql(sql_posexplode_query)
+
+    print('\n************* sparkSession.sql(sql_posexplode_query).show(5, False)')
+    sparkSession.sql(sql_posexplode_query).show(5, False)
+
 # Command
 # -----------------
 #
