@@ -46,6 +46,11 @@ if __name__ == '__main__':
         .sql('select * from finances order by amount')\
         .show(5, False)
 
+    # Using DSL function with SQL query
+    print('\n********************** sparkSession.sql(\'select concat_ws(\' - \', AccountNumber, Description from finances)\')')
+    sparkSession\
+        .sql('select concat_ws(\' - \', AccountNumber, Description from finances)')\
+        .show(5, False)
 
     # Remove temp table/view
     sparkSession.catalog.dropTempView('finances')
