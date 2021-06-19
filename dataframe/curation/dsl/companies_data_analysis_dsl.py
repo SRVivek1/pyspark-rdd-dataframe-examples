@@ -56,3 +56,9 @@ if __name__ == '__main__':
         .select('company', expr('employee.firstName as FirstName'))\
         .show(truncate=False)
 
+    print('\n**************** company_df_temp.select(\'company\', '
+          'expr(\'employee.firstName as FirstName\'), expr(\'employee.lastName as LastName\'))')
+    company_df_temp \
+        .select('company', expr('employee.firstName as FirstName'), expr('employee.lastName as LastName')) \
+        .show(truncate=False)
+
