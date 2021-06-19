@@ -26,7 +26,7 @@ if __name__ == '__main__':
         .getOrCreate()
     sparkSession.sparkContext.setLogLevel('ERROR')
 
-    print('\n**************** Data Curation using DSL ****************\n')
+    print('\n**************** Data Curation using SQL ****************\n')
 
     # Read company.json file
     print('\n**************** Data source : ' + app_const.company_json)
@@ -61,8 +61,59 @@ if __name__ == '__main__':
 
 # Command
 # -----------------
-#
+# spark-submit dataframe/curation/sql/companies_data_analysis_sql.py
 #
 # Output
 # ---------------------
+# **************** Data Curation using SQL ****************
 #
+#
+# **************** Data source : /home/viveksingh/project-data/sidharth/data/company.json
+#
+# **************** company_df.printSchema()
+# root
+#  |-- company: string (nullable = true)
+#  |-- employees: array (nullable = true)
+#  |    |-- element: struct (containsNull = true)
+#  |    |    |-- firstName: string (nullable = true)
+#  |    |    |-- lastName: string (nullable = true)
+#
+#
+# **************** company_df.show(5, False)
+# +--------+-------------------------------------+
+# |company |employees                            |
+# +--------+-------------------------------------+
+# |NewCo   |[{Sidhartha, Ray}, {Pratik, Solanki}]|
+# |FamilyCo|[{Jiten, Gupta}, {Pallavi, Gupta}]   |
+# |OldCo   |[{Vivek, Garg}, {Nitin, Gupta}]      |
+# |ClosedCo|[]                                   |
+# +--------+-------------------------------------+
+#
+#
+# ************* SQL Explode query : select company, explode(employees) as employee from companies
+# Exploded dataframe : employees_df_temp.show(5, False)
+# +--------+-----------------+
+# |company |employee         |
+# +--------+-----------------+
+# |NewCo   |{Sidhartha, Ray} |
+# |NewCo   |{Pratik, Solanki}|
+# |FamilyCo|{Jiten, Gupta}   |
+# |FamilyCo|{Pallavi, Gupta} |
+# |OldCo   |{Vivek, Garg}    |
+# +--------+-----------------+
+# only showing top 5 rows
+#
+#
+# ************* SQL PosExplode query : select company, posexplode(employees) as (employee_pos, employee) from companies
+#
+# ************* sparkSession.sql(sql_posexplode_query).show(5, False)
+# +--------+------------+-----------------+
+# |company |employee_pos|employee         |
+# +--------+------------+-----------------+
+# |NewCo   |0           |{Sidhartha, Ray} |
+# |NewCo   |1           |{Pratik, Solanki}|
+# |FamilyCo|0           |{Jiten, Gupta}   |
+# |FamilyCo|1           |{Pallavi, Gupta} |
+# |OldCo   |0           |{Vivek, Garg}    |
+# +--------+------------+-----------------+
+# only showing top 5 rows
