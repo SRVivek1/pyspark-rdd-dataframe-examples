@@ -50,6 +50,6 @@ if __name__ == '__main__':
     company_df_temp = company_df.select('company', explode('employees').alias('employee'))
     company_df_temp.show(5, False)
 
-    company_df.select('company', explode('employee')).show(truncate=False)
+    company_df_temp.select('company', explode('employee')).show(truncate=False)
     # Using expressions in select function
 
