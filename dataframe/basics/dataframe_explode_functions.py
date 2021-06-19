@@ -64,8 +64,23 @@ if __name__ == '__main__':
     print('\n**************** explode(...) Map : test_df.select(explode(test_df.mapField)).show(truncate=False)')
     test_df.select(explode(test_df.mapField)).show(truncate=False)
 
+    # Explode data with their position in their container array/map
     print('\n**************** posexplode(...) List : test_df.select(posexplode(\'inlist\')).show(truncate=False)')
     test_df.select(posexplode('inlist')).show(truncate=False)
 
     print('\n**************** posexplode(...) Map : test_df.select(posexplode(\'mapField\')).show(truncate=False)')
     test_df.select(posexplode('mapField')).show(truncate=False)
+
+    # Explode data - show null & empty fields
+    print('\n**************** explode_outer(...) List : test_df.select(explode_outer(\'inList\')).show(truncate=False)')
+    test_df.select(explode_outer('inList')).show(truncate=False)
+
+    print('\n**************** explode_outer(...) Map : test_df.select(explode_outer(\'mapField\')).show(truncate=False)')
+    test_df.select(explode_outer('mapField')).show(truncate=False)
+
+    # Explode data - show null & empty fields with position
+    print('\n**************** explode_outer(...) List : test_df.select(explode_outer(\'inList\')).show(truncate=False)')
+    test_df.select(explode_outer('inList')).show(truncate=False)
+
+    print('\n**************** explode_outer(...) Map : test_df.select(explode_outer(\'mapField\')).show(truncate=False)')
+    test_df.select(explode_outer('mapField')).show(truncate=False)
