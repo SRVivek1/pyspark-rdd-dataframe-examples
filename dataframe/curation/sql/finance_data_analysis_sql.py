@@ -25,7 +25,8 @@ if __name__ == '__main__':
     print('\n************** Source file : ' + finances_small_parquet)
 
     # Load data
-    sql_query = "select * from parquet. {}".format(finances_small_parquet)
+    # sql_query = "select * from parquet. {}".format(finances_small_parquet)
+    sql_query = "SELECT * FROM parquet.`/home/viveksingh/project-data/sidharth/data/finances-small`"
     print('\n********************** SQL Query to load data : ' + sql_query)
     finances_small_df = sparkSession.sql(sql_query)
 
