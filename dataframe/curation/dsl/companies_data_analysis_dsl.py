@@ -45,8 +45,9 @@ if __name__ == '__main__':
     company_df.select('company', posexplode('employees')).show(5, False)
 
     # Split Employees object as one object per row
-    print('\n**************** Normalize records in dataframe : ')
-    company_df_temp = company_df.select('company', explode('employees').alias('employee_pos', 'employee'))
+    print('\n**************** Normalize records in dataframe : '
+          'company_df.select(\'company\', explode(\'employees\').alias(\'employee\'))')
+    company_df_temp = company_df.select('company', explode('employees').alias('employee'))
     company_df_temp.show(5, False)
 
     # Using expressions in select function
