@@ -52,5 +52,7 @@ if __name__ == '__main__':
 
     # Using expressions in select function
     print('\n**************** company_df_temp.select(\'company\', expr(\'employee.firstName as FirstName\'))')
-    company_df_temp.select('company', expr('employee.firstName as FirstName'))
+    company_df_temp\
+        .select('company', expr('employee.firstName as FirstName'))\
+        .show(truncate=False)
 
