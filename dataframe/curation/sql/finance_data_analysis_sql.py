@@ -48,11 +48,31 @@ if __name__ == '__main__':
 
     # Using DSL function with SQL query
     sql_query_transform_1 = 'select concat_ws(\' - \', AccountNumber, Description) as AccountDetails from finances'
-    print('\n********************** SQL Query : ' + sql_query_transform_1)
+    print('\n********************** sql_query_transform_1 : ' + sql_query_transform_1)
     print('\n********************** sparkSession.sql(sql_query_transform_1)')
     sparkSession\
         .sql(sql_query_transform_1)\
         .show(5, False)
+
+    # Group by function using SQL and DSL functions
+    sql_query_transform_2 = """
+        select
+            AccountNumber,
+            sum(Amount) as TotalTransaction,
+            count(Amount) as NumberOfTransaction,
+            max(Amount) as MaxTransaction,
+            min(Amount) as MinTransaction,
+            collect_set(Description) as UniqueTransactionDescription
+        from
+            finances
+        group by
+            AccountNumber
+    """
+    print('\n*************** Aggregation using SQL - sql_query_transform_2 : ' + sql_query_transform_2)
+    agg_finance_df = sparkSession.sql(sql_query_transform_2)
+
+    print('\n*************** agg_finance_df.show(5, False) : ')
+    agg_finance_df.show(5, False)
 
     # Remove temp table/view
     sparkSession.catalog.dropTempView('finances')
