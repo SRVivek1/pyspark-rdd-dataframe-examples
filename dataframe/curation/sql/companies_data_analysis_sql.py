@@ -4,13 +4,6 @@ This program demonstrates different transformation operations/actions on DataFra
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import (
-    explode,
-    posexplode,
-    expr,
-    when,
-    col
-)
 import constants.app_constants as app_const
 
 
