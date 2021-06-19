@@ -37,6 +37,17 @@ if __name__ == '__main__':
     print('\n********************** Sample data : ')
     finances_small_df.show(5, False)
 
-    #
+    # Create a temp table/view to perform query
+    finances_small_df.createOrReplaceTempView('finances')
+
+    # Query data in table/view using provided name
+    print('\n********************** sparkSession.sql(\'select * from finances order by amount\').show(5, False)')
+    sparkSession\
+        .sql('select * from finances order by amount')\
+        .show(5, False)
+
+
+    # Remove temp table/view
+    sparkSession.catalog.dropTempView('finances')
 
 
