@@ -84,3 +84,118 @@ if __name__ == '__main__':
 
     print('\n**************** posexplode_outer(...) Map : test_df.select(explode_outer(\'mapField\')).show(truncate=False)')
     test_df.select(posexplode_outer('mapField')).show(truncate=False)
+
+# Command
+# -------------------
+# spark-submit dataframe/basics/dataframe_explode_functions.py
+#
+# Output
+# -------------------
+#
+# *************************** DataFrame select function ***************************
+#
+#
+# **************** : test_df.printSchema()
+# root
+#  |-- col: integer (nullable = false)
+#  |-- inlist: array (nullable = false)
+#  |    |-- element: integer (containsNull = true)
+#  |-- mapField: map (nullable = false)
+#  |    |-- key: string
+#  |    |-- value: string (valueContainsNull = true)
+#
+#
+# **************** : test_df.show(truncate=False)
+# +---+---------------------+----------------------------------+
+# |col|inlist               |mapField                          |
+# +---+---------------------+----------------------------------+
+# |1  |[null, 1, 2, 3, null]|{a -> apple, b -> ball, c -> null}|
+# +---+---------------------+----------------------------------+
+#
+#
+# **************** explode(...) List : test_df.select(explode(test_df.inlist)).show(truncate=False)
+# +-------------------+
+# |exploded_col_inlist|
+# +-------------------+
+# |null               |
+# |1                  |
+# |2                  |
+# |3                  |
+# |null               |
+# +-------------------+
+#
+#
+# **************** explode(...) Map : test_df.select(explode(test_df.mapField)).show(truncate=False)
+# +---+-----+
+# |key|value|
+# +---+-----+
+# |a  |apple|
+# |b  |ball |
+# |c  |null |
+# +---+-----+
+#
+#
+# **************** posexplode(...) List : test_df.select(posexplode('inlist')).show(truncate=False)
+# +---+----+
+# |pos|col |
+# +---+----+
+# |0  |null|
+# |1  |1   |
+# |2  |2   |
+# |3  |3   |
+# |4  |null|
+# +---+----+
+#
+#
+# **************** posexplode(...) Map : test_df.select(posexplode('mapField')).show(truncate=False)
+# +---+---+-----+
+# |pos|key|value|
+# +---+---+-----+
+# |0  |a  |apple|
+# |1  |b  |ball |
+# |2  |c  |null |
+# +---+---+-----+
+#
+#
+# **************** explode_outer(...) List : test_df.select(explode_outer('inList')).show(truncate=False)
+# +----+
+# |col |
+# +----+
+# |null|
+# |1   |
+# |2   |
+# |3   |
+# |null|
+# +----+
+#
+#
+# **************** explode_outer(...) Map : test_df.select(explode_outer('mapField')).show(truncate=False)
+# +---+-----+
+# |key|value|
+# +---+-----+
+# |a  |apple|
+# |b  |ball |
+# |c  |null |
+# +---+-----+
+#
+#
+# **************** posexplode_outer(...) List : test_df.select(explode_outer('inList')).show(truncate=False)
+# +---+----+
+# |pos|col |
+# +---+----+
+# |0  |null|
+# |1  |1   |
+# |2  |2   |
+# |3  |3   |
+# |4  |null|
+# +---+----+
+#
+#
+# **************** posexplode_outer(...) Map : test_df.select(explode_outer('mapField')).show(truncate=False)
+# +---+---+-----+
+# |pos|key|value|
+# +---+---+-----+
+# |0  |a  |apple|
+# |1  |b  |ball |
+# |2  |c  |null |
+# +---+---+-----+
