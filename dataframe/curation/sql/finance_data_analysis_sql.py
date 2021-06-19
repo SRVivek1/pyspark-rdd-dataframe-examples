@@ -62,7 +62,7 @@ if __name__ == '__main__':
             count(Amount) as NumberOfTransaction,
             max(Amount) as MaxTransaction,
             min(Amount) as MinTransaction,
-            collect_set(Description) as UniqueTransactionDescription
+            collect_set(Description) as UniqueTransactionDescriptions
         from
             finances
         group by
