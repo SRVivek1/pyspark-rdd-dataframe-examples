@@ -4,7 +4,7 @@ This program demonstrates different transformation operations/actions on DataFra
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode, posexplode
+from pyspark.sql.functions import explode, posexplode, expr
 import constants.app_constants as app_const
 
 if __name__ == '__main__':
@@ -51,4 +51,6 @@ if __name__ == '__main__':
     company_df_temp.show(5, False)
 
     # Using expressions in select function
+    print('\n**************** company_df_temp.select(\'company\', expr(\'employee.firstName as FirstName\'))')
+    company_df_temp.select('company', expr('employee.firstName as FirstName'))
 
