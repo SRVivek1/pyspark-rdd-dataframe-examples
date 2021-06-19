@@ -13,6 +13,7 @@ from pyspark.sql.functions import (
 )
 import constants.app_constants as app_const
 
+
 if __name__ == '__main__':
     """
     Driver program
@@ -75,3 +76,11 @@ if __name__ == '__main__':
                            .when(col('company') == 'OldCo', 'Legacy')
                            .otherwise('Standard').alias('Tier'))\
         .show(truncate=False)
+
+# Command
+# -----------------
+#
+#
+# Output
+# ---------------------
+#
