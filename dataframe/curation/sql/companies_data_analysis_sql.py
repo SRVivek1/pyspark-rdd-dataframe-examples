@@ -5,6 +5,8 @@ This program demonstrates different transformation operations/actions on DataFra
 
 from pyspark.sql import SparkSession
 import constants.app_constants as app_const
+import os.path
+import yaml
 
 
 if __name__ == '__main__':
@@ -51,6 +53,19 @@ if __name__ == '__main__':
 
     print('\n************* sparkSession.sql(sql_posexplode_query).show(5, False)')
     sparkSession.sql(sql_posexplode_query).show(5, False)
+
+    # Load application.yml
+    app_conf = yaml.load(
+        open(
+            os.path.abspath(
+                os.path.abspath(os.path.dirname(__file__)) +
+                '/../../../../' +
+                'application.yml')),
+        Loader=yaml.FullLoader)
+
+    # SQL - Case-When query
+    sparkSession.sql(app_conf['spark_sql_demo']['case_when_demo'])\
+        .show(5, False)
 
 # Command
 # -----------------
