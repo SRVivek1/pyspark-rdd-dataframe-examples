@@ -59,7 +59,7 @@ if __name__ == '__main__':
         open(
             os.path.abspath(
                 os.path.abspath(os.path.dirname(__file__)) +
-                '/../../../../' +
+                '/../../../' +
                 'application.yml')),
         Loader=yaml.FullLoader)
 
