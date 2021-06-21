@@ -129,3 +129,28 @@ if __name__ == '__main__':
 # |OldCo   |0           |{Vivek, Garg}    |
 # +--------+------------+-----------------+
 # only showing top 5 rows
+#
+#
+# ************** SQL Case-When Query : select
+#     company,
+#     employee.firstName as firstName,
+#     case
+#         when company = 'FamilyCo' then 'Premium'
+#         when company = 'OldCo' then 'Legacy'
+#         else 'Standard'
+#     end as Tier
+# from
+#     employees
+#
+#
+# ************** sparkSession.sql(sql_case_when_query).show(5, False) :
+# +--------+---------+--------+
+# |company |firstName|Tier    |
+# +--------+---------+--------+
+# |NewCo   |Sidhartha|Standard|
+# |NewCo   |Pratik   |Standard|
+# |FamilyCo|Jiten    |Premium |
+# |FamilyCo|Pallavi  |Premium |
+# |OldCo   |Vivek    |Legacy  |
+# +--------+---------+--------+
+# only showing top 5 rows
