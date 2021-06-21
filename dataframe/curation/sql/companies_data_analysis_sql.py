@@ -64,7 +64,8 @@ if __name__ == '__main__':
         Loader=yaml.FullLoader)
 
     # SQL - Case-When query
-    sparkSession.sql(app_conf['spark_sql_demo']['case_when_demo'])\
+    sql_case_when_query = app_conf['spark_sql_demo']['case_when_demo']
+    sparkSession.sql(sql_case_when_query)\
         .show(5, False)
 
 # Command
