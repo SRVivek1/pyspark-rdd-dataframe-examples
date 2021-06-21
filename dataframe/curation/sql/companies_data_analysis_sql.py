@@ -65,6 +65,9 @@ if __name__ == '__main__':
 
     # SQL - Case-When query
     sql_case_when_query = app_conf['spark_sql_demo']['case_when_demo']
+    print('\n************** SQL Case-When Query : ' + sql_case_when_query)
+
+    print('\n************** sparkSession.sql(sql_case_when_query).show(5, False) : ')
     sparkSession.sql(sql_case_when_query)\
         .show(5, False)
 
