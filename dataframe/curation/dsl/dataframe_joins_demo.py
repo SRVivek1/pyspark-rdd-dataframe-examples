@@ -65,7 +65,7 @@ if __name__ == '__main__':
     print('\n************** employees_df.printSchema()')
     employees_df.printSchema()
 
-    print('\n************** employees_df.show(5, truncate=False)')
+    print('\n************** employees_df.show(truncate=False)')
     employees_df.show(truncate=False)
 
     # Create Department dataframe
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     print('\n************** department_df.printSchema()')
     department_df.printSchema()
 
-    print('\n************** department_df.show(5, False)')
+    print('\n************** department_df.show(truncate=False)')
     department_df.show(truncate=False)
 
     # Inner join - default is 'inner join only'
