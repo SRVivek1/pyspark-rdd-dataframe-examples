@@ -29,7 +29,7 @@ if __name__ == '__main__':
         StructField("name", StringType(), False),
         StructField("superior_emp_id", IntegerType(), False),
         StructField("year_joined", StringType(), False),
-        StructField("emp_dept_id", IntegerType(), True),
+        StructField("emp_dept_id", StringType(), True),
         StructField("gender", StringType(), False),
         StructField("salary", DoubleType(), False)
     ])
@@ -47,6 +47,8 @@ if __name__ == '__main__':
     print(type(employees))
     print(type(employees[0]))
 
-    df = sparkSession.createDataFrame(employees, schema=emp_schema)
+    employees_df = sparkSession.createDataFrame(employees, schema=emp_schema)
 
-    df.printSchema()
+    employees_df.printSchema()
+
+    employees_df.show(5, truncate=False)
