@@ -34,6 +34,12 @@ if __name__ == '__main__':
         StructField("salary", IntegerType(), False)
     ])
 
+    department_schema = StructType([
+        StructField("department_id", IntegerType(), False),
+        StructField("name", StringType(), False),
+        StructField("location", StringType(), False)
+    ])
+
     # Prepare employee data
     employees = [
         [1, "Smith", -1, "2018", 10, "M", 3000],
@@ -44,8 +50,12 @@ if __name__ == '__main__':
         [6, "Brown", 2, "2010", 50, "", -1]
     ]
 
-    print('\n************** type(employees): {0}'.format(type(employees)))
-    print('\n************** type(employees[0]): {0}'.format(type(employees[0])))
+    departments = [
+        [10, "Department-10", "IND"],
+        [20, "Department-20", "US"],
+        [40, "Department-40", "UK"],
+        [50, "Department-50", "SNG"]
+    ]
 
     # Create Employees Dataframe
     employees_df = sparkSession.createDataFrame(employees, schema=emp_schema)
@@ -56,5 +66,11 @@ if __name__ == '__main__':
     print('\n************** employees_df.show(5, truncate=False)')
     employees_df.show(5, truncate=False)
 
+    # Create Department dataframe
+    department_df = sparkSession.createDataFrame(departments, schema=department_schema)
 
+    print('\n************** department_df.printSchema()')
+    department_df.printSchema()
 
+    print('\n************** department_df.show(5, False)')
+    department_df.show(5, False)
