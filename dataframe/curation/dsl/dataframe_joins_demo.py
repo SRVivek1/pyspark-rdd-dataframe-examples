@@ -58,7 +58,9 @@ if __name__ == '__main__':
         [40, "Department-40", "UK"],
         [50, "Department-50", "SNG"],
         [60, "Department-60", "D60"],
-        [70, "Department-70", "D70"]
+        [70, "Department-70", "D70"],
+        [80, "Department-70", ""],
+        [90, "Department-70", ""]
     ]
 
     # Create Employees Dataframe
@@ -87,5 +89,5 @@ if __name__ == '__main__':
 
     print('\n************** employees_df.join(department_df, '
           'employees_df.emp_dept_id == department_df.department_id, how=\'inner\')')
-    print('\n************** innerjoin_df.sort(col(\'emp_id\'), True).show(10, False)')
+    print('\n************** innerjoin_df.sort(innerjoin_df.emp_id).show(10, False)')
     innerjoin_df.sort(innerjoin_df.emp_id).show(10, False)
