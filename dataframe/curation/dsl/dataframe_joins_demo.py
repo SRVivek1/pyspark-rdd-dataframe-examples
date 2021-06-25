@@ -49,7 +49,8 @@ if __name__ == '__main__':
         [5, "Brown", 2, "2010", 40, "", -1],
         [6, "Jack", 2, "2010", 50, "", -1],
         [7, "Reddy", 2, "2010", 100, "F", 0],
-        [8, "Philip", 2, "2010", 110, "M", 5000]
+        [8, "Philip", 2, "2010", 110, "M", 5000],
+        [9, "Philip", 2, "2010", -1, "M", 5000]
     ]
 
     departments = [
@@ -81,7 +82,8 @@ if __name__ == '__main__':
     print('\n************** department_df.show(truncate=False)')
     department_df.show(truncate=False)
 
-    # Inner join - default is 'inner join only'
+    # Start : Inner join
+    # default is 'inner join only'
     innerjoin_df = employees_df\
         .join(department_df,
               employees_df.emp_dept_id == department_df.department_id,
@@ -91,3 +93,6 @@ if __name__ == '__main__':
           'employees_df.emp_dept_id == department_df.department_id, how=\'inner\')')
     print('\n************** innerjoin_df.sort(innerjoin_df.emp_id).show(10, False)')
     innerjoin_df.sort(innerjoin_df.emp_id).show(10, False)
+    # End : Inner join
+
+
