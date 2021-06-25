@@ -80,8 +80,12 @@ if __name__ == '__main__':
     department_df.show(truncate=False)
 
     # Inner join - default is 'inner join only'
-    innerjoin_df = employees_df.join(department_df, employees_df.emp_dept_id == department_df.department_id, how='inner')
+    innerjoin_df = employees_df\
+        .join(department_df,
+              employees_df.emp_dept_id == department_df.department_id,
+              how='inner')
 
-    print('\n************** employees_df.join(department_df, employees_df.emp_dept_id == department_df.department_id, how=\'inner\')')
+    print('\n************** employees_df.join(department_df, '
+          'employees_df.emp_dept_id == department_df.department_id, how=\'inner\')')
     print('\n************** innerjoin_df.sort(col(\'emp_id\'), True).show(10, False)')
-    innerjoin_df.sort(col('emp_id'), True).show(10, False)
+    innerjoin_df.sort(innerjoin_df.emp_id).show(10, False)
