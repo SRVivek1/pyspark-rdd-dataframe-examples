@@ -54,7 +54,9 @@ if __name__ == '__main__':
         [10, "Department-10", "IND"],
         [20, "Department-20", "US"],
         [40, "Department-40", "UK"],
-        [50, "Department-50", "SNG"]
+        [50, "Department-50", "SNG"],
+        [60, "Department-60", "D60"],
+        [70, "Department-70", "D70"]
     ]
 
     # Create Employees Dataframe
@@ -74,3 +76,8 @@ if __name__ == '__main__':
 
     print('\n************** department_df.show(5, False)')
     department_df.show(5, False)
+
+    # Inner join - default is 'inner join only'
+    innerjoin_df = employees_df.join(department_df, employees_df.emp_dept_id == department_df.department_id, how='inner')
+
+    innerjoin_df.show(10, False)
