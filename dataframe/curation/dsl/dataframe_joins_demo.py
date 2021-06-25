@@ -4,7 +4,7 @@ This program demonstrates the use of SPARK Joins.
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import (
-    StructType, StructField, IntegerType, StringType, DateType, DoubleType
+    StructType, StructField, IntegerType, StringType
 )
 
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
         StructField("year_joined", StringType(), False),
         StructField("emp_dept_id", StringType(), True),
         StructField("gender", StringType(), False),
-        StructField("salary", DoubleType(), False)
+        StructField("salary", IntegerType(), False)
     ])
 
     # Prepare data
