@@ -66,7 +66,7 @@ if __name__ == '__main__':
     employees_df.printSchema()
 
     print('\n************** employees_df.show(5, truncate=False)')
-    employees_df.show(5, truncate=False)
+    employees_df.show(truncate=False)
 
     # Create Department dataframe
     department_df = sparkSession.createDataFrame(departments, schema=department_schema)
@@ -75,7 +75,7 @@ if __name__ == '__main__':
     department_df.printSchema()
 
     print('\n************** department_df.show(5, False)')
-    department_df.show(5, False)
+    department_df.show(truncate=False)
 
     # Inner join - default is 'inner join only'
     innerjoin_df = employees_df.join(department_df, employees_df.emp_dept_id == department_df.department_id, how='inner')
