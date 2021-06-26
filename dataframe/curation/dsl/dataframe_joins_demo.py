@@ -60,8 +60,8 @@ if __name__ == '__main__':
         [50, "Department-50", "SNG"],
         [60, "Department-60", "D60"],
         [70, "Department-70", "D70"],
-        [80, "Department-70", ""],
-        [90, "Department-70", ""]
+        [80, "Department-80", ""],
+        [90, "Department-90", ""]
     ]
 
     # Create Employees Dataframe
@@ -112,3 +112,22 @@ if __name__ == '__main__':
     full_outer_join_df.sort(full_outer_join_df.emp_id).show(truncate=False)
     # End : Full outer join
 
+    # Start : Left outer join
+    # left a.k.a left_outer
+    print('\n***************************** Dataframe Left/Left outer join *****************************')
+    # Employees left_outer join
+    employees_left_outer_df = employees_df\
+        .join(department_df,
+              employees_df.emp_id == department_df.dept_id,
+              'left_outer')
+    print('\n*************** employees_left_outer_df.sort(employees_left_outer_df.emp_id).show(truncate=False)')
+    employees_left_outer_df.sort(employees_left_outer_df.emp_id).show(truncate=False)
+
+    # Department left_outer join
+    department_left_outer_df = department_df\
+        .join(employees_df,
+              department_df.dept_id == employees_df.emd_dept_id,
+              'left_outer')
+    print('\n*************** department_left_outer_df.sort(department_left_outer_df.dept_id).show(truncate=False)')
+    department_left_outer_df.sort(department_left_outer_df.dept_id).show(truncate=False)
+    # End : Left outer join
