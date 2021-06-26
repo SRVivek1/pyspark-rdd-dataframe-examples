@@ -4,6 +4,7 @@ This program demonstrates the implementation of 'Broadcast View'.
 
 
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import broadcast
 from pyspark.sql.types import (
     StringType, StructField, IntegerType, StructType
 )
@@ -73,3 +74,23 @@ if __name__ == '__main__':
     print('\n******************* departments_df.show(truncate=False)')
     departments_df.show(truncate=False)
 
+    # Broadcast departments and perform join
+    print("""\n**************** broadcast_inner_join_result = employees_df\
+        .join(broadcast(departments_df),
+              employees_df.emp_dept_id == departments_df.dept_id,
+              'inner')""")
+    broadcast_inner_join_result = employees_df\
+        .join(broadcast(departments_df),
+              employees_df.emp_dept_id == departments_df.dept_id,
+              'inner')
+
+    print('\n***************** broadcast_inner_join_result.show(truncate=False)')
+    broadcast_inner_join_result.show(truncate=False)
+
+# Command
+# ------------------
+# spark-submit dataframe/curation/dsl/dataframe_broadcast_join.py
+#
+# Output
+# ------------------
+#
