@@ -35,7 +35,7 @@ if __name__ == '__main__':
     ])
 
     department_schema = StructType([
-        StructField("department_id", IntegerType(), False),
+        StructField("dept_id", IntegerType(), False),
         StructField("name", StringType(), False),
         StructField("location", StringType(), False)
     ])
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     # default is 'inner join only'
     innerjoin_df = employees_df\
         .join(department_df,
-              employees_df.emp_dept_id == department_df.department_id,
+              employees_df.emp_dept_id == department_df.dept_id,
               how='inner')
 
     print('\n************** employees_df.join(department_df, '
@@ -95,4 +95,18 @@ if __name__ == '__main__':
     innerjoin_df.sort(innerjoin_df.emp_id).show(10, False)
     # End : Inner join
 
+    # Start : Full outer join
+    # outer a.k.a full, full_outer
+    full_outer_join_df = employees_df\
+        .join(department_df,
+              employees_df.emp_dept_id == department_df.dept_id,
+              how='full_outer')
+
+    print("""\n************** full_outer_join_df = employees_df\
+        .join(department_df,
+              employees_df.emp_dept_id == department_df.dept_id,
+              how='full_outer')""")
+    print('\n**************** full_outer_join_df.sort(full_outer_join_df.emp_id).show(truncate=False)')
+    full_outer_join_df.sort(full_outer_join_df.emp_id).show(truncate=False)
+    # End : Full outer join
 
