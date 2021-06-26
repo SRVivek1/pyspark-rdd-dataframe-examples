@@ -104,7 +104,7 @@ if __name__ == '__main__':
               employees_df.emp_dept_id == department_df.dept_id,
               how='full_outer')
 
-    print("""\n************** full_outer_join_df = employees_df\
+    print("""\n************** full_outer_join_df = employees_df
         .join(department_df,
               employees_df.emp_dept_id == department_df.dept_id,
               how='full_outer')""")
@@ -121,7 +121,7 @@ if __name__ == '__main__':
               employees_df.emp_id == department_df.dept_id,
               'left_outer')
 
-    print("""\n************* employees_left_outer_df = employees_df\
+    print("""\n************* employees_left_outer_df = employees_df
         .join(department_df,
               employees_df.emp_id == department_df.dept_id,
               'left_outer')""")
@@ -134,7 +134,7 @@ if __name__ == '__main__':
               department_df.dept_id == employees_df.emp_dept_id,
               'left_outer')
 
-    print("""\n*************** department_left_outer_df = department_df\
+    print("""\n*************** department_left_outer_df = department_df
         .join(employees_df,
               department_df.dept_id == employees_df.emp_dept_id,
               'left_outer')""")
@@ -150,12 +150,12 @@ if __name__ == '__main__':
               employees_df.emp_dept_id == department_df.dept_id,
               'right_outer')
 
-    print("""\n************** employees_right_outer_df = employees_df\
+    print("""\n************** employees_right_outer_df = employees_df
         .join(department_df,
               employees_df.emp_dept_id == department_df.dept_id,
               'right_outer')""")
-    print('\n**************** employees_right_outer_df.sort(employees_right_outer_df.emp_id).show(truncate=False)')
+    print('\n**************** employees_right_outer_df.sort(employees_right_outer_df.dept_id).show(truncate=False)')
     employees_right_outer_df\
-        .sort(employees_right_outer_df.emp_id)\
+        .sort(employees_right_outer_df.dept_id)\
         .show(truncate=False)
     # End : Right outer join
