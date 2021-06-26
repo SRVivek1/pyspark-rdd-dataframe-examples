@@ -192,10 +192,10 @@ if __name__ == '__main__':
 
     # Start : Self join using inner join
     # There's no such in-build join, so we'll use existing joins to achieve this
-    employees_df.createOrReplaceTempView('emp1')
-    employees_df.createOrReplaceTempView('emp2')
-    employees_df\
-        .join(employees_df,
+    # employees_df.createOrReplaceTempView('emp1')
+    # employees_df.createOrReplaceTempView('emp2')
+    employees_df.alias('emp1')\
+        .join(employees_df.alias('emp2'),
               col('emp1.superior_emp_id') == col('emp2.emp_id'),
               'inner').show(truncate=False)
     # End : Self join using inner join
