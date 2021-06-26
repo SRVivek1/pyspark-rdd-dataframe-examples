@@ -120,14 +120,24 @@ if __name__ == '__main__':
         .join(department_df,
               employees_df.emp_id == department_df.dept_id,
               'left_outer')
+
+    print("""\n************* employees_left_outer_df = employees_df\
+        .join(department_df,
+              employees_df.emp_id == department_df.dept_id,
+              'left_outer')""")
     print('\n*************** employees_left_outer_df.sort(employees_left_outer_df.emp_id).show(truncate=False)')
     employees_left_outer_df.sort(employees_left_outer_df.emp_id).show(truncate=False)
 
     # Department left_outer join
     department_left_outer_df = department_df\
         .join(employees_df,
-              department_df.dept_id == employees_df.emd_dept_id,
+              department_df.dept_id == employees_df.emp_dept_id,
               'left_outer')
+
+    print("""\n*************** department_left_outer_df = department_df\
+        .join(employees_df,
+              department_df.dept_id == employees_df.emp_dept_id,
+              'left_outer')""")
     print('\n*************** department_left_outer_df.sort(department_left_outer_df.dept_id).show(truncate=False)')
     department_left_outer_df.sort(department_left_outer_df.dept_id).show(truncate=False)
     # End : Left outer join
