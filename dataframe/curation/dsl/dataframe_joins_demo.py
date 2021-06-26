@@ -118,7 +118,7 @@ if __name__ == '__main__':
     # Employees left_outer join
     employees_left_outer_df = employees_df\
         .join(department_df,
-              employees_df.emp_id == department_df.dept_id,
+              employees_df.emp_dept_id == department_df.dept_id,
               'left_outer')
 
     print("""\n************* employees_left_outer_df = employees_df
