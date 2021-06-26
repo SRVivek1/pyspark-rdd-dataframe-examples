@@ -84,6 +84,7 @@ if __name__ == '__main__':
 
     # Start : Inner join
     # default is 'inner join only'
+    print('\n***************************** Dataframe inner join *****************************')
     innerjoin_df = employees_df\
         .join(department_df,
               employees_df.emp_dept_id == department_df.dept_id,
@@ -97,6 +98,7 @@ if __name__ == '__main__':
 
     # Start : Full outer join
     # outer a.k.a full, full_outer
+    print('\n***************************** Dataframe outer/full_outer join *****************************')
     full_outer_join_df = employees_df\
         .join(department_df,
               employees_df.emp_dept_id == department_df.dept_id,
