@@ -161,7 +161,6 @@ if __name__ == '__main__':
     # End : Right outer join
 
     # Start : Left semi join
-    # Similar to inner join but efficient
     print('\n***************************** Dataframe Left semi join *****************************')
     employees_left_semi_df = employees_df\
         .join(department_df,
@@ -174,3 +173,27 @@ if __name__ == '__main__':
               'left_semi')""")
     print('\n**************** employees_left_semi_df.sort(col(\'emp_id\')).show(truncate=False)')
     employees_left_semi_df.sort(asc('emp_id')).show(truncate=False)
+    # End : Left semi join
+
+    # Start : Left anti join
+    print('\n***************************** Dataframe Left anti join *****************************')
+    employees_left_anti_df = employees_df\
+        .join(department_df,
+              employees_df.emp_dept_id == department_df.dept_id,
+              'left_anti')
+
+    print("""\n**************** employees_left_anti_df = employees_df
+        .join(department_df,
+              employees_df.emp_dept_id == department_df.dept_id,
+              'left_anti')""")
+    print('\n**************** employees_left_anti_df.sort(employees_left_anti_df.emp_dept_id).show(truncate=False)')
+    employees_left_anti_df.sort(employees_left_anti_df.emp_dept_id).show(truncate=False)
+    # End : Left anti join
+
+# Command
+# --------------------
+#
+#
+# Output
+# ---------------------
+#
