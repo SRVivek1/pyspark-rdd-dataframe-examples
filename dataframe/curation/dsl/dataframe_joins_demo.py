@@ -141,3 +141,21 @@ if __name__ == '__main__':
     print('\n*************** department_left_outer_df.sort(department_left_outer_df.dept_id).show(truncate=False)')
     department_left_outer_df.sort(department_left_outer_df.dept_id).show(truncate=False)
     # End : Left outer join
+
+    # Start : Right outer join
+    # right a.k.a right_outer
+    print('\n***************************** Dataframe Right/Right outer join *****************************')
+    employees_right_outer_df = employees_df\
+        .join(department_df,
+              employees_df.emp_dept_id == department_df.dept_id,
+              'right_outer')
+
+    print("""\n************** employees_right_outer_df = employees_df\
+        .join(department_df,
+              employees_df.emp_dept_id == department_df.dept_id,
+              'right_outer')""")
+    print('\n**************** employees_right_outer_df.sort(employees_right_outer_df.emp_id).show(truncate=False)')
+    employees_right_outer_df\
+        .sort(employees_right_outer_df.emp_id)\
+        .show(truncate=False)
+    # End : Right outer join
