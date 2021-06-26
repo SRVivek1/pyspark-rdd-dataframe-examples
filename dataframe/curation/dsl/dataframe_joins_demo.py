@@ -194,7 +194,7 @@ if __name__ == '__main__':
     # There's no such in-build join, so we'll use existing joins to achieve this
     employees_df\
         .join(employees_df,
-              col('emp1.superior_emp_id') == col('emp2.emp_id'),
+              col('superior_emp_id') == col('emp_id'),
               'inner').show(truncate=False)
     # End : Self join using inner join
 
