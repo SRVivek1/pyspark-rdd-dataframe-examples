@@ -46,3 +46,7 @@ if __name__ == '__main__':
     # lower(...) & trim(...) methods
     print("\n***************** people_df.groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs')).show(truncate=False)")
     people_df.groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs')).show(truncate=False)
+
+    # lower(...) & trim(...) methods
+    print("\n***************** people_df.groupBy(trim(lower(col('firstName')))).agg(last('weightInLbs')).show(truncate=False)")
+    people_df.groupBy(trim(lower(col('firstName')))).agg(last('weightInLbs')).show(truncate=False)
