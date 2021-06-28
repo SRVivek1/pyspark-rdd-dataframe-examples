@@ -37,23 +37,45 @@ if __name__ == '__main__':
 
     # first(...) method.
     print('\n**************** people_df.groupBy(\'firstName\').agg(first(\'weightInLbs\')).show(truncate=False)')
-    people_df.groupBy('firstName').agg(first('weightInLbs')).show(truncate=False)
+    people_df\
+        .groupBy('firstName')\
+        .agg(first('weightInLbs'))\
+        .show(truncate=False)
 
     # last(...) method
     print('\n**************** people_df.groupBy(\'firstName\').agg(last(\'weightInLbs\')).show(truncate=False)')
-    people_df.groupBy('firstName').agg(last('weightInLbs')).show(truncate=False)
+    people_df\
+        .groupBy('firstName')\
+        .agg(last('weightInLbs'))\
+        .show(truncate=False)
 
     # lower(...) & trim(...) methods
     print("\n***************** people_df"
           ".groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs')).show(truncate=False)")
-    people_df.groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs')).show(truncate=False)
+    people_df\
+        .groupBy(trim(lower(col('firstName'))))\
+        .agg(first('weightInLbs'))\
+        .show(truncate=False)
 
     # lower(...) & trim(...) methods
     print("\n***************** people_df"
           ".groupBy(trim(lower(col('firstName')))).agg(last('weightInLbs')).show(truncate=False)")
-    people_df.groupBy(trim(lower(col('firstName')))).agg(last('weightInLbs')).show(truncate=False)
+    people_df\
+        .groupBy(trim(lower(col('firstName'))))\
+        .agg(last('weightInLbs'))\
+        .show(truncate=False)
 
     # last(...) ignore nulls
     print("\n***************** people_df"
           ".groupBy(trim(lower(col('firstName')))).agg(last('weightInLbs', True)).show(truncate=False)")
-    people_df.groupBy(trim(lower(col('firstName')))).agg(last('weightInLbs', True)).show(truncate=False)
+    people_df\
+        .groupBy(trim(lower(col('firstName'))))\
+        .agg(last('weightInLbs', True))\
+        .show(truncate=False)
+
+    # Sort data in desc on weightInLbs column
+    people_df\
+        .sort(col('weightInLbs').desc())\
+        .groupBy(trim(lower(col('firstName'))))\
+        .agg(first('weightInLbs', True))\
+        .show(truncate=False)
