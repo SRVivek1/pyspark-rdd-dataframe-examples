@@ -5,7 +5,7 @@ This program demonstrates other functions from spark APIs.
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import first, last
-from model import Person
+from model.Person import Person
 
 
 if __name__ == '__main__':
