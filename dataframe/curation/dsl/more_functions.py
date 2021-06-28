@@ -4,7 +4,7 @@ This program demonstrates other functions from spark APIs.
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import first, last
+from pyspark.sql.functions import first, last, trim, lower, col
 from model.Person import Person
 
 
@@ -38,3 +38,11 @@ if __name__ == '__main__':
     # first(...) method.
     print('\n**************** people_df.groupBy(\'firstName\').agg(first(\'weightInLbs\')).show(truncate=False)')
     people_df.groupBy('firstName').agg(first('weightInLbs')).show(truncate=False)
+
+    # last(...) method
+    print('\n**************** people_df.groupBy(\'firstName\').agg(last(\'weightInLbs\')).show(truncate=False)')
+    people_df.groupBy('firstName').agg(last('weightInLbs')).show(truncate=False)
+
+    # lower(...) & trim(...) methods
+    print("\n***************** people_df.groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs')).show(truncate=False)")
+    people_df.groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs')).show(truncate=False)
