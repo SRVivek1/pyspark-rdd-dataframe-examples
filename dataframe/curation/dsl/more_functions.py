@@ -74,6 +74,8 @@ if __name__ == '__main__':
         .show(truncate=False)
 
     # Sort data in desc on weightInLbs column
+    print("\n************* people_df.sort(col('weightInLbs').desc())"
+          ".groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs', True)).show(truncate=False)")
     people_df\
         .sort(col('weightInLbs').desc())\
         .groupBy(trim(lower(col('firstName'))))\
