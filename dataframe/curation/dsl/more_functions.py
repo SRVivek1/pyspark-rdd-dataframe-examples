@@ -85,7 +85,7 @@ if __name__ == '__main__':
     # Sort weightInLbs column in asc order where null appear in last
     print("\n************** people_df.sort(col('weighInLbs').asc_nulls_last())"
           ".groupBy(trim(lower(col('firstName')))).agg(first(col('weightInLbs'))).show(truncate=False)")
-    people_df.sort(col('weighInLbs').asc_nulls_last())\
+    people_df.sort(col('weightInLbs').asc_nulls_last())\
         .groupBy(trim(lower(col('firstName'))))\
         .agg(first(col('weightInLbs')))\
         .show(truncate=False)
