@@ -93,4 +93,66 @@ if __name__ == '__main__':
 #
 # Output
 # ------------------
+# ********************************** Broadcast join **********************************
 #
+#
+# ******************* employees_df.printSchema()
+# root
+#  |-- emp_id: integer (nullable = false)
+#  |-- name: string (nullable = false)
+#  |-- superior_emp_id: integer (nullable = false)
+#  |-- year_joined: string (nullable = false)
+#  |-- emp_dept_id: integer (nullable = true)
+#  |-- gender: string (nullable = false)
+#  |-- salary: integer (nullable = false)
+#
+#
+# ******************* employees_df.show(truncate=False)
+# +------+--------+---------------+-----------+-----------+------+------+
+# |emp_id|name    |superior_emp_id|year_joined|emp_dept_id|gender|salary|
+# +------+--------+---------------+-----------+-----------+------+------+
+# |1     |Smith   |-1             |2018       |10         |M     |3000  |
+# |2     |Rose    |1              |2010       |20         |M     |4000  |
+# |3     |Williams|1              |2010       |10         |M     |1000  |
+# |4     |Jones   |2              |2005       |10         |F     |2000  |
+# |5     |Brown   |2              |2010       |20         |      |-1    |
+# |6     |Jack    |2              |2010       |10         |      |-1    |
+# |7     |Reddy   |2              |2010       |20         |F     |0     |
+# |8     |Philip  |2              |2010       |20         |M     |5000  |
+# |9     |Alex    |2              |2010       |-1         |M     |5000  |
+# +------+--------+---------------+-----------+-----------+------+------+
+#
+#
+# ******************* departments_df.printSchema()
+# root
+#  |-- dept_id: integer (nullable = false)
+#  |-- name: string (nullable = false)
+#
+#
+# ******************* departments_df.show(truncate=False)
+# +-------+-------+
+# |dept_id|name   |
+# +-------+-------+
+# |10     |HR     |
+# |20     |FINANCE|
+# |40     |IT     |
+# +-------+-------+
+#
+#
+# **************** broadcast_inner_join_result = employees_df        .join(broadcast(departments_df),
+#               employees_df.emp_dept_id == departments_df.dept_id,
+#               'inner')
+#
+# ***************** broadcast_inner_join_result.show(truncate=False)
+# +------+--------+---------------+-----------+-----------+------+------+-------+-------+
+# |emp_id|name    |superior_emp_id|year_joined|emp_dept_id|gender|salary|dept_id|name   |
+# +------+--------+---------------+-----------+-----------+------+------+-------+-------+
+# |1     |Smith   |-1             |2018       |10         |M     |3000  |10     |HR     |
+# |2     |Rose    |1              |2010       |20         |M     |4000  |20     |FINANCE|
+# |3     |Williams|1              |2010       |10         |M     |1000  |10     |HR     |
+# |4     |Jones   |2              |2005       |10         |F     |2000  |10     |HR     |
+# |5     |Brown   |2              |2010       |20         |      |-1    |20     |FINANCE|
+# |6     |Jack    |2              |2010       |10         |      |-1    |10     |HR     |
+# |7     |Reddy   |2              |2010       |20         |F     |0     |20     |FINANCE|
+# |8     |Philip  |2              |2010       |20         |M     |5000  |20     |FINANCE|
+# +------+--------+---------------+-----------+-----------+------+------+-------+-------+
