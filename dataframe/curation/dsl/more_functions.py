@@ -4,7 +4,7 @@ This program demonstrates other functions from spark APIs.
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import first, last, trim, lower, col
+from pyspark.sql.functions import first, last, trim, lower, col, initcap, ltrim, corr
 from model.Person import Person
 
 
@@ -73,7 +73,7 @@ if __name__ == '__main__':
         .agg(last('weightInLbs', True))\
         .show(truncate=False)
 
-    # Sort data in desc on weightInLbs column
+    # Sort weightInLbs column in desc order then find records
     print("\n************* people_df.sort(col('weightInLbs').desc())"
           ".groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs', True)).show(truncate=False)")
     people_df\
@@ -81,3 +81,26 @@ if __name__ == '__main__':
         .groupBy(trim(lower(col('firstName'))))\
         .agg(first('weightInLbs', True))\
         .show(truncate=False)
+
+    # Sort weightInLbs column in asc order where null appear in last
+    print("\n************** people_df.sort(col('weighInLbs').asc_nulls_last())"
+          ".groupBy(trim(lower(col('firstName')))).agg(first(col('weightInLbs'))).show(truncate=False)")
+    people_df.sort(col('weighInLbs').asc_nulls_last())\
+        .groupBy(trim(lower(col('firstName'))))\
+        .agg(first(col('weightInLbs')))\
+        .show(truncate=False)
+
+    # Data cleaning / correction - using withColumn(...), initcap(..), ltrim(...) & trim(...)
+    print('\n************ Data cleaning / correction - using withColumn(...), initcap(..), ltrim(...) & trim(...)')
+
+    corrected_people_df = people_df.withColumn('firstName', initcap('firstName'))
+    print("\n************ corrected_people_df = people_df.withColumn('firstName', initcap('firstName'))")
+    corrected_people_df.show(truncate=False)
+
+    corrected_people_df = corrected_people_df.withColumn('firstName', ltrim(initcap('firstName')))
+    print("\n************ corrected_people_df = corrected_people_df.withColumn('firstName', ltrim(initcap('firstName')))")
+    corrected_people_df.show(truncate=False)
+
+    corrected_people_df = corrected_people_df.withColumn('firstName', trim(initcap('firstName')))
+    print("\n************ corrected_people_df = corrected_people_df.withColumn('firstName', trim(initcap('firstName')))")
+    corrected_people_df.show(truncate=False)
