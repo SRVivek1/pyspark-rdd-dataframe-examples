@@ -93,20 +93,20 @@ if __name__ == "__main__":
     date_demo_df = date_demo_df.withColumn('day_of_year', dayofyear('DateTS'))
 
     # Extract Month from the date
-    date_demo_df = date_demo_df.withColumn('Month', month('Date'))
-    date_demo_df = date_demo_df.withColumn('day_of_month', dayofmonth('Date'))
+    date_demo_df = date_demo_df.withColumn('Month', month('DateTS'))
+    date_demo_df = date_demo_df.withColumn('day_of_month', dayofmonth('DateTS'))
 
     # Extract day from the date
-    date_demo_df = date_demo_df.withColumn('Day', dayofmonth('Date'))
+    date_demo_df = date_demo_df.withColumn('Day', dayofmonth('DateTS'))
 
     # Week number
-    date_demo_df = date_demo_df.withColumn('day_of_week', dayofweek('Date'))
+    date_demo_df = date_demo_df.withColumn('day_of_week', dayofweek('DateTS'))
 
     # last day
-    date_demo_df = date_demo_df.withColumn('last_day', last_day('Date'))
+    date_demo_df = date_demo_df.withColumn('last_day', last_day('DateTS'))
 
     # next day
-    date_demo_df = date_demo_df.withColumn('next_day', next_day('Date', "Mon"))
+    date_demo_df = date_demo_df.withColumn('next_day', next_day('DateTS', "Mon"))
 
     # Find quarter of the date
 
