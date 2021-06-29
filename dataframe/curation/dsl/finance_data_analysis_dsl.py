@@ -115,8 +115,7 @@ if __name__ == "__main__":
     date_demo_df = date_demo_df.withColumn('quarter', ((date_format('DateTS', "MM") + 2) / 3).cast('int'))
 
     print("\n**************** Different date transformations per column")
-    for row in date_demo_df.collect():
-        print(row)
+    date_demo_df.show(51, truncate=False)
 
 # Command
 # --------------------
