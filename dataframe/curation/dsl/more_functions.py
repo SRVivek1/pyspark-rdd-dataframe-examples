@@ -4,7 +4,10 @@ This program demonstrates other functions from spark APIs.
 
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import first, last, trim, lower, col, initcap, ltrim, corr
+from pyspark.sql.functions import (
+    first, last, trim, lower, col, initcap,
+    ltrim, format_string, coalesce, lit
+)
 from model.Person import Person
 
 
@@ -98,9 +101,23 @@ if __name__ == '__main__':
     corrected_people_df.show(truncate=False)
 
     corrected_people_df = corrected_people_df.withColumn('firstName', ltrim(initcap('firstName')))
-    print("\n************ corrected_people_df = corrected_people_df.withColumn('firstName', ltrim(initcap('firstName')))")
+    print("\n************ corrected_people_df = "
+          "corrected_people_df.withColumn('firstName', ltrim(initcap('firstName')))")
     corrected_people_df.show(truncate=False)
 
     corrected_people_df = corrected_people_df.withColumn('firstName', trim(initcap('firstName')))
     print("\n************ corrected_people_df = corrected_people_df.withColumn('firstName', trim(initcap('firstName')))")
+    corrected_people_df.show(truncate=False)
+
+    # Using format_string(...)
+    corrected_people_df = corrected_people_df\
+        .withColumn('fullName', format_string('%s %s', 'firstName', 'lastName'))
+
+    print("\n************* corrected_people_df.withColumn('fullName', format_string('%s %s', 'firstName', 'lastName'))")
+    corrected_people_df.show(truncate=False)
+
+    #
+    print("\n************* corrected_people_df.withColumn('weightInLbs', coalesce('WeightInLbs', lit(0)))")
+    corrected_people_df = corrected_people_df\
+        .withColumn('weightInLbs', coalesce('WeightInLbs', lit(0)))
     corrected_people_df.show(truncate=False)
