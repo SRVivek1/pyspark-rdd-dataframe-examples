@@ -116,6 +116,7 @@ if __name__ == "__main__":
 
     print("\n**************** Different date transformations per column")
     date_demo_df.collect()
+
 # Command
 # --------------------
 # spark-submit dataframe/curation/dsl/finance_data_analysis_dsl.py
