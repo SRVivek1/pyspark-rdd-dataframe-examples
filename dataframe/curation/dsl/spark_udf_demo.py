@@ -61,3 +61,17 @@ if __name__ == '__main__':
                      initcap_udf_1('text').alias('udf_5')
                      )\
         .show(5, False)
+
+# Command
+# -------------------
+# spark-submit dataframe/curation/dsl/spark_udf_demo.py
+#
+# Output
+# -------------------
+# +---+--------------+--------------+--------------+--------------+--------------+
+# |id |udf_1         |udf_2         |udf_3         |udf_4         |udf_5         |
+# +---+--------------+--------------+--------------+--------------+--------------+
+# |1  |Some Data     |Some Data     |Some Data     |Some Data     |Some Data     |
+# |2  |Some More Data|Some More Data|Some More Data|Some More Data|Some More Data|
+# |3  |Even More Data|Even More Data|Even More Data|Even More Data|Even More Data|
+# +---+--------------+--------------+--------------+--------------+--------------+
