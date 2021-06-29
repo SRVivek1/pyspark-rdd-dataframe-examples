@@ -70,7 +70,7 @@ if __name__ == "__main__":
         .show(5, False)
 
     # Extracting different data from date
-    finances_df.select('AccountNumber, Amount, Date').show()
+    finances_df.select('AccountNumber', 'Amount', 'Date').show()
 
 # Command
 # --------------------
