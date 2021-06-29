@@ -156,9 +156,200 @@ if __name__ == '__main__':
 
 # Command
 # -------------------
-#
+#   spark-submit dataframe/curation/dsl/more_functions.py
 #
 # Output
 # -------------------
 #
+# **************************** SPARK pyspark.sql.functions method demo ****************************
 #
+#
+# **************** people_df.printSchema()
+# root
+#  |-- age: long (nullable = true)
+#  |-- firstName: string (nullable = true)
+#  |-- jobType: string (nullable = true)
+#  |-- lastName: string (nullable = true)
+#  |-- weightInLbs: double (nullable = true)
+#
+#
+# **************** people_df.show(truncate=False)
+# +---+---------+-----------------+--------+-----------+
+# |age|firstName|jobType          |lastName|weightInLbs|
+# +---+---------+-----------------+--------+-----------+
+# |32 |Sidhartha|Programmer       |Ray     |null       |
+# |22 |Pratik   |null             |Solanki |176.7      |
+# |62 |Ashok    |null             |Pradhan |null       |
+# |42 | ashok   |Chemical Engineer|Pradhan |125.3      |
+# |22 |Pratik   |Teacher          |Solanki |222.2      |
+# +---+---------+-----------------+--------+-----------+
+#
+#
+# **************** people_df.groupBy('firstName').agg(first('weightInLbs')).show(truncate=False)
+# +---------+------------------+
+# |firstName|first(weightInLbs)|
+# +---------+------------------+
+# |Ashok    |null              |
+# |Sidhartha|null              |
+# |Pratik   |176.7             |
+# | ashok   |125.3             |
+# +---------+------------------+
+#
+#
+# **************** people_df.groupBy('firstName').agg(last('weightInLbs')).show(truncate=False)
+# +---------+-----------------+
+# |firstName|last(weightInLbs)|
+# +---------+-----------------+
+# |Ashok    |null             |
+# |Sidhartha|null             |
+# |Pratik   |222.2            |
+# | ashok   |125.3            |
+# +---------+-----------------+
+#
+#
+# ***************** people_df.groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs')).show(truncate=False)
+# +----------------------+------------------+
+# |trim(lower(firstName))|first(weightInLbs)|
+# +----------------------+------------------+
+# |sidhartha             |null              |
+# |pratik                |176.7             |
+# |ashok                 |null              |
+# +----------------------+------------------+
+#
+#
+# ***************** people_df.groupBy(trim(lower(col('firstName')))).agg(last('weightInLbs')).show(truncate=False)
+# +----------------------+-----------------+
+# |trim(lower(firstName))|last(weightInLbs)|
+# +----------------------+-----------------+
+# |sidhartha             |null             |
+# |pratik                |222.2            |
+# |ashok                 |125.3            |
+# +----------------------+-----------------+
+#
+#
+# ***************** people_df.groupBy(trim(lower(col('firstName')))).agg(last('weightInLbs', True)).show(truncate=False)
+# +----------------------+-----------------+
+# |trim(lower(firstName))|last(weightInLbs)|
+# +----------------------+-----------------+
+# |sidhartha             |null             |
+# |pratik                |222.2            |
+# |ashok                 |125.3            |
+# +----------------------+-----------------+
+#
+#
+# ************* people_df.sort(col('weightInLbs').desc()).groupBy(trim(lower(col('firstName')))).agg(first('weightInLbs', True)).show(truncate=False)
+# +----------------------+------------------+
+# |trim(lower(firstName))|first(weightInLbs)|
+# +----------------------+------------------+
+# |sidhartha             |null              |
+# |pratik                |222.2             |
+# |ashok                 |125.3             |
+# +----------------------+------------------+
+#
+#
+# ************** people_df.sort(col('weighInLbs').asc_nulls_last()).groupBy(trim(lower(col('firstName')))).agg(first(col('weightInLbs'))).show(truncate=False)
+# +----------------------+------------------+
+# |trim(lower(firstName))|first(weightInLbs)|
+# +----------------------+------------------+
+# |sidhartha             |null              |
+# |pratik                |176.7             |
+# |ashok                 |125.3             |
+# +----------------------+------------------+
+#
+#
+# ************ Data cleaning / correction - using withColumn(...), initcap(..), ltrim(...) & trim(...)
+#
+# ************ corrected_people_df = people_df.withColumn('firstName', initcap('firstName'))
+# +---+---------+-----------------+--------+-----------+
+# |age|firstName|jobType          |lastName|weightInLbs|
+# +---+---------+-----------------+--------+-----------+
+# |32 |Sidhartha|Programmer       |Ray     |null       |
+# |22 |Pratik   |null             |Solanki |176.7      |
+# |62 |Ashok    |null             |Pradhan |null       |
+# |42 | Ashok   |Chemical Engineer|Pradhan |125.3      |
+# |22 |Pratik   |Teacher          |Solanki |222.2      |
+# +---+---------+-----------------+--------+-----------+
+#
+#
+# ************ corrected_people_df = corrected_people_df.withColumn('firstName', ltrim(initcap('firstName')))
+# +---+---------+-----------------+--------+-----------+
+# |age|firstName|jobType          |lastName|weightInLbs|
+# +---+---------+-----------------+--------+-----------+
+# |32 |Sidhartha|Programmer       |Ray     |null       |
+# |22 |Pratik   |null             |Solanki |176.7      |
+# |62 |Ashok    |null             |Pradhan |null       |
+# |42 |Ashok    |Chemical Engineer|Pradhan |125.3      |
+# |22 |Pratik   |Teacher          |Solanki |222.2      |
+# +---+---------+-----------------+--------+-----------+
+#
+#
+# ************ corrected_people_df = corrected_people_df.withColumn('firstName', trim(initcap('firstName')))
+# +---+---------+-----------------+--------+-----------+
+# |age|firstName|jobType          |lastName|weightInLbs|
+# +---+---------+-----------------+--------+-----------+
+# |32 |Sidhartha|Programmer       |Ray     |null       |
+# |22 |Pratik   |null             |Solanki |176.7      |
+# |62 |Ashok    |null             |Pradhan |null       |
+# |42 |Ashok    |Chemical Engineer|Pradhan |125.3      |
+# |22 |Pratik   |Teacher          |Solanki |222.2      |
+# +---+---------+-----------------+--------+-----------+
+#
+#
+# ************* corrected_people_df.withColumn('fullName', format_string('%s %s', 'firstName', 'lastName'))
+# +---+---------+-----------------+--------+-----------+--------------+
+# |age|firstName|jobType          |lastName|weightInLbs|fullName      |
+# +---+---------+-----------------+--------+-----------+--------------+
+# |32 |Sidhartha|Programmer       |Ray     |null       |Sidhartha Ray |
+# |22 |Pratik   |null             |Solanki |176.7      |Pratik Solanki|
+# |62 |Ashok    |null             |Pradhan |null       |Ashok Pradhan |
+# |42 |Ashok    |Chemical Engineer|Pradhan |125.3      |Ashok Pradhan |
+# |22 |Pratik   |Teacher          |Solanki |222.2      |Pratik Solanki|
+# +---+---------+-----------------+--------+-----------+--------------+
+#
+#
+# ************* corrected_people_df.withColumn('weightInLbs', coalesce('WeightInLbs', lit(0)))
+# +---+---------+-----------------+--------+-----------+--------------+
+# |age|firstName|jobType          |lastName|weightInLbs|fullName      |
+# +---+---------+-----------------+--------+-----------+--------------+
+# |32 |Sidhartha|Programmer       |Ray     |0.0        |Sidhartha Ray |
+# |22 |Pratik   |null             |Solanki |176.7      |Pratik Solanki|
+# |62 |Ashok    |null             |Pradhan |0.0        |Ashok Pradhan |
+# |42 |Ashok    |Chemical Engineer|Pradhan |125.3      |Ashok Pradhan |
+# |22 |Pratik   |Teacher          |Solanki |222.2      |Pratik Solanki|
+# +---+---------+-----------------+--------+-----------+--------------+
+#
+#
+# ************ corrected_people_df.filter(lower(col('jobType')).contains('engineer')).show()
+# +---+---------+-----------------+--------+-----------+-------------+
+# |age|firstName|          jobType|lastName|weightInLbs|     fullName|
+# +---+---------+-----------------+--------+-----------+-------------+
+# | 42|    Ashok|Chemical Engineer| Pradhan|      125.3|Ashok Pradhan|
+# +---+---------+-----------------+--------+-----------+-------------+
+#
+#
+# ************ corrected_people_df.filter(lower(col('jobType')).isin(['chemical engineer', 'abc', 'teacher'])).show()
+# +---+---------+-----------------+--------+-----------+--------------+
+# |age|firstName|          jobType|lastName|weightInLbs|      fullName|
+# +---+---------+-----------------+--------+-----------+--------------+
+# | 42|    Ashok|Chemical Engineer| Pradhan|      125.3| Ashok Pradhan|
+# | 22|   Pratik|          Teacher| Solanki|      222.2|Pratik Solanki|
+# +---+---------+-----------------+--------+-----------+--------------+
+#
+#
+# ************ corrected_people_df.filter(lower(col('jobType')).isin('chemical engineer', 'abc', 'teacher')).show()
+# +---+---------+-----------------+--------+-----------+--------------+
+# |age|firstName|          jobType|lastName|weightInLbs|      fullName|
+# +---+---------+-----------------+--------+-----------+--------------+
+# | 42|    Ashok|Chemical Engineer| Pradhan|      125.3| Ashok Pradhan|
+# | 22|   Pratik|          Teacher| Solanki|      222.2|Pratik Solanki|
+# +---+---------+-----------------+--------+-----------+--------------+
+#
+#
+# ************* Exclusion - using tilda '~'
+#
+# ************* corrected_people_df.filter(~lower(col('jobType')).isin('chemical engineer', 'abc', 'teacher')).show()
+# +---+---------+----------+--------+-----------+-------------+
+# |age|firstName|   jobType|lastName|weightInLbs|     fullName|
+# +---+---------+----------+--------+-----------+-------------+
+# | 32|Sidhartha|Programmer|     Ray|        0.0|Sidhartha Ray|
+# +---+---------+----------+--------+-----------+-------------+
