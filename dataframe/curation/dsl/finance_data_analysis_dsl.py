@@ -69,6 +69,8 @@ if __name__ == "__main__":
                 array_contains('UniqueTransactionsDescriptions', 'Movies').alias('WentToMovies'))\
         .show(5, False)
 
+    # Extracting different data from date
+    finances_df.select('AccountNumber, Amount, Date').show()
 
 # Command
 # --------------------
