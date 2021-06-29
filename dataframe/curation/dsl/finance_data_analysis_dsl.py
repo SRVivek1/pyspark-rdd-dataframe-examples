@@ -86,13 +86,29 @@ if __name__ == "__main__":
     date_demo_df.show()
 
     # Find year from the date
+    date_demo_df = date_demo_df.withColumn('Year', year('Date'))
+    date_demo_df = date_demo_df.withColumn('day_of_year', dayofyear('Date'))
 
     # Extract Month from the date
+    date_demo_df = date_demo_df.withColumn('Month', month('Date'))
+    date_demo_df = date_demo_df.withColumn('day_of_month', dayofmonth('Date'))
 
     # Extract day from the date
+    date_demo_df = date_demo_df.withColumn('Day', dayofmonth('Date'))
+
+    # Week number
+    date_demo_df = date_demo_df.withColumn('day_of_week', dayofweek('Date'))
+
+    # last day
+    date_demo_df = date_demo_df.withColumn('last_day', last_day('Date'))
+
+    # next day
+    date_demo_df = date_demo_df.withColumn('next_day', next_day('Date'))
 
     # Find quarter of the date
 
+    print("\n**************** Different date transformations per column")
+    date_demo_df.show()
 # Command
 # --------------------
 # spark-submit dataframe/curation/dsl/finance_data_analysis_dsl.py
