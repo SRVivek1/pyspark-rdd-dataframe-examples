@@ -70,7 +70,28 @@ if __name__ == "__main__":
         .show(5, False)
 
     # Extracting different data from date
-    finances_df.select('AccountNumber', 'Amount', 'Date').show()
+    print('\n*************************** Transforming Dates ***************************')
+
+    date_demo_df = finances_df.select('AccountNumber', 'Amount', 'Date')
+    print("\n**************** finances_df.select('AccountNumber', 'Amount', 'Date').show()")
+    date_demo_df.show()
+
+    # Create new column from date for unix timestamp
+    date_demo_df = date_demo_df\
+        .withColumn('DateTS',
+                    unix_timestamp(col('Date'), 'MM/dd/yyyy')
+                    .cast('timestamp'))
+    print("\n**************** date_demo_df"
+          ".withColumn('DateTS',unix_timestamp(col('Date'), 'MM/dd/yyyy').cast('timestamp')).show()")
+    date_demo_df.show()
+
+    # Find year from the date
+
+    # Extract Month from the date
+
+    # Extract day from the date
+
+    # Find quarter of the date
 
 # Command
 # --------------------
