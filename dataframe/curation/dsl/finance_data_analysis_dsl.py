@@ -106,12 +106,13 @@ if __name__ == "__main__":
     date_demo_df = date_demo_df.withColumn('day_of_week', dayofweek('DateTS'))
 
     # last day
-    date_demo_df = date_demo_df.withColumn('last_day', last_day('DateTS'))
+    date_demo_df = date_demo_df.withColumn('last_day_of_month', last_day('DateTS'))
 
     # next day
     date_demo_df = date_demo_df.withColumn('next_day', next_day('DateTS', "Mon"))
 
     # Find quarter of the date
+    date_demo_df = date_demo_df.withColumn('quarter', ((date_format('DateTS', "MM") + 2) / 3).cast('int'))
 
     print("\n**************** Different date transformations per column")
     date_demo_df.show()
