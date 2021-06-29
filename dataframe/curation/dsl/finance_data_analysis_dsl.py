@@ -106,7 +106,7 @@ if __name__ == "__main__":
     date_demo_df = date_demo_df.withColumn('last_day', last_day('Date'))
 
     # next day
-    date_demo_df = date_demo_df.withColumn('next_day', next_day('Date'))
+    date_demo_df = date_demo_df.withColumn('next_day', next_day('Date', "Mon"))
 
     # Find quarter of the date
 
