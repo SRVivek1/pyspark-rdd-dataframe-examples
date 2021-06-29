@@ -14,6 +14,9 @@ if __name__ == "__main__":
         .getOrCreate()
     sparkSession.sparkContext.setLogLevel('ERROR')
 
+    # Provide support to date format written by older spark
+    sparkSession.conf.set('spark.sql.legacy.timeParserPolicy', 'LEGACY')
+
     print("\n***************************** Data curation using DSL *****************************\n")
 
     # File path of AWS S3
