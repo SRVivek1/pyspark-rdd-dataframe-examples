@@ -89,8 +89,8 @@ if __name__ == "__main__":
     date_demo_df.show()
 
     # Find year from the date
-    date_demo_df = date_demo_df.withColumn('Year', year(col('Date')))
-    date_demo_df = date_demo_df.withColumn('day_of_year', dayofyear('Date'))
+    date_demo_df = date_demo_df.withColumn('Year', year(col('DateTS')))
+    date_demo_df = date_demo_df.withColumn('day_of_year', dayofyear('DateTS'))
 
     # Extract Month from the date
     date_demo_df = date_demo_df.withColumn('Month', month('Date'))
