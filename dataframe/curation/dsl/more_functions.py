@@ -116,8 +116,22 @@ if __name__ == '__main__':
     print("\n************* corrected_people_df.withColumn('fullName', format_string('%s %s', 'firstName', 'lastName'))")
     corrected_people_df.show(truncate=False)
 
-    #
+    # convert weightInLbs column to numeric values
     print("\n************* corrected_people_df.withColumn('weightInLbs', coalesce('WeightInLbs', lit(0)))")
     corrected_people_df = corrected_people_df\
         .withColumn('weightInLbs', coalesce('WeightInLbs', lit(0)))
     corrected_people_df.show(truncate=False)
+
+    # Find people with job type as engineering. - contains(...)
+    print("\n************ corrected_people_df.filter(lower(col('jobType')).contains('engineer')).show()")
+    corrected_people_df.filter(lower(col('jobType')).contains('engineer')).show()
+
+    # Search with list - isin(["..", "...", ...])
+    print("\n************ corrected_people_df.filter(lower(col('jobType'))"
+          ".isin(['chemical engineer', 'abc', 'teacher'])).show()")
+    corrected_people_df\
+        .filter(lower(col('jobType'))
+                .isin(["chemical engineer", "abc", "teacher"]))\
+        .show()
+
+
