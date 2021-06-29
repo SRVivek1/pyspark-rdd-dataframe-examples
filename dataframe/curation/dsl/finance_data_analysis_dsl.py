@@ -91,13 +91,16 @@ if __name__ == "__main__":
     # Find year from the date
     date_demo_df = date_demo_df.withColumn('Year', year(col('DateTS')))
     date_demo_df = date_demo_df.withColumn('day_of_year', dayofyear('DateTS'))
+    date_demo_df = date_demo_df.withColumn('date_format_yyyy', date_format(col('DateTS'), 'yyyy'))
 
     # Extract Month from the date
     date_demo_df = date_demo_df.withColumn('Month', month('DateTS'))
     date_demo_df = date_demo_df.withColumn('day_of_month', dayofmonth('DateTS'))
+    date_demo_df = date_demo_df.withColumn('date_format_MM', date_format(col('DateTS'), 'MM'))
 
     # Extract day from the date
     date_demo_df = date_demo_df.withColumn('Day', dayofmonth('DateTS'))
+    date_demo_df = date_demo_df.withColumn('date_format_dd', date_format(col('DateTS'), 'dd'))
 
     # Week number
     date_demo_df = date_demo_df.withColumn('day_of_week', dayofweek('DateTS'))
