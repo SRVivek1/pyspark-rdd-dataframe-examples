@@ -134,7 +134,31 @@ if __name__ == '__main__':
           ".isin(['chemical engineer', 'abc', 'teacher'])).show()")
     corrected_people_df\
         .filter(lower(col('jobType'))
-                .isin(["chemical engineer", "abc", "teacher"]))\
+                .isin(['chemical engineer', 'abc', 'teacher']))\
         .show()
 
+    # Search without list - isin("..", "...", "...", ....)
+    print("\n************ corrected_people_df"
+          ".filter(lower(col('jobType')).isin('chemical engineer', 'abc', 'teacher')).show()")
+    corrected_people_df\
+        .filter(lower(col('jobType'))
+                .isin('chemical engineer', 'abc', 'teacher'))\
+        .show()
 
+    # Exclusion - using tilda '~'
+    print("\n************* Exclusion - using tilda '~'")
+    print("\n************* corrected_people_df.filter(~lower(col('jobType'))"
+          ".isin('chemical engineer', 'abc', 'teacher')).show()")
+    corrected_people_df\
+        .filter(~lower(col('jobType'))
+                .isin('chemical engineer', 'abc', 'teacher'))\
+        .show()
+
+# Command
+# -------------------
+#
+#
+# Output
+# -------------------
+#
+#
