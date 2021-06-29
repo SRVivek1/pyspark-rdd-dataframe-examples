@@ -124,7 +124,10 @@ if __name__ == '__main__':
 
     # Find people with job type as engineering. - contains(...)
     print("\n************ corrected_people_df.filter(lower(col('jobType')).contains('engineer')).show()")
-    corrected_people_df.filter(lower(col('jobType')).contains('engineer')).show()
+    corrected_people_df\
+        .filter(lower(col('jobType'))
+                .contains('engineer'))\
+        .show()
 
     # Search with list - isin(["..", "...", ...])
     print("\n************ corrected_people_df.filter(lower(col('jobType'))"
