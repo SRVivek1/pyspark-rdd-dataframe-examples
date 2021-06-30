@@ -4,7 +4,7 @@ This program demonstrates the use of Windows functions in spark.
 
 
 from pyspark.sql import SparkSession, Window
-from pyspark.sql.functions import to_date, from_unixtime, unix_timestamp, avg
+from pyspark.sql.functions import *
 from constants.app_constants import file_read_path, finances_small_parquet
 
 
@@ -33,6 +33,7 @@ if __name__ == '__main__':
     print('\n**************** finance_small_df.show()')
     finance_small_df.show()
 
+    # Start : Find average of amount for last 4 rows
     # define window specification
     # This window spec. will work on current and previous 4 rows
     # If there are less than 4 rows than it will consider only available ones
@@ -52,7 +53,30 @@ if __name__ == '__main__':
         .withColumn('RollingAvg', avg("Amount").over(accNumPrev4WindowSpec))
 
     print('\n*************** result_df.show(200, False)')
-    result_df.show(20, False)
+    result_df.show(200, False)
+    # End : Find average of amount for last 4 rows
+
+    # Start : Find sum of amount for all preceding rows
+    print("\n************** Window Specification : sumOfAllPrecedingRecUbWindowSpec = "
+          "Window.partitionBy('AccountNumber').orderBy(asc('Amount')).rowsBetween(Window.unboundedPreceding, 0)")
+    sumOfAllPrecedingRecUbWindowSpec = Window\
+        .partitionBy('AccountNumber')\
+        .orderBy(asc('Amount'))\
+        .rowsBetween(Window.unboundedPreceding, 0)
+
+    print("\n************** result_df = finance_small_df"
+          ".withColumn('Date', to_date(from_unixtime(unix_timestamp('Date', 'MM/dd/yyyy'))))"
+          ".withColumn('RollingAvg', avg('Amount').over(accNumPrev4WindowSpec))"
+          ".withColumn('CommutativeSum', sum('Amount').over(sumOfAllPrecedingRecUbWindowSpec))")
+    result_df = finance_small_df\
+        .withColumn('Date', to_date(from_unixtime(unix_timestamp('Date', 'MM/dd/yyyy'))))\
+        .withColumn('RollingAvg', avg('Amount').over(accNumPrev4WindowSpec))\
+        .withColumn('CommutativeSum', sum('Amount').over(sumOfAllPrecedingRecUbWindowSpec))
+
+    print('\n*************** result_df.show(200, False)')
+    result_df.show(200, False)
+    # End : Find sum of amount for all preceding rows
+
 
 # Command
 # ---------------------
