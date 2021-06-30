@@ -4,7 +4,7 @@ This program demonstrates the use of Windows functions in spark.
 
 
 from pyspark.sql import SparkSession, Window
-from pyspark.sql.functions import to_date, from_unixtime, avg
+from pyspark.sql.functions import to_date, from_unixtime, unix_timestamp, avg
 from constants.app_constants import file_read_path, finances_small_parquet
 
 
@@ -37,6 +37,6 @@ if __name__ == '__main__':
         .rowsBetween(-4, 0)
 
     finance_small_df\
-        .withColumn('Date', to_date(from_unixtime('Date', 'MM/dd/yyyy')))\
+        .withColumn('Date', to_date(from_unixtime(unix_timestamp('Date', 'MM/dd/yyyy'))))\
         .withColumn('RollingAvg', avg("Amount").over(accNumPrev4WindowSpec))\
         .show(20, False)
