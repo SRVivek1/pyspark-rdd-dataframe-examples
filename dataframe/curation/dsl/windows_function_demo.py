@@ -61,7 +61,7 @@ if __name__ == '__main__':
           "Window.partitionBy('AccountNumber').orderBy(asc('Amount')).rowsBetween(Window.unboundedPreceding, 0)")
     sumOfAllPrecedingRecUbWindowSpec = Window\
         .partitionBy('AccountNumber')\
-        .orderBy(asc('Amount'))\
+        .orderBy(asc('Date'))\
         .rowsBetween(Window.unboundedPreceding, 0)
 
     print("\n************** result_df = finance_small_df"
