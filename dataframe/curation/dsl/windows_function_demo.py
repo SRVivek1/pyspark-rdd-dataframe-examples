@@ -19,6 +19,9 @@ if __name__ == '__main__':
         .getOrCreate()
     sparkSession.sparkContext.setLogLevel('ERROR')
 
+    # To support legacy date format in prev. version of parquet files
+    sparkSession.conf.set('spark.sql.legacy.timeParserPolicy', 'LEGACY')
+
     print('\n*************************** Spark Window Function ***************************\n')
 
     # Read data from parquet file
