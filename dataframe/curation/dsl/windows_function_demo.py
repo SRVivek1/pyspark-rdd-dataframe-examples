@@ -52,8 +52,8 @@ if __name__ == '__main__':
         .withColumn('Date', to_date(from_unixtime(unix_timestamp('Date', 'MM/dd/yyyy'))))\
         .withColumn('RollingAvg', avg("Amount").over(accNumPrev4WindowSpec))
 
-    print('\n*************** result_df.show(200, False)')
-    result_df.show(200, False)
+    print('\n*************** result_df.show(20, False)')
+    result_df.show(20, False)
     # End : Find average of amount for last 4 rows
 
     # Start : Find sum of amount for all preceding rows
@@ -73,8 +73,8 @@ if __name__ == '__main__':
         .withColumn('RollingAvg', avg('Amount').over(accNumPrev4WindowSpec))\
         .withColumn('CommutativeSum', sum('Amount').over(sumOfAllPrecedingRecUbWindowSpec))
 
-    print('\n*************** result_df.show(200, False)')
-    result_df.show(200, False)
+    print('\n*************** result_df.show(20, False)')
+    result_df.show(20, False)
     # End : Find sum of amount for all preceding rows
 
 
