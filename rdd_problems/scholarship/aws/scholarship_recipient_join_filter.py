@@ -64,5 +64,8 @@ if __name__ == '__main__':
     join_pair_rdd.foreach(print)
 
 # Command to submit this application
-#
 # spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" rdd_problems/scholarship/aws/scholarship_recipient_join_filter.py
+#
+# Output : AWS EMR
+# (103, ((22, 1, 'Switzerland', 'M', 1, 0, 2), (1, 1, 0, 55000)))
+# (102, ((19, 1, 'Switzerland', 'F', 1, 0, 1), (1, 1, 0, 50000)))
