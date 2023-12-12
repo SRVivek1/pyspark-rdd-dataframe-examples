@@ -43,6 +43,9 @@ if __name__ == '__main__':
     hadoop_conf.set('fs.s3a.access.key', secrets_conf['s3_conf']['access_key'])
     hadoop_conf.set('fs.s3a.secret.key', secrets_conf['s3_conf']['secret_access_key'])
 
+    # S3 region
+    # hadoop_conf.set('fs.s3a.endpoint.region', 'us-east-2')
+
     # read the files from s3 bucket
     demographics_rdd = spark.sparkContext.textFile('s3a://' + app_conf['s3_conf']['s3_bucket'] + '/demographic.csv')
     finances_rdd = spark.sparkContext.textFile("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/finances.csv")
