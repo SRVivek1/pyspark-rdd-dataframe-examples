@@ -22,6 +22,8 @@
     cd rdd-dataframe-examples
     export PYTHONPATH="$PWD"
 
+# git clone https://github.com/SRVivek1/rdd-dataframe-examples;cd rdd-dataframe-examples;export PYTHONPATH="$PWD"
+
 # Copy 2 files (private key and .secrets) from local to EMR cluster's master node,
     scp -i test.pem xyz.pem hadoop@<cluster_dns_name>:/home/hadoop/dataframe-examples-py/
     scp -i test.pem .secrets hadoop@<cluster_dns_name>:/home/hadoop/dataframe-examples-py/

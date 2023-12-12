@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
     # read the files from s3 bucket
     #rdd = session.sparkContext.textFile('s3a://' + app_conf['s3_conf']['s3_bucket'] + '/demographic.csv')
-    rdd = session.sparkContext.textFile('s3a://vsingh-dev.spark.test.data/demographic.csv')
+    rdd = session.sparkContext.textFile('s3a://vsingh-spark-test-data/demographic.csv')
     rdd.take(5)
 
     #pair_rdd = rdd.map(lambda rec : (int(rec[0]), (rec[1]), rec[2], rec[3], rec[4], rec[5], rec[6], rec[7]))
@@ -58,4 +58,5 @@ if __name__ == '__main__':
 
 
 # Command to submit this application
-# spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" rdd_problems/scholarship/aws/scholaship_recipient_join_filter.py
+#
+# spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" rdd_problems/scholarship/aws/scholarship_recipient_join_filter.py

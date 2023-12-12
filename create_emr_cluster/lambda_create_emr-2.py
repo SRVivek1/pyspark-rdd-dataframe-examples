@@ -13,18 +13,18 @@ import boto3
 
 
 def lambda_handler(event, context):
-    client = boto3.client('emr', region_name="us-east-2")
+    client = boto3.client('emr', region_name="eu-west-1")
 
     instances = {
         'MasterInstanceType': 'm5.xlarge',
         'SlaveInstanceType': 'm5.xlarge',
         'InstanceCount': 2,
         'InstanceGroups': [],
-        'Ec2KeyName': 'ec2-putty-ppk-key-pair',
+        'Ec2KeyName': 'viveksingh2-ec2-key-pair',
         'KeepJobFlowAliveWhenNoSteps': True,
         'TerminationProtected': False,
-        'Ec2SubnetId': 'subnet-023701fa5258f4097',
-        'EmrManagedMasterSecurityGroup': 'sg-013af8716ec4df1a5',
+        'Ec2SubnetId': 'subnet-0387ef4502f62348a',
+        'EmrManagedMasterSecurityGroup': 'sg-007c39abe76ca12e1',
         'EmrManagedSlaveSecurityGroup': 'sg-0831f5f387597c14c'
     }
 
