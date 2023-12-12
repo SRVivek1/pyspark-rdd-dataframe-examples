@@ -13,11 +13,13 @@
     sudo yum install git-core -y
     pip install pyyaml==5.3.1
 
+# export LC_ALL=C;sudo yum update -y;sudo yum install git-core -y;pip install pyyaml==5.3.1
+
 # Clone code repository from git
-    git clone <repo_url>
+    git clone https://github.com/SRVivek1/rdd-dataframe-examples
 
 # Add downloaded python project to python path
-    cd <repo_dir>
+    cd rdd-dataframe-examples
     export PYTHONPATH="$PWD"
 
 # Copy 2 files (private key and .secrets) from local to EMR cluster's master node,

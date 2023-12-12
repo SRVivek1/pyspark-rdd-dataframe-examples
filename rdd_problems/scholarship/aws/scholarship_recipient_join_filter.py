@@ -23,7 +23,7 @@ if __name__ == '__main__':
         .getOrCreate()
 
     #sc = session.sparkContext
-    sc.setLogLevel('DEBUG')
+    session.sparkContext.setLogLevel('DEBUG')
 
     # read configuration files
     current_dir = os.path.abspath(os.path.dirname(__file__))
