@@ -1,5 +1,5 @@
 s3_conf:
-  s3_bucket: dataeng-test-1
+  s3_bucket: vsingh-dev.spark.test.data
 
 sftp_conf:
     filetype: csv
