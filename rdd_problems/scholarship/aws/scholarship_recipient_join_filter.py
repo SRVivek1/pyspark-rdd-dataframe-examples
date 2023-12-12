@@ -6,8 +6,10 @@
 """
 
 from pyspark.sql import SparkSession
+from distutils.util import strtobool
 import os
 import yaml
+
 
 if __name__ == '__main__':
 
@@ -17,13 +19,12 @@ if __name__ == '__main__':
     )
 
     # Create session
-    session = SparkSession.builder \
+    spark = SparkSession.builder \
         .appName('Spark AWS Program') \
         .master('local[*]') \
         .getOrCreate()
 
-    #sc = session.sparkContext
-    session.sparkContext.setLogLevel('ERROR')
+    spark.sparkContext.setLogLevel('ERROR')
 
     # read configuration files
     current_dir = os.path.abspath(os.path.dirname(__file__))
@@ -38,23 +39,29 @@ if __name__ == '__main__':
     secrets_conf = yaml.load(secrets, Loader=yaml.FullLoader)
 
     # configure access keys to connect to s3
-    hadoop_conf = session.sparkContext._jsc.hadoopConfiguration()
+    hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
     hadoop_conf.set('fs.s3a.access.key', secrets_conf['s3_conf']['access_key'])
     hadoop_conf.set('fs.s3a.secret.key', secrets_conf['s3_conf']['secret_access_key'])
 
-    # verify below conf.
-    #hadoop_conf.set('fs.s3a.endpoint.region', 's3.us-east-2.amazonaws.com')
-    #hadoop_conf.set('s3a.endpoint.region', 's3.us-east-2.amazonaws.com')
-
     # read the files from s3 bucket
-    #rdd = session.sparkContext.textFile('s3a://' + app_conf['s3_conf']['s3_bucket'] + '/demographic.csv')
-    rdd = session.sparkContext.textFile('s3a://vsingh-spark-test-data/demographic.csv')
+    demographics_rdd = spark.sparkContext.textFile('s3a://' + app_conf['s3_conf']['s3_bucket'] + '/demographic.csv')
+    finances_rdd = spark.sparkContext.textFile("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/finances.csv")
 
-    pair_rdd = rdd.map(lambda rec: (int(rec[0]), (rec[1]), rec[2], rec[3], rec[4], rec[5], rec[6], rec[7]))
-    # pair_rdd = pair_rdd.filter(lambda rec: rec[1][2] == 'Switzerland')
+    demographics_pair_rdd = demographics_rdd \
+        .map(lambda line: line.split(",")) \
+        .map(lambda lst: (
+    int(lst[0]), (int(lst[1]), strtobool(lst[2]), lst[3], lst[4], strtobool(lst[5]), strtobool(lst[6]), int(lst[7]))))
 
-    pair_rdd.foreach(print)
+    finances_pair_rdd = finances_rdd \
+        .map(lambda line: line.split(",")) \
+        .map(lambda lst: (int(lst[0]), (strtobool(lst[1]), strtobool(lst[2]), strtobool(lst[3]), int(lst[4]))))
 
+    print('Participants belongs to \'Switzerland\', having debts and financial dependents,')
+    join_pair_rdd = demographics_pair_rdd\
+        .join(finances_pair_rdd)\
+        .filter(lambda rec: (rec[1][0][2] == "Switzerland") and (rec[1][1][0] == 1) and (rec[1][1][1] == 1))
+
+    join_pair_rdd.foreach(print)
 
 # Command to submit this application
 #
