@@ -41,7 +41,10 @@ if __name__ == '__main__':
     hadoop_conf = session.sparkContext._jsc.hadoopConfiguration()
     hadoop_conf.set('fs.s3a.access.key', secrets_conf['s3_conf']['access_key'])
     hadoop_conf.set('fs.s3a.secret.key', secrets_conf['s3_conf']['secret_access_key'])
-    hadoop_conf.set('fs.s3a.endpoint.region', '[us-east-2')
+
+    # verify below conf.
+    hadoop_conf.set('fs.s3a.endpoint.region', 's3.us-east-2.amazonaws.com')
+    hadoop_conf.set('s3a.endpoint.region', 's3.us-east-2.amazonaws.com')
 
     # read the files from s3 bucket
     rdd = session.sparkContext.textFile('s3a://' + app_conf['s3_conf']['s3_bucket'] + '/demographic.csv')
