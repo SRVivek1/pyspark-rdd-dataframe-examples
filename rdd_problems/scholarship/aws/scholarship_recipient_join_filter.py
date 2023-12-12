@@ -27,8 +27,8 @@ if __name__ == '__main__':
 
     # read configuration files
     current_dir = os.path.abspath(os.path.dirname(__file__))
-    app_config_path = os.path.abspath(current_dir + '../../../' + 'application.yml')
-    app_secrets_path = os.path.abspath(current_dir + '../../../' + '.secrets')
+    app_config_path = os.path.abspath(current_dir + '../../../../' + 'application.yml')
+    app_secrets_path = os.path.abspath(current_dir + '../../../../' + '.secrets')
 
     # Open config files and read them using yaml API.
     conf = open(app_config_path)
