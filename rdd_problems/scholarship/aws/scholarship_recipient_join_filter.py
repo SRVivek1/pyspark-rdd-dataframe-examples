@@ -49,7 +49,10 @@ if __name__ == '__main__':
     # read the files from s3 bucket
     #rdd = session.sparkContext.textFile('s3a://' + app_conf['s3_conf']['s3_bucket'] + '/demographic.csv')
     rdd = session.sparkContext.textFile('s3a://vsingh-spark-test-data/demographic.csv')
+
+    print('***************************************')
     rdd.take(5)
+    print('***************************************')
 
     #pair_rdd = rdd.map(lambda rec : (int(rec[0]), (rec[1]), rec[2], rec[3], rec[4], rec[5], rec[6], rec[7]))
     # pair_rdd = pair_rdd.filter(lambda rec: rec[1][2] == 'Switzerland')
