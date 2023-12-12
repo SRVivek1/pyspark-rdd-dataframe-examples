@@ -49,3 +49,7 @@ if __name__ == '__main__':
     # pair_rdd = pair_rdd.filter(lambda rec: rec[1][2] == 'Switzerland')
 
     pair_rdd.foreach(print)
+
+
+# Command to submit this application
+# spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" rdd_problems/scholarship/aws/scholaship_recipient_join_filter.py
