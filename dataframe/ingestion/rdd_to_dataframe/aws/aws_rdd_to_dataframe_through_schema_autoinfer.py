@@ -40,7 +40,7 @@ if __name__ == '__main__':
     hadoop_conf = sc._jsc.hadoopConfiguration()
     hadoop_conf.set('fs.s3a.access.key', secrets['s3_conf']['access_key'])
     hadoop_conf.set('fs.s3a.secret.key', secrets['s3_conf']['secret_access_key'])
-    hadoop_conf.set('spark.hadoop.fs.s3a.multipart.size', '104857600')
+    #hadoop_conf.set('spark.hadoop.fs.s3a.multipart.size', '104857600')
     hadoop_conf.set('fs.s3a.multipart.size', '104857600')
 
     txn_fct_rdd = sc.textFile('s3a://' + app_conf['s3_conf']['s3_bucket'] + '/txn_fct.csv')
