@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     # Read config
     pw_dir = os.path.abspath(os.path.dirname(__file__))
-    app_conf_file = os.path.abspath(pw_dir + '../../../../../' + 'application.yaml')
+    app_conf_file = os.path.abspath(pw_dir + '../../../../../' + 'application.yml')
     secrets_file = os.path.abspath(pw_dir + '../../../../../../' + '.secrets')
 
     app_conf = yaml.load(open(app_conf_file), Loader=yaml.FullLoader)
