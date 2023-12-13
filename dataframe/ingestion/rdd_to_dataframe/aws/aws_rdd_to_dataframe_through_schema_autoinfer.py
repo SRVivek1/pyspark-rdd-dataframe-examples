@@ -42,6 +42,9 @@ if __name__ == '__main__':
 
     txn_fct_rdd = sc.textFile('s3a://' + app_conf['s3_conf']['s3_bucket'] + '/txn_fct.csv')
 
+    print('********************* RAW Data from csv file ')
+    txn_fct_rdd.foreach(print)
+
     # data cleaning
     txn_fct_rdd = txn_fct_rdd\
         .filter(lambda record: record.find('txn_id|create_time|'))\
@@ -49,8 +52,8 @@ if __name__ == '__main__':
         .map(lambda rec: (int(rec[0]), rec[1], float(rec[2]), rec[3], rec[4], rec[5], rec[6]))
 
     # print records
-    for r in txn_fct_rdd.take(10):
-        print(r)
+    print("************** Transformed RDD")
+    txn_fct_rdd.foreach(print)
 
 # Submit command
 # spark-submit --packages 'org.apache.hadoop:hadoop-aws:2.7.4' dataframe/ingestion/rdd_to_dataframe/aws/aws_rdd_to_dataframe_through_schema_autoinfer.py
