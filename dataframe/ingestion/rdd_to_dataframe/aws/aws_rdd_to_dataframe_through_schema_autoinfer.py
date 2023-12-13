@@ -19,7 +19,7 @@ if __name__ == '__main__':
     spark = SparkSession.builder\
         .appName('RDD to DataFrame POC')\
         .config('spark.jars.packages','org.apache.hadoop:hadoop-aws:2.7.4')\
-        .master('local[*')\
+        .master('local[*]')\
         .getOrCreate()
 
     sc = spark.sparkContext
