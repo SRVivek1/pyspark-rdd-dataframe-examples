@@ -66,7 +66,7 @@ if __name__ == '__main__':
     # Print schema of the DataFrame
     txnDfNoColNames.printSchema()
     # Show records
-    txnDfNoColNames.show(10, truncate=False, vertical=False)
+    txnDfNoColNames.show(n=10, truncate=False, vertical=False)
 
     # Method-2
     # Create DataFrame without schema using SparkSession object
