@@ -92,6 +92,7 @@ if __name__ == '__main__':
 # Command
 # -------------------
 #   spark-submit --master 'local[*]' ./dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_explicit_schema.py
+#   spark-submit --packages 'org.apache.hadoop:hadoop-aws:2.7.4' --master yarn ./dataframe/ingestion/rdd_to_dataframe/rdd_to_df_through_explicit_schema.py
 
 # Output
 # -------------------

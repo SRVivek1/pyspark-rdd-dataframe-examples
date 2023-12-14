@@ -58,3 +58,5 @@ if __name__ == '__main__':
     txn_fct_df.printSchema()
     txn_fct_df.show(10, False, False)
 
+#
+
