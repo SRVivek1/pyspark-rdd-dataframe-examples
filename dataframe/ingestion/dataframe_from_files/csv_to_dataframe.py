@@ -5,18 +5,18 @@ This program demonstrate how we can read CSV data into DataFrame.
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, IntegerType, BooleanType, DoubleType
-from constants import app_constants as appConstrants
+from constants import app_constants as app_const
 
 if __name__ == '__main__':
     print('\nRead CSV file into DataFrame')
 
-    sparkSession = SparkSession \
+    spark = SparkSession \
         .builder \
         .appName('csv-to-dataframe') \
         .getOrCreate()
 
-    sparkContext = sparkSession.sparkContext
-    sparkContext.setLogLevel('ERROR')
+    sc = spark.sparkContext
+    sc.setLogLevel('ERROR')
 
     finances_csv_schema = StructType([
         StructField('id', IntegerType(), True),
@@ -28,12 +28,12 @@ if __name__ == '__main__':
 
     # Create DataFrame using SparkSession.read.load().
     print('\n************ Create DataFrame using SparkSession.read.load() .')
-    finances_df = sparkSession.read \
+    finances_df = spark.read \
         .option('header', 'false') \
         .option('delimiter', ',') \
         .format('csv') \
         .schema(finances_csv_schema) \
-        .load(appConstrants.finances_csv_file)
+        .load(app_const.finances_csv_file)
 
     print('\nFinances DataFrame Schema : finances_df.printSchema()')
     finances_df.printSchema()
@@ -43,11 +43,11 @@ if __name__ == '__main__':
 
     # Read same file using SparkSession.read.csv() method
     print('\n************ : SparkSession.read.csv()')
-    finances_df = sparkSession.read \
+    finances_df = spark.read \
         .option('header', 'false') \
         .option('delimiter', ',') \
         .schema(finances_csv_schema) \
-        .csv(appConstrants.finances_csv_file)
+        .csv(app_const.finances_csv_file)
 
     print('\nFinances DataFrame Schema : finances_df.printSchema()')
     finances_df.printSchema()
@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     # Repartition based on has_student_loan_ column and write to FileSystem
 
-    file_write_path = appConstrants.file_write_path + '/finances_generated'
+    file_write_path = app_const.file_write_path + '/finances_generated'
 
     finances_df.repartition(2).write \
         .partitionBy('has_student_loan_') \
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     print('\n************ File content repartitioned to 2 on column \'has_student_loan_\' is written to : ' + file_write_path)
 
     # Stop application
-    sparkSession.stop()
+    spark.stop()
 
 
 # Command

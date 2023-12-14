@@ -1,5 +1,6 @@
 s3_conf:
   s3_bucket: vsingh-spark-test-data
+  s3_write_bucket: vsingh-spark-apps-write-data
 
 sftp_conf:
     filetype: csv
