@@ -6,7 +6,7 @@
 """
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import row_number, rank, dense_rank, percent_rank, ntile
+from pyspark.sql.functions import cume_dist, lag, lead
 from pyspark.sql.types import StructType, StringType, DoubleType
 from pyspark.sql.window import Window, WindowSpec
 import os
@@ -65,8 +65,33 @@ if __name__ == '__main__':
     employee_df.printSchema()
     employee_df.show(10)
 
-    # TODO Window analytic functions
-    
+    # Window Analytic functions
+
+    # WindowSpec
+    window_spec = Window.partitionBy('department').orderBy('salary')
+
+    # cume_dist & lag
+    tempdf = employee_df \
+        .withColumn('cume_dist', cume_dist().over(window_spec)) \
+        .withColumn('lag', lag(col='salary', offset=2).over(window_spec))
+    tempdf.printSchema()
+    tempdf.show()
+
+    # cume_dist & lead
+    tempdf = employee_df \
+        .withColumn('cume_dist', cume_dist().over(window_spec)) \
+        .withColumn('lead', lead('salary', 2).over(window_spec))
+    tempdf.printSchema()
+    tempdf.show()
+
+    # cume_dist, lag & lead
+    tempdf = employee_df \
+        .withColumn('cume_dist', cume_dist().over(window_spec)) \
+        .withColumn('lag', lag(col='salary', offset=2).over(window_spec)) \
+        .withColumn('lead', lead('salary', 2).over(window_spec))
+    tempdf.printSchema()
+    tempdf.show()
+
 #
 # command
 # ------------
@@ -74,5 +99,101 @@ if __name__ == '__main__':
 #
 # Execution cluster - DataBricks Community
 #
+# ('James', 'Sales', 3000.0)
+# ('Michael', 'Sales', 4600.0)
+# ('Robert', 'Sales', 4100.0)
+# ('Maria', 'Finance', 3000.0)
+# ('James', 'Sales', 3000.0)
+# ('Scott', 'Finance', 3300.0)
+# ('Jen', 'Finance', 3900.0)
+# ('Jeff', 'Marketing', 3000.0)
+# ('Kumar', 'Marketing', 2000.0)
+# ('Saif', 'Sales', 4100.0)
+# ****************** employees_df cretaed
+# root
+#  |-- name: string (nullable = false)
+#  |-- department: string (nullable = true)
+#  |-- salary: double (nullable = true)
 #
+# +-------+----------+------+
+# |   name|department|salary|
+# +-------+----------+------+
+# |  James|     Sales|3000.0|
+# |Michael|     Sales|4600.0|
+# | Robert|     Sales|4100.0|
+# |  Maria|   Finance|3000.0|
+# |  James|     Sales|3000.0|
+# |  Scott|   Finance|3300.0|
+# |    Jen|   Finance|3900.0|
+# |   Jeff| Marketing|3000.0|
+# |  Kumar| Marketing|2000.0|
+# |   Saif|     Sales|4100.0|
+# +-------+----------+------+
+#
+# root
+#  |-- name: string (nullable = false)
+#  |-- department: string (nullable = true)
+#  |-- salary: double (nullable = true)
+#  |-- cume_dist: double (nullable = false)
+#  |-- lag: double (nullable = true)
+#
+# +-------+----------+------+------------------+------+
+# |   name|department|salary|         cume_dist|   lag|
+# +-------+----------+------+------------------+------+
+# |  Maria|   Finance|3000.0|0.3333333333333333|  null|
+# |  Scott|   Finance|3300.0|0.6666666666666666|  null|
+# |    Jen|   Finance|3900.0|               1.0|3000.0|
+# |  Kumar| Marketing|2000.0|               0.5|  null|
+# |   Jeff| Marketing|3000.0|               1.0|  null|
+# |  James|     Sales|3000.0|               0.4|  null|
+# |  James|     Sales|3000.0|               0.4|  null|
+# | Robert|     Sales|4100.0|               0.8|3000.0|
+# |   Saif|     Sales|4100.0|               0.8|3000.0|
+# |Michael|     Sales|4600.0|               1.0|4100.0|
+# +-------+----------+------+------------------+------+
+#
+# root
+#  |-- name: string (nullable = false)
+#  |-- department: string (nullable = true)
+#  |-- salary: double (nullable = true)
+#  |-- cume_dist: double (nullable = false)
+#  |-- lead: double (nullable = true)
+#
+# +-------+----------+------+------------------+------+
+# |   name|department|salary|         cume_dist|  lead|
+# +-------+----------+------+------------------+------+
+# |  Maria|   Finance|3000.0|0.3333333333333333|3900.0|
+# |  Scott|   Finance|3300.0|0.6666666666666666|  null|
+# |    Jen|   Finance|3900.0|               1.0|  null|
+# |  Kumar| Marketing|2000.0|               0.5|  null|
+# |   Jeff| Marketing|3000.0|               1.0|  null|
+# |  James|     Sales|3000.0|               0.4|4100.0|
+# |  James|     Sales|3000.0|               0.4|4100.0|
+# | Robert|     Sales|4100.0|               0.8|4600.0|
+# |   Saif|     Sales|4100.0|               0.8|  null|
+# |Michael|     Sales|4600.0|               1.0|  null|
+# +-------+----------+------+------------------+------+
+#
+# root
+#  |-- name: string (nullable = false)
+#  |-- department: string (nullable = true)
+#  |-- salary: double (nullable = true)
+#  |-- cume_dist: double (nullable = false)
+#  |-- lag: double (nullable = true)
+#  |-- lead: double (nullable = true)
+#
+# +-------+----------+------+------------------+------+------+
+# |   name|department|salary|         cume_dist|   lag|  lead|
+# +-------+----------+------+------------------+------+------+
+# |  Maria|   Finance|3000.0|0.3333333333333333|  null|3900.0|
+# |  Scott|   Finance|3300.0|0.6666666666666666|  null|  null|
+# |    Jen|   Finance|3900.0|               1.0|3000.0|  null|
+# |  Kumar| Marketing|2000.0|               0.5|  null|  null|
+# |   Jeff| Marketing|3000.0|               1.0|  null|  null|
+# |  James|     Sales|3000.0|               0.4|  null|4100.0|
+# |  James|     Sales|3000.0|               0.4|  null|4100.0|
+# | Robert|     Sales|4100.0|               0.8|3000.0|4600.0|
+# |   Saif|     Sales|4100.0|               0.8|3000.0|  null|
+# |Michael|     Sales|4600.0|               1.0|4100.0|  null|
+# +-------+----------+------+------------------+------+------+
 #
