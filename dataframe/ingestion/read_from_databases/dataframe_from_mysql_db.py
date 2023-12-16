@@ -23,7 +23,7 @@ def get_mysql_jdbc_url(db_config: dict) -> str:
 
 
 if __name__ == '__main__':
-    print('\n***************** Ingest data from MySQL Database*****************')
+    print('\n***************** Ingest data from MySQL Database *****************')
 
     # Configure command line args - Not working
     '''os.environ['PYSPARK_SUBMIT_ARGS'] = (
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     txn_df.show(10, truncate=False)
 
     # Find all Internal_Member_Id
-    print('\n******************* Print all unique Internal_Member_Id')
+    print('\n******************* Print all unique Interna   l_Member_Id')
     txn_df.select('Internal_Member_Id').distinct().show()
 
     # Read data using query instead of table name

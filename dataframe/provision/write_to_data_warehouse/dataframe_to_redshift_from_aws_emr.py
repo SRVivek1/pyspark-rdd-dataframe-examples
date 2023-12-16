@@ -82,7 +82,10 @@ if __name__ == '__main__':
     txn_df_updated.show(5, False)
 
     # Write data to AWS RedShift
-    txn_df_updated\
+    # RedShift connections are costly/Limited, so reducing DF partition to 1
+    # This will result in creating 1 connection with Redshift to write data.
+    txn_df_updated \
+        .coalesce(1)\
         .write\
         .format('io.github.spark_redshift_community.spark.redshift')\
         .option('url', redshift_jdbc_url)\

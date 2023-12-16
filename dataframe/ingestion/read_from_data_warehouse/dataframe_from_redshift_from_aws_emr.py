@@ -65,7 +65,7 @@ if __name__ == '__main__':
         .option('url', redshift_jdbc_url)\
         .option('query', app_config['redshift_conf']['query'])\
         .option('forward_spark_s3_credentials', 'true')\
-        .option('tempdir', 's3a://' + app_config['s3_conf']['s3_bucket'] + '/temp')\
+        .option('tempdir', 's3a://' + app_config['s3_conf'][' '] + '/temp')\
         .load()
 
     # Show sample records
