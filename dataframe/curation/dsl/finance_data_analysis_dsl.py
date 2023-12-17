@@ -40,6 +40,9 @@ if __name__ == "__main__":
           'finances_df.orderBy(col(\'Amount\'), ascending=False).show(5, truncate=False)\n')
     finances_df.orderBy(col('Amount'), ascending=False).show(5, truncate=False)
 
+    # using desc('column') API
+    # finances_df.orderBy(desc('Amount'), ascending=False).show(5, truncate=False)
+
     # Fetch record as new Column by adding two are more columns together
     print('\n******************* finances_df.select(concat_ws(\' ~ \', \'AccountNumber\', \'Description\').alias(...))')
     finances_df.select(concat_ws(' ~ ', 'AccountNumber', 'Description')
@@ -119,7 +122,7 @@ if __name__ == "__main__":
 
 # Command
 # --------------------
-# spark-submit dataframe/curation/dsl/finance_data_analysis_dsl.py
+# spark-submit --master yarn dataframe/curation/dsl/finance_data_analysis_dsl.py
 #
 # Output
 # ---------------------

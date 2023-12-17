@@ -46,7 +46,7 @@ if __name__ == '__main__':
         .sql('select * from finances order by amount')\
         .show(5, False)
 
-    # Using DSL function with SQL query
+    # SQL query to concatenate 2 columns
     sql_query_transform_1 = 'select concat_ws(\' - \', AccountNumber, Description) as AccountDetails from finances'
     print('\n********************** sql_query_transform_1 : ' + sql_query_transform_1)
     print('\n********************** sparkSession.sql(sql_query_transform_1)')

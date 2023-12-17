@@ -22,7 +22,6 @@ if __name__ == '__main__':
     sparkSession = SparkSession\
         .builder\
         .appName('dataframe-curation-examples')\
-        .master('local[*]')\
         .getOrCreate()
     sparkSession.sparkContext.setLogLevel('ERROR')
 
@@ -88,7 +87,7 @@ if __name__ == '__main__':
 
 # Command
 # -----------------
-#  spark-submit dataframe/curation/dsl/companies_data_analysis_dsl.py
+#  spark-submit --master yarn dataframe/curation/dsl/companies_data_analysis_dsl.py
 #
 # Output
 # ---------------------
