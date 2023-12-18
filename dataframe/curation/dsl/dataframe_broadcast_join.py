@@ -85,7 +85,9 @@ if __name__ == '__main__':
               'inner')
 
     print('\n***************** broadcast_inner_join_result.show(truncate=False)')
-    broadcast_inner_join_result.show(truncate=False)
+    broadcast_inner_join_result \
+        .dropDuplicates() \
+        .show(truncate=False)
 
 # Command
 # ------------------
