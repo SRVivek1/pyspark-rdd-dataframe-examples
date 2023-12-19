@@ -58,7 +58,7 @@ if __name__ == '__main__':
     result_df = employees_df.withColumn('avg_salary', avg('salary').over(first_x_rows_spec))
     result_df.show()
 
-    # Rows between, current row + next row
+    # range between, current value + given value
     # Considers current and current + 1 following rows for avg(..) aggregate function
     # It will consider all records in that partition where the value is in range of
     #   --> (Window.currentRow + 900)
@@ -74,7 +74,7 @@ if __name__ == '__main__':
 #
 # command
 # ----------------
-# spark-submit --master yarn
+# spark-submit --master yarn ./program.py
 #
 # Platform : Ddatabricks CE server
 #
