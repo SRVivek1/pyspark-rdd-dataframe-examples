@@ -16,15 +16,15 @@ if __name__ == '__main__':
     Driver program.
     """
 
-    sparkSession = SparkSession\
+    spark = SparkSession\
         .builder\
         .appName('spark-api-functions-demo')\
         .getOrCreate()
-    sparkSession.sparkContext.setLogLevel('ERROR')
+    spark.sparkContext.setLogLevel('ERROR')
 
     print('\n**************************** SPARK pyspark.sql.functions method demo ****************************\n')
     # Create dataframe from person list.
-    people_df = sparkSession.createDataFrame([
+    people_df = spark.createDataFrame([
         Person("Sidhartha", "Ray", 32, None, "Programmer"),
         Person("Pratik", "Solanki", 22, 176.7, None),
         Person("Ashok ", "Pradhan", 62, None, None),

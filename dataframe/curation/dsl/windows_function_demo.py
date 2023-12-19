@@ -13,19 +13,19 @@ if __name__ == '__main__':
     Driver program
     """
 
-    sparkSession = SparkSession\
+    spark = SparkSession\
         .builder\
         .appName('window-function-demo')\
         .getOrCreate()
-    sparkSession.sparkContext.setLogLevel('ERROR')
+    spark.sparkContext.setLogLevel('ERROR')
 
     # To support legacy date format in prev. version of parquet files
-    sparkSession.conf.set('spark.sql.legacy.timeParserPolicy', 'LEGACY')
+    spark.conf.set('spark.sql.legacy.timeParserPolicy', 'LEGACY')
 
     print('\n*************************** Spark Window Function ***************************\n')
 
     # Read data from parquet file
-    finance_small_df = sparkSession.read.parquet(file_read_path + finances_small_parquet)
+    finance_small_df = spark.read.parquet(file_read_path + finances_small_parquet)
 
     print('\n**************** finance_small_df.printSchema()')
     finance_small_df.printSchema()
@@ -49,7 +49,8 @@ if __name__ == '__main__':
           "to_date(from_unixtime(unix_timestamp('Date', 'MM/dd/yyyy'))))"
           ".withColumn('RollingAvg', avg('Amount').over(accNumPrev4WindowSpec))")
     result_df = finance_small_df\
-        .withColumn('Date', to_date(from_unixtime(unix_timestamp('Date', 'MM/dd/yyyy'))))\
+        .withColumn('Date',
+                    to_date(from_unixtime(unix_timestamp('Date', 'MM/dd/yyyy'))))\
         .withColumn('RollingAvg', avg("Amount").over(accNumPrev4WindowSpec))
 
     print('\n*************** result_df.show(20, False)')

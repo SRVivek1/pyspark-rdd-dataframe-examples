@@ -17,7 +17,6 @@ if __name__ == '__main__':
     sparkSession = SparkSession\
         .builder\
         .appName('dataframe-curation-examples')\
-        .master('local[*]')\
         .getOrCreate()
     sparkSession.sparkContext.setLogLevel('ERROR')
 
