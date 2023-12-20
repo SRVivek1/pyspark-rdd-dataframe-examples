@@ -4,8 +4,15 @@
         --> Demonstrate the Window function used to create window spec.
         --> Demonstrate following properties:
             >> Window.unboundedPreceding
+                --> This property allows to consider/take all the records previous to current record
+                    in that window.
+
             >> Window.unboundedFollowing
+                --> This property allows to consider/take all the records next to current record
+                    in that window.
+
             >> Window.currentRow
+                --> Represents current row/record.
 """
 
 from pyspark.sql import SparkSession, Window
