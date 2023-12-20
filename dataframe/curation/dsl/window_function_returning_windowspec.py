@@ -36,7 +36,8 @@ if __name__ == '__main__':
                                ("Jen", "Finance", 3900),
                                ("Jeff", "Marketing", 3000),
                                ("Kumar", "Marketing", 2000),
-                               ("Saif", "Sales", 4100)]).toDF(['emp_name', 'department', 'salary'])
+                               ("Saif", "Sales", 4100)]) \
+        .toDF(['emp_name', 'department', 'salary'])
 
     employees_df.printSchema()
     employees_df.show()
