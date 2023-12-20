@@ -53,24 +53,58 @@ if __name__ == '__main__':
 
     # Window.rowsBetween(s, e) - operate on rows/records in the given range
     # Considers current and current + 0 following rows for avg(..) aggregate function
+    # Rows between, current row + next row
     print("*************** window_spec.rowsBetween(Window.currentRow, 0)")
-    first_x_rows_spec = window_spec.rowsBetween(Window.currentRow, 0)
-    result_df = employees_df.withColumn('avg_salary', avg('salary').over(first_x_rows_spec))
+    following_x_rows_spec = window_spec.rowsBetween(Window.currentRow, 0)
+    result_df = employees_df.withColumn('avg_salary', avg('salary').over(following_x_rows_spec))
+    result_df.show()
+
+    # Rows between, current row + next row
+    print("*************** window_spec.rowsBetween(Window.currentRow, 1)")
+    following_x_rows_spec = window_spec.rowsBetween(Window.currentRow, 1)
+    result_df = employees_df.withColumn('avg_salary', avg('salary').over(following_x_rows_spec))
+    result_df.show()
+
+    print("*************** window_spec.rowsBetween(Window.currentRow, 2)")
+    following_x_rows_spec = window_spec.rowsBetween(Window.currentRow, 2)
+    result_df = employees_df.withColumn('avg_salary', avg('salary').over(following_x_rows_spec))
     result_df.show()
 
     # range between, current value + given value
-    # Considers current and current + 1 following rows for avg(..) aggregate function
     # It will consider all records in that partition where the value is in range of
     #   --> (Window.currentRow + 900)
     # For same value on Window.currentRow it will simply consider previously calculated
     # value for the preceding (previous) row.
     # Window.rangeBetween(s, e) - Find all records in the range of current_row + value of the column
-    print("*************** window_spec.rowsBetween(Window.currentRow, 900)")
-    print("*************** df.withColumn('avg_salary_range_between', sum('salary').over(x_values_in_range_spec))")
-    x_values_in_range_spec = Window.partitionBy('department').orderBy('salary').rangeBetween(Window.currentRow, 900)
-    result_df = employees_df.withColumn('avg_salary_range_between', sum('salary').over(x_values_in_range_spec))
+
+    # Consider Following rows having value <= (Current row value + 299)
+    print("*************** Window.partitionBy('department').orderBy('salary').rangeBetween(Window.currentRow, 299)")
+    print("*************** df.withColumn('sum_salary_range_between', sum('salary').over(x_values_in_range_spec))")
+    win_spec = Window.partitionBy('department').orderBy('salary')
+    range_val_plus_299 = win_spec.rangeBetween(Window.currentRow, 299)
+    result_df = employees_df.withColumn('sum_salary_range_between', sum('salary').over(range_val_plus_299))
     result_df.show()
 
+    # Consider Following rows having value <= (Current row value + 300)
+    print("*************** Window.partitionBy('department').orderBy('salary').rangeBetween(Window.currentRow, 300)")
+    range_val_plus_300 = win_spec.rangeBetween(Window.currentRow, 300)
+    result_df = employees_df.withColumn('sum_salary_range_between', sum('salary').over(range_val_plus_300))
+    result_df.show()
+
+    # Consider Following rows having value <= (Current row value + 900)
+    print("*************** Window.partitionBy('department').orderBy('salary').rangeBetween(Window.currentRow, 900)")
+    range_val_plus_900 = win_spec.rangeBetween(Window.currentRow, 900)
+    result_df = employees_df.withColumn('sum_salary_range_between', sum('salary').over(range_val_plus_900))
+    result_df.show()
+
+    # Above 3 combined
+    print("************* Combine above all range calculations in one dataframe")
+    win_spec = Window.partitionBy('department').orderBy('salary')
+    result_df = employees_df \
+        .withColumn('range_current_row_plus_299', sum('salary').over(win_spec.rangeBetween(Window.currentRow, 299))) \
+        .withColumn('range_current_row_plus_300', sum('salary').over(win_spec.rangeBetween(Window.currentRow, 300))) \
+        .withColumn('range_current_row_plus_900', sum('salary').over(win_spec.rangeBetween(Window.currentRow, 900)))
+    result_df.show()
 #
 # command
 # ----------------
@@ -142,10 +176,74 @@ if __name__ == '__main__':
 # | Michael|     Sales|  4600|    4600.0|
 # +--------+----------+------+----------+
 #
-# *************** window_spec.rowsBetween(Window.currentRow, 900)
-# *************** df.withColumn('avg_salary_range_between', sum('salary').over(x_values_in_range_spec))
+# *************** window_spec.rowsBetween(Window.currentRow, 1)
+# +--------+----------+------+----------+
+# |emp_name|department|salary|avg_salary|
+# +--------+----------+------+----------+
+# |   Maria|   Finance|  3000|    3150.0|
+# |   Scott|   Finance|  3300|    3600.0|
+# |     Jen|   Finance|  3900|    3900.0|
+# |   Kumar| Marketing|  2000|    2500.0|
+# |    Jeff| Marketing|  3000|    3000.0|
+# |   James|     Sales|  3000|    3000.0|
+# |   James|     Sales|  3000|    3550.0|
+# |  Robert|     Sales|  4100|    4100.0|
+# |    Saif|     Sales|  4100|    4350.0|
+# | Michael|     Sales|  4600|    4600.0|
+# +--------+----------+------+----------+
+#
+# *************** window_spec.rowsBetween(Window.currentRow, 2)
+# +--------+----------+------+------------------+
+# |emp_name|department|salary|        avg_salary|
+# +--------+----------+------+------------------+
+# |   Maria|   Finance|  3000|            3400.0|
+# |   Scott|   Finance|  3300|            3600.0|
+# |     Jen|   Finance|  3900|            3900.0|
+# |   Kumar| Marketing|  2000|            2500.0|
+# |    Jeff| Marketing|  3000|            3000.0|
+# |   James|     Sales|  3000|3366.6666666666665|
+# |   James|     Sales|  3000|3733.3333333333335|
+# |  Robert|     Sales|  4100| 4266.666666666667|
+# |    Saif|     Sales|  4100|            4350.0|
+# | Michael|     Sales|  4600|            4600.0|
+# +--------+----------+------+------------------+
+#
+# *************** Window.partitionBy('department').orderBy('salary').rangeBetween(Window.currentRow, 299)
+# *************** df.withColumn('sum_salary_range_between', sum('salary').over(x_values_in_range_spec))
 # +--------+----------+------+------------------------+
-# |emp_name|department|salary|avg_salary_range_between|
+# |emp_name|department|salary|sum_salary_range_between|
+# +--------+----------+------+------------------------+
+# |   Maria|   Finance|  3000|                    3000|
+# |   Scott|   Finance|  3300|                    3300|
+# |     Jen|   Finance|  3900|                    3900|
+# |   Kumar| Marketing|  2000|                    2000|
+# |    Jeff| Marketing|  3000|                    3000|
+# |   James|     Sales|  3000|                    6000|
+# |   James|     Sales|  3000|                    6000|
+# |  Robert|     Sales|  4100|                    8200|
+# |    Saif|     Sales|  4100|                    8200|
+# | Michael|     Sales|  4600|                    4600|
+# +--------+----------+------+------------------------+
+#
+# *************** Window.partitionBy('department').orderBy('salary').rangeBetween(Window.currentRow, 300)
+# +--------+----------+------+------------------------+
+# |emp_name|department|salary|sum_salary_range_between|
+# +--------+----------+------+------------------------+
+# |   Maria|   Finance|  3000|                    6300|
+# |   Scott|   Finance|  3300|                    3300|
+# |     Jen|   Finance|  3900|                    3900|
+# |   Kumar| Marketing|  2000|                    2000|
+# |    Jeff| Marketing|  3000|                    3000|
+# |   James|     Sales|  3000|                    6000|
+# |   James|     Sales|  3000|                    6000|
+# |  Robert|     Sales|  4100|                    8200|
+# |    Saif|     Sales|  4100|                    8200|
+# | Michael|     Sales|  4600|                    4600|
+# +--------+----------+------+------------------------+
+#
+# *************** Window.partitionBy('department').orderBy('salary').rangeBetween(Window.currentRow, 900)
+# +--------+----------+------+------------------------+
+# |emp_name|department|salary|sum_salary_range_between|
 # +--------+----------+------+------------------------+
 # |   Maria|   Finance|  3000|                   10200|
 # |   Scott|   Finance|  3300|                    7200|
@@ -158,4 +256,21 @@ if __name__ == '__main__':
 # |    Saif|     Sales|  4100|                   12800|
 # | Michael|     Sales|  4600|                    4600|
 # +--------+----------+------+------------------------+
+#
+# ************* Combine above all range calculations in one dataframe
+# +--------+----------+------+--------------------------+--------------------------+--------------------------+
+# |emp_name|department|salary|range_current_row_plus_299|range_current_row_plus_300|range_current_row_plus_900|
+# +--------+----------+------+--------------------------+--------------------------+--------------------------+
+# |   Maria|   Finance|  3000|                      3000|                      6300|                     10200|
+# |   Scott|   Finance|  3300|                      3300|                      3300|                      7200|
+# |     Jen|   Finance|  3900|                      3900|                      3900|                      3900|
+# |   Kumar| Marketing|  2000|                      2000|                      2000|                      2000|
+# |    Jeff| Marketing|  3000|                      3000|                      3000|                      3000|
+# |   James|     Sales|  3000|                      6000|                      6000|                      6000|
+# |   James|     Sales|  3000|                      6000|                      6000|                      6000|
+# |  Robert|     Sales|  4100|                      8200|                      8200|                     12800|
+# |    Saif|     Sales|  4100|                      8200|                      8200|                     12800|
+# | Michael|     Sales|  4600|                      4600|                      4600|                      4600|
+# +--------+----------+------+--------------------------+--------------------------+--------------------------+
+#
 #
