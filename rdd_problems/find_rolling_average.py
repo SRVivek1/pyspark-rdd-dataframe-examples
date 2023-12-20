@@ -49,15 +49,15 @@ if __name__ == '__main__':
         .withColumn('rolling_avg', bround(avg('salary').over(win_spec), 2)) \
         .withColumn('r_avg_prev_0_rows', avg('salary')
                     .over(win_spec.rowsBetween(Window.currentRow, 0))) \
-        .withColumn('r_avg_prev_1_rows', avg('salary')
+        .withColumn('r_avg_next_1_rows', avg('salary')
                     .over(win_spec.rowsBetween(Window.currentRow, 1))) \
         .withColumn('r_avg_prev_-1_rows', avg('salary')
                     .over(win_spec.rowsBetween(-1, Window.currentRow))) \
-        .withColumn('r_avg_prev_2_rows', bround(avg('salary')
+        .withColumn('r_avg_next_2_rows', bround(avg('salary')
                     .over(win_spec.rowsBetween(Window.currentRow, 2)), 2)) \
         .withColumn('r_avg_prev_-2_rows', bround(avg('salary')
                     .over(win_spec.rowsBetween(-2, Window.currentRow)), 2)) \
-        .withColumn('r_avg_prev_4_rows', bround(avg('salary')
+        .withColumn('r_avg_next_4_rows', bround(avg('salary')
                     .over(win_spec.rowsBetween(Window.currentRow, 4)), 2)) \
         .withColumn('r_avg_prev_-4_rows', bround(avg('salary')
                     .over(win_spec.rowsBetween(-4, Window.currentRow)), 2))
@@ -88,13 +88,13 @@ if __name__ == '__main__':
 # |Umakanth| Marketing|  4900|
 # |   James|     Sales|  3000|
 # |   James|     Sales|  3000|
-# |  Robert|     Sales|  4100|
 # |    Saif|     Sales|  4100|
+# |  Robert|     Sales|  4100|
 # | Michael|     Sales|  4600|
 # +--------+----------+------+
 #
 # +--------+----------+------+-----------+-----------------+-----------------+------------------+-----------------+------------------+-----------------+------------------+
-# |emp_name|department|salary|rolling_avg|r_avg_prev_0_rows|r_avg_prev_1_rows|r_avg_prev_-1_rows|r_avg_prev_2_rows|r_avg_prev_-2_rows|r_avg_prev_4_rows|r_avg_prev_-4_rows|
+# |emp_name|department|salary|rolling_avg|r_avg_prev_0_rows|r_avg_next_1_rows|r_avg_prev_-1_rows|r_avg_next_2_rows|r_avg_prev_-2_rows|r_avg_next_4_rows|r_avg_prev_-4_rows|
 # +--------+----------+------+-----------+-----------------+-----------------+------------------+-----------------+------------------+-----------------+------------------+
 # |   Maria|   Finance|  3000|     3000.0|           3000.0|           3150.0|            3000.0|           3400.0|            3000.0|           3840.0|            3000.0|
 # |   Scott|   Finance|  3300|     3150.0|           3300.0|           3600.0|            3150.0|          3766.67|            3150.0|           4050.0|            3150.0|
