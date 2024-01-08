@@ -6,4 +6,6 @@ pyspark-stubs
 
 #### Yaml & Java Object Access library #######
 py4j
-yaml
+# Unable to install in local setup
+# getting yaml version error
+#yaml
