@@ -38,6 +38,12 @@ if __name__ == '__main__':
 # --------------
 # spark-submit --master 'local[*] ./app.py
 #
-#
-#
+# Output [Local machine] [Skipping Info logs]
+# ----------------------------------------------------
+# Txn Data: [('txn001', 1000), ('txn002', 1400), ('txn003', 2000), ('txn001', 3000), ('txn002', 2500), ('txn003', 3500), ('txn004', 3100)]
+# Total amount spent: ('txn001', 1000, 'txn002', 1400, 'txn003', 2000, 'txn001', 3000, 'txn002', 2500, 'txn003', 3500, 'txn004', 3100)
+# Per txn amount: [('txn001', 4000), ('txn002', 3900), ('txn003', 5500), ('txn004', 3100)]
+# Total partitions: 4
+# Data per partition: [[], [('txn001', 4000), ('txn002', 3900)], [], [('txn003', 5500), ('txn004', 3100)]]
+# Reduce data to two partition: [[('txn001', 4000), ('txn002', 3900)], [('txn003', 5500), ('txn004', 3100)]]
 #
