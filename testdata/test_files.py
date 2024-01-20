@@ -1,10 +1,12 @@
 """
     Constants to local system files.
+    TODO:
+        Check for dynanic path
+
 """
-import os
+WRKSPACE = '/home/viveksingh/wrkspace/pyspark-sidharth'
+TEST_DATA = '/pyspark-rdd-dataframe-examples/testdata/rdd-examples-data/'
+CRED_TXN_CSV = WRKSPACE + TEST_DATA + 'cred_txn.csv'
 
-
-CUR_DIR = os.getcwd()
-
-CRED_TXN_CSV = CUR_DIR + '/rdd-examples-data/cred_txn.csv'
+print(CRED_TXN_CSV)
 
