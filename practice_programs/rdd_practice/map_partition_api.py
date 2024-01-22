@@ -8,7 +8,7 @@ import sys
 try:
     import testdata.test_files as testdata
 except ImportError:
-    sys.path.append('/home/viveksingh/wrkspace/pyspark-sidharth/pyspark-rdd-dataframe-examples/')
+    sys.path.append('/home/viveksingh/wrkspace/pyspark-rdd-dataframe-examples/')
     try:
         import testdata.test_files as testdata
     finally:

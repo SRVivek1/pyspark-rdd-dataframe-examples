@@ -5,7 +5,7 @@
 
 """
 
-WRKSPACE = '/home/viveksingh/wrkspace/pyspark-sidharth'
+WRKSPACE = '/home/viveksingh/wrkspace'
 TEST_DATA = WRKSPACE + '/pyspark-rdd-dataframe-examples/testdata/rdd-examples-data/'
 CRED_TXN_CSV = TEST_DATA + 'cred_txn.csv'
 
