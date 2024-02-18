@@ -47,7 +47,12 @@ if __name__ == '__main__':
     nyc_omo_df.show(5, False)
 
     print('\n************* Summery of NYC Open Market Order (OMO) charges dataset : nyc_omo_df.describe().show()')
-    nyc_omo_df.describe().show()
+    # TODO: Analyze error
+    #  Broke while processing - No error on console
+    # nyc_omo_df.describe().show()
+
+    print('\n************* Summery of NYC Open Market Order (OMO) Lot column : nyc_omo_df.describe([\'Lot\']).show()')
+    nyc_omo_df.describe(['Lot']).show()
 
     print('\n************* Distinct Boroughs in record : nyc_omo_df.select(col(\'Boro\')).distinct().show(100)')
     nyc_omo_df.select(sql_function.col('Boro')).distinct().show(100)
@@ -196,13 +201,74 @@ if __name__ == '__main__':
 #
 #
 # ************* Summery of NYC Open Market Order (OMO) charges dataset : nyc_omo_df.describe().show()
-# +-------+------------------+---------+------------------+------------------+-------------+------------------+--------------+--------------------+------------------+------------------+------------------+---------------+---------------+--------------------+------------------+--------------------+-----+----------------------+------------------+---------------+--------------------+
-# |summary|             OMOID|OMONumber|        BuildingID|            BoroID|         Boro|       HouseNumber|    StreetName|           Apartment|               Zip|             Block|               Lot|      LifeCycle|WorkTypeGeneral|     OMOStatusReason|    OMOAwardAmount|     NetChangeOrders|IsAEP|IsCommercialDemolition|       FEMAEventID|      FEMAEvent|      OMODescription|
-# +-------+------------------+---------+------------------+------------------+-------------+------------------+--------------+--------------------+------------------+------------------+------------------+---------------+---------------+--------------------+------------------+--------------------+-----+----------------------+------------------+---------------+--------------------+
-# |  count|            406023|   406023|            406023|            406023|       406023|            406023|        406023|              309911|            405956|            406023|            406023|         406023|         406023|              402081|            406023|              406023|24190|                   704|              1183|           1069|              406021|
-# |   mean|   2283145.1962278|     NULL|254493.45723518127|2.5287853151176165|         NULL|1056.3171764501242|          NULL|6.471340052741421E98|10816.503759028072|3443.0685700071176|121.48553899655931|           NULL|           NULL|                NULL|1612.8404196807012|0.013314516665312064| NULL|                  NULL|330.73034657650044|           NULL|                 1.0|
-# | stddev|1213798.1559188915|     NULL| 222068.8958767318|0.9435178601177123|         NULL| 1164.625165474157|          NULL|2.275318009024913...|502.09756259954065| 2623.826603598468| 758.1596606927027|           NULL|           NULL|                NULL| 18894.06367598333|   7.739198149613588| NULL|                  NULL|108.04912471059546|           NULL|                NULL|
-# |    min|                28|  D000001|                 1|                 1|        Bronx|                 0|      1 AVENUE|                    |               0.0|                 0|                 0|       Building|           7AFA|         Apt. Vacant|               0.0|                   0|  AEP|            COMM DEMOL|                 0|Hurricane Sandy|                    |
-# |    max|           4758368|  EJ15477|            989058|                 5|Staten Island|               999|ZULETTE AVENUE|                rubb|           11697.0|             16350|              9100|UnderConstructi|           UTIL|landlord Restored...|         4150000.0|                4906|  AEP|            COMM DEMOL|               366|Hurricane Sandy|â€œsandyâ€
 #
+# ************* Summery of NYC Open Market Order (OMO) Lot column : nyc_omo_df.describe(['Lot']).show()
+# +-------+------------------+
+# |summary|               Lot|
+# +-------+------------------+
+# |  count|            406023|
+# |   mean|121.48553899655931|
+# | stddev| 758.1596606926987|
+# |    min|                 0|
+# |    max|              9100|
+# +-------+------------------+
+#
+#
+# ************* Distinct Boroughs in record : nyc_omo_df.select(col('Boro')).distinct().show(100)
+# +-------------+
+# |         Boro|
+# +-------------+
+# |       Queens|
+# |     Brooklyn|
+# |Staten Island|
+# |    Manhattan|
+# |        Bronx|
+# +-------------+
+#
+#
+# ************* OMO frequency distribution of different Boroughs
+# +-------------+----------------------+
+# |         Boro|frequency_distribution|
+# +-------------+----------------------+
+# |       Queens|                 39678|
+# |     Brooklyn|                180356|
+# |Staten Island|                  7575|
+# |    Manhattan|                 67738|
+# |        Bronx|                110676|
+# +-------------+----------------------+
+#
+#
+# ************* OMO ZIP and Boro List
+# +-------------+--------------------+--------+
+# |         Boro|             ZipList|ZipCount|
+# +-------------+--------------------+--------+
+# |       Queens|[11418.0, 11372.0...|      62|
+# |     Brooklyn|[11233.0, 11206.0...|      39|
+# |Staten Island|[10309.0, 10314.0...|      12|
+# |    Manhattan|[10019.0, 0.0, 10...|      45|
+# |        Bronx|[10460.0, 10468.0...|      26|
+# +-------------+--------------------+--------+
+#
+#
+# **************** # of partitions in windowed OMO dataframe : 4
+#
+# **************** Sample records in windowed OMO dataframe :
+# +-----+---------+----------+------+--------+-----------+----------------+---------+-------+-----+---+---------+---------------+--------------------+--------------+-------------------+---------------+-------------------+-----+----------------------+-----------------+-----------+---------+--------------------+--------------+
+# |OMOID|OMONumber|BuildingID|BoroID|    Boro|HouseNumber|      StreetName|Apartment|    Zip|Block|Lot|LifeCycle|WorkTypeGeneral|     OMOStatusReason|OMOAwardAmount|      OMOCreateDate|NetChangeOrders|       OMOAwardDate|IsAEP|IsCommercialDemolition|ServiceChargeFlag|FEMAEventID|FEMAEvent|      OMODescription|DailyFrequency|
+# +-----+---------+----------+------+--------+-----------+----------------+---------+-------+-----+---+---------+---------------+--------------------+--------------+-------------------+---------------+-------------------+-----+----------------------+-----------------+-----------+---------+--------------------+--------------+
+# |  266|  E000296|    377641|     3|Brooklyn|        234|STOCKHOLM STREET|     NULL|11237.0| 3258| 17| Building|             GC|       OMO Completed|        1095.0|1998-08-15 00:00:00|              0|1998-08-27 00:00:00| NULL|                  NULL|            false|       NULL|     NULL|reseal tota l of ...|             4|
+# |  275|  E000319|    311470|     3|Brooklyn|         36| HERKIMER STREET|     NULL|11216.0| 1865| 28| Building|           UTIL|       OMO Completed|        9990.0|1998-08-15 00:00:00|              0|1998-09-02 00:00:00| NULL|                  NULL|            false|       NULL|     NULL|dismantle and rem...|             4|
+# |  280|  E000324|    327689|     3|Brooklyn|        283|   LINDEN STREET|      1-R|11237.0| 3326| 49| Building|           UTIL|       OMO Completed|        9990.0|1998-08-15 00:00:00|              0|1998-09-04 00:00:00| NULL|                  NULL|            false|       NULL|     NULL|obtain all necess...|             4|
+# |  268|  E000299|    133486|     3|Brooklyn|        564|        7 AVENUE|     NULL|11215.0|  886| 44| Building|             GC|       OMO Completed|         485.0|1998-08-15 00:00:00|              0|1998-09-10 00:00:00| NULL|                  NULL|            false|       NULL|     NULL|hanging scaffoldi...|             4|
+# |  330|  E000391|    382481|     3|Brooklyn|        261|     TROY AVENUE|     NULL|11213.0| 1383|  4| Building|           UTIL|Utility Account P...|           1.0|1998-08-19 00:00:00|              0|1998-08-20 00:00:00| NULL|                  NULL|            false|       NULL|     NULL|con-ed provide el...|             8|
+# |  327|  E000388|    312369|     3|Brooklyn|        475|    HICKS STREET|     NULL|11231.0|  321| 27| Building|             GC|       OMO Completed|         845.0|1998-08-19 00:00:00|              0|1998-09-02 00:00:00| NULL|                  NULL|            false|       NULL|     NULL|remove 108 sqft. ...|             8|
+# |  339|  E000401|    349551|     3|Brooklyn|       1356|  PACIFIC STREET|     NULL|11216.0| 1208| 27| Building|             GC|       Duplicate OMO|           0.0|1998-08-19 00:00:00|              0|               NULL| NULL|                  NULL|            false|       NULL|     NULL|demo 80 sqft of c...|             8|
+# |  340|  E000402|    808955|     3|Brooklyn|       1360| NEW YORK AVENUE|     NULL|11210.0| 4964| 40| Building|             GC|      Refused Access|         490.0|1998-08-19 00:00:00|              0|1998-11-04 00:00:00| NULL|                  NULL|             true|       NULL|     NULL|supply & install ...|             8|
+# |  334|  E000396|    287550|     3|Brooklyn|       1196| EASTERN PARKWAY|     NULL|11213.0| 1397| 35| Building|             GC|      Refused Access|        1997.0|1998-08-19 00:00:00|              0|1998-11-04 00:00:00| NULL|                  NULL|             true|       NULL|     NULL|fabracate new mar...|             8|
+# |  338|  E000400|    349551|     3|Brooklyn|       1356|  PACIFIC STREET|     NULL|11216.0| 1208| 27| Building|             GC|       OMO Completed|         499.0|1998-08-19 00:00:00|              0|1998-09-01 00:00:00| NULL|                  NULL|            false|       NULL|     NULL|demo 80 sqft of c...|             8|
+# +-----+---------+----------+------+--------+-----------+----------------+---------+-------+-----+---+---------+---------------+--------------------+--------------+-------------------+---------------+-------------------+-----+----------------------+-----------------+-----------+---------+--------------------+--------------+
+# only showing top 10 rows
+#
+#
+# **************** Write windowed data to : testdata/app-generated/nyc_omo_data_parquet
 #
