@@ -31,12 +31,12 @@ if __name__ == '__main__':
     )'''
 
     # Create Spark session
-    sparSession = SparkSession\
+    spark = SparkSession\
         .builder\
         .appName('Ingest data from MySQL')\
         .getOrCreate()
 
-    sparSession.sparkContext.setLogLevel('ERROR')
+    spark.sparkContext.setLogLevel('ERROR')
 
     # Start : Load application config
     current_dir = os.path.abspath(os.path.dirname(__file__))
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     # End : JDBC Connection configuration
 
     # Start : Read data from Database
-    txn_df = sparSession.read\
+    txn_df = spark.read\
         .format('jdbc')\
         .option('driver', 'com.mysql.cj.jdbc.Driver')\
         .options(**jdbc_params)\
@@ -90,12 +90,12 @@ if __name__ == '__main__':
         'upperBound': '100',
         'dbtable': app_conf['mysql_conf']['query'],
         'numPartitions': '2',
-        '[partitionColumn': app_conf['mysql_conf']['partition_column'],
+        'partitionColumn': app_conf['mysql_conf']['partition_column'],
         'user': app_secrets['mysql_conf']['username'],
         'password': app_secrets['mysql_conf']['password']
     }
 
-    txn_df_2 = sparSession\
+    txn_df_2 = spark\
         .read\
         .format('jdbc')\
         .option('driver', 'com.mysql.cj.jdbc.Driver')\
@@ -105,8 +105,27 @@ if __name__ == '__main__':
     print('\n******************** txn_df_2.show(10, truncate=False)')
     txn_df_2.show(10, truncate=False)
 
+
+    # JDBC API - tested in local
+    jdbc_params = {
+        'driver': 'com.mysql.cj.jdbc.Driver',
+        'lowerBound': '1',
+        'upperBound': '100',
+        'numPartitions': '2',
+        'partitionColumn': app_conf['mysql_conf']['partition_column'],
+        'user': app_secrets['mysql_conf']['username'],
+        'password': app_secrets['mysql_conf']['password']
+    }
+
+    df = spark.read \
+        .options(**jdbc_params) \
+        .jdbc(url=get_mysql_jdbc_url(), table=app_conf['mysql_conf']['query'],)
+
+    df.printSchema()
+    df.show(10)
+
     # Shutdown spark context
-    sparSession.stop()
+    spark.stop()
 
 # Command
 # --------------------------
@@ -187,3 +206,39 @@ if __name__ == '__main__':
 # |53481572          |PC6890261         |MOBILEAPP                  |21                 |2017-07-22 00:50:35.010000000|2017-07-22 04:50:34          |2017-07-22       |0.00                    |0.00                    |40.00                       |90.00                  |0.00                 |          |InfoSys         |JPRCWR3PPPC3FJ3               |                |null        |                 |
 # +------------------+------------------+---------------------------+-------------------+-----------------------------+-----------------------------+-----------------+------------------------+------------------------+----------------------------+-----------------------+---------------------+----------+----------------+------------------------------+----------------+------------+-----------------+
 # only showing top 10 rows
+#
+# root
+#  |-- App_Transaction_Id: integer (nullable = true)
+#  |-- Internal_Member_Id: string (nullable = true)
+#  |-- Location_External_Reference: string (nullable = true)
+#  |-- Transaction_Type_Id: integer (nullable = true)
+#  |-- Transaction_Timestamp: string (nullable = true)
+#  |-- Activity_Timestamp: string (nullable = true)
+#  |-- Activity_App_Date: string (nullable = true)
+#  |-- Transaction_Retail_Value: double (nullable = true)
+#  |-- Transaction_Profit_Value: double (nullable = true)
+#  |-- Transaction_Base_Point_Value: double (nullable = true)
+#  |-- Transaction_Point_Value: double (nullable = true)
+#  |-- Transaction_Won_Value: double (nullable = true)
+#  |-- Event_Name: string (nullable = true)
+#  |-- Issue_Audit_User: string (nullable = true)
+#  |-- Transaction_External_Reference: string (nullable = true)
+#  |-- Cancel_Timestamp: string (nullable = true)
+#  |-- Cancel_Audit_User: string (nullable = true)
+#
+# +------------------+------------------+---------------------------+-------------------+---------------------+--------------------+-----------------+------------------------+------------------------+----------------------------+-----------------------+---------------------+----------+----------------+------------------------------+----------------+-----------------+
+# |App_Transaction_Id|Internal_Member_Id|Location_External_Reference|Transaction_Type_Id|Transaction_Timestamp|  Activity_Timestamp|Activity_App_Date|Transaction_Retail_Value|Transaction_Profit_Value|Transaction_Base_Point_Value|Transaction_Point_Value|Transaction_Won_Value|Event_Name|Issue_Audit_User|Transaction_External_Reference|Cancel_Timestamp|Cancel_Audit_User|
+# +------------------+------------------+---------------------------+-------------------+---------------------+--------------------+-----------------+------------------------+------------------------+----------------------------+-----------------------+---------------------+----------+----------------+------------------------------+----------------+-----------------+
+# |          53481455|         PC7135361|                  MOBILEAPP|                 17| 2017-07-22 00:49:...|2017-07-22 00:49:...|       2017-07-21|                     0.0|                     0.0|                        20.0|                   20.0|                  0.0|          |         InfoSys|                              |                |                 |
+# |          53481542|         PC7135361|                        WEB|                 17| 2017-07-22 00:50:...|2017-07-22 00:50:...|       2017-07-21|                     0.0|                     0.0|                        54.0|                   54.0|                  0.0|          |       Proximity|                              |                |                 |
+# |          53481518|         PC7135361|                     MOBILE|                 17| 2017-07-22 00:49:...|2017-07-22 00:49:...|       2017-07-21|                     0.0|                     0.0|                        10.0|                   10.0|                  0.0|          |         InfoSys|                              |                |                 |
+# |          53481522|         PC7135361|                  MOBILEAPP|                 17| 2017-07-22 00:49:...|2017-07-22 00:49:...|       2017-07-21|                     0.0|                     0.0|                        36.0|                   36.0|                  0.0|          |         InfoSys|                              |                |                 |
+# |          53481588|         PC7135361|                     MOBILE|                 17| 2017-07-22 00:50:...|2017-07-22 00:50:...|       2017-07-21|                     0.0|                     0.0|                        36.0|                   36.0|                  0.0|          |         InfoSys|                              |                |                 |
+# |          53481441|         PC7135361|                     MOBILE|                 17| 2017-07-22 00:48:...|2017-07-22 00:48:...|       2017-07-21|                     0.0|                     0.0|                        36.0|                   36.0|                  0.0|          |         InfoSys|                              |                |                 |
+# |          53481440|         PC7135361|                  MOBILEAPP|                 21| 2017-07-22 00:48:...| 2017-07-22 04:48:59|       2017-07-22|                     0.0|                     0.0|                        10.0|                   60.0|                  0.0|          |         InfoSys|               W9GPTTCNWYCF4FC|                |                 |
+# |          53481564|         PC6890261|                  MOBILEAPP|                 17| 2017-07-22 00:50:...|2017-07-22 00:50:...|       2017-07-21|                     0.0|                     0.0|                        10.0|                   10.0|                  0.0|          |         InfoSys|                              |                |                 |
+# |          53481437|         PC6890261|                  MOBILEAPP|                 17| 2017-07-22 00:48:...|2017-07-22 00:48:...|       2017-07-21|                     0.0|                     0.0|                        36.0|                   36.0|                  0.0|          |         InfoSys|                              |                |                 |
+# |          53481572|         PC6890261|                  MOBILEAPP|                 21| 2017-07-22 00:50:...| 2017-07-22 04:50:34|       2017-07-22|                     0.0|                     0.0|                        40.0|                   90.0|                  0.0|          |         InfoSys|               JPRCWR3PPPC3FJ3|                |                 |
+# +------------------+------------------+---------------------------+-------------------+---------------------+--------------------+-----------------+------------------------+------------------------+----------------------------+-----------------------+---------------------+----------+----------------+------------------------------+----------------+-----------------+
+# only showing top 10 rows
+#
